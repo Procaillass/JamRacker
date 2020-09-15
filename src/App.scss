@@ -2,6 +2,9 @@
 
 // Variables couleurs
 $light-color : white ;
+$dark-color-1 : #191D20;
+$dark-color-2 : #26272B;
+$dark-color-3 : black;
 
 * {
   margin: 0;
@@ -11,13 +14,17 @@ $light-color : white ;
 }
 
 body{
-  background-color: #191D20;
+  background-color: $dark-color-1;
 }
 
 .header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   height: 50px;
-  background-color: #26272B;
+  background-color: $dark-color-2;
 
   &_play-button{
     width: 50px;
@@ -26,12 +33,35 @@ body{
     cursor: pointer;
     outline: none;
   }
-/*  */
+
+  &_nav{
+    display: flex;
+    align-items: center;
+    &-list{
+      display: flex;
+      list-style: none;
+      li{
+        height: 50px;
+        margin: 0 15px;
+        color: grey;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover{
+          color: $light-color;
+        }
+      }
+    }
+  }
+
+
+
   &_bpm-container{
     display: flex;
     align-items: center; 
     border-bottom: 1px solid $light-color;
-    margin-right: 10px;
+    margin: 0 5px;
     p{
       color: $light-color;
       margin: 0 10px;
@@ -48,7 +78,7 @@ body{
     display: flex;
     align-items: center; 
     border-bottom: 1px solid $light-color;
-    margin-right: 10px;
+    margin: 0 5px;
     p{
       color: $light-color;
       margin: 0 10px;
@@ -68,8 +98,40 @@ body{
     border-bottom: 1px solid $light-color;
     color: $light-color;
     option{
-      color: black;
+      color: $dark-color-3;
     }
   }
 }
 
+.piano-container{
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+}
+
+main{
+  margin-top: 50px;
+  display: flex;
+}
+
+main button{
+  height: 40px;
+  width: 100px;
+}
+
+.black{
+  background-color: black;
+  height: 20px;
+  width: 100px;
+}
+
+.grid-item-black{
+  height: 20px;
+  width: 100px;
+  background-color: rgb(168, 168, 168);
+}
+.grid-item-white{
+  height: 40px;
+  width: 100px;
+  background-color: rgb(75, 75, 75);
+}
