@@ -2,6 +2,9 @@
 
 // Variables couleurs
 $light-color : white ;
+$dark-color-1 : #191D20;
+$dark-color-2 : #26272B;
+$dark-color-3 : black;
 
 * {
   margin: 0;
@@ -11,13 +14,13 @@ $light-color : white ;
 }
 
 body{
-  background-color: #191D20;
+  background-color: $dark-color-1;
 }
 
 .header{
   display: flex;
   height: 50px;
-  background-color: #26272B;
+  background-color: $dark-color-2;
 
   &_play-button{
     width: 50px;
@@ -68,7 +71,7 @@ body{
     border-bottom: 1px solid $light-color;
     color: $light-color;
     option{
-      color: black;
+      color: $dark-color-3;
     }
   }
 }
