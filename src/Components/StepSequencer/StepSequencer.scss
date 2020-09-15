@@ -1,14 +1,24 @@
-.App {
-    font-family: sans-serif;
-    text-align: center;
-  }
+
+  // Variables couleurs
+$light-color : white ;
+$dark-color-1 :  #26272B;
+$dark-color-2 :  #191D20;
+$dark-color-3 :black;
+$primary-color : tomato;
+$marked-color : red;
+$step-color : #ccc;
+$col-color : green;
+$marked-col-color : red;
+
+// Scss StepSequencer
+  
   .row {
     display: grid;
     grid-template-columns: 20% 80%;
   }
   .trackName {
-    background: rgb(255, 196, 87);
-    border: 1px solid white;
+    background: $primary-color;
+    border: 1px solid $light-color;
   }
   .track {
     width: 100%;
@@ -17,22 +27,18 @@
   }
   .step {
     padding-top: calc(100% - 2px);
-    border: 1px solid white;
-    // background-color: #ccc;
+    border: 1px solid $light-color;
+    background-color: $step-color;
     cursor: pointer;
   }
   .marked {
-    background-color: #fa7070;
+    background-color: $marked-color;
   }
   
   .col {
-    background-color: #70fa7070;
+    background-color: $col-color;
   }
   .marked.col {
-    background-color: red;
+    background-color: $marked-col-color;
   }
 
-  button {
-      padding: 1rem;
-  }
-  
