@@ -1,17 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-         JamRacker
-        </p>
-        
+
+      <header className="header">
+        <button className="header_play-button"><i className="fas fa-play"></i></button>
+        <div className="header_bpm-container">
+          <p>BPM:</p>
+          <input defaultValue="1" min="1" type="number"></input>
+        </div>
+        <div className="header_patern-container">
+          <p>Patern:</p>
+          <input defaultValue="1" min="1" type="number"></input>
+        </div>
+        <select className="header_select">
+          <option selected>Home</option>
+          <option>Sequencer</option>
+          <option>Playlist</option>
+        </select>
       </header>
+
+      <main>
+        {/* Route et composant */}
+      </main>
     </div>
   );
 }

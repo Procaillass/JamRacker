@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
+// Variables couleurs
+$light-color : white ;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background-color: #191D20;
+}
+
+.header{
+  display: flex;
+  height: 50px;
+  background-color: #26272B;
+
+  &_play-button{
+    width: 50px;
+    background-color: $light-color;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+/*  */
+  &_bpm-container{
+    display: flex;
+    align-items: center; 
+    border-bottom: 1px solid $light-color;
+    margin-right: 10px;
+    p{
+      color: $light-color;
+      margin: 0 10px;
+    }
+    input{
+      width: 40px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      color: $light-color;
+    }
+  }
+  &_patern-container{
+    display: flex;
+    align-items: center; 
+    border-bottom: 1px solid $light-color;
+    margin-right: 10px;
+    p{
+      color: $light-color;
+      margin: 0 10px;
+    }
+    input{
+      width: 40px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      color: $light-color;
+    }
+  }
+  &_select{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $light-color;
+    color: $light-color;
+    option{
+      color: black;
+    }
+  }
+}
+
