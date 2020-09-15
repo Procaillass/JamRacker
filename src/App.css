@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #191D20;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  background-color: #26272B;
+}
+
+.header_play-button {
+  width: 50px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.header_bpm-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid white;
+  margin-right: 10px;
+}
+
+.header_bpm-container p {
+  color: white;
+  margin: 0 10px;
+}
+
+.header_bpm-container input {
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.header_patern-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid white;
+  margin-right: 10px;
+}
+
+.header_patern-container p {
+  color: white;
+  margin: 0 10px;
+}
+
+.header_patern-container input {
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.header_select {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid white;
+  color: white;
+}
+
+.header_select option {
+  color: black;
+}
+/*# sourceMappingURL=App.css.map */

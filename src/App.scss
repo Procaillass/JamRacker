@@ -2,9 +2,9 @@
 
 // Variables couleurs
 $light-color : white ;
-$dark-color-1 : #191D20;
-$dark-color-2 : #26272B;
-$dark-color-3 : black;
+$dark-color-1 :  #26272B;
+$dark-color-2 :  #191D20;
+$dark-color-3 :black;
 
 * {
   margin: 0;
@@ -14,13 +14,13 @@ $dark-color-3 : black;
 }
 
 body{
-  background-color: $dark-color-1;
+  background-color: $dark-color-2;
 }
 
 .header{
   display: flex;
   height: 50px;
-  background-color: $dark-color-2;
+  background-color: $dark-color-1;
 
   &_play-button{
     width: 50px;
@@ -29,7 +29,7 @@ body{
     cursor: pointer;
     outline: none;
   }
-/*  */
+
   &_bpm-container{
     display: flex;
     align-items: center; 
