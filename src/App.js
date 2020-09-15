@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import StepSequencer from './Components/StepSequencer/StepSequencer'
 
 function App() {
   return (
@@ -18,12 +19,15 @@ function App() {
         <select className="header_select">
           <option selected>Home</option>
           <option>Sequencer</option>
-          <option>Playlist</option>
+          <option>Playlist</option> 
         </select>
       </header>
 
       <main>
+        <>
+        <StepSequencer/>
         {/* Route et composant */}
+        </>
       </main>
     </div>
   );
