@@ -7,7 +7,7 @@
     grid-template-columns: 20% 80%;
   }
   .trackName {
-    background: yellow;
+    background: rgb(255, 196, 87);
     border: 1px solid white;
   }
   .track {
@@ -18,7 +18,7 @@
   .step {
     padding-top: calc(100% - 2px);
     border: 1px solid white;
-    background-color: #ccc;
+    // background-color: #ccc;
     cursor: pointer;
   }
   .marked {
@@ -30,5 +30,9 @@
   }
   .marked.col {
     background-color: red;
+  }
+
+  button {
+      padding: 1rem;
   }
   

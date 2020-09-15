@@ -2,16 +2,23 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import "./StepSequencer.scss";
 import * as Tone from 'tone';
 
-Tone.Transport.bpm.value = 100;
-const drums = new Tone.Sampler({
-  c0: "kick.wav",
-  d0: "clap.wav",
-  e0: "hat.wav"
+import kick from "../../Assets/Sounds/kick.wav";
+import clap from "../../Assets/Sounds/clap.wav";
+import hat from "../../Assets/Sounds/hat.wav"; // voir les sons dans tone
+
+
+
+Tone.Transport.bpm.value = 100; // remplacer la value par une variable qui vient du parent (contexte)
+const drums = new Tone.Sampler({ //ici pour l'ajout d'un nouveau son =>push ",f0 : nomdelinstrument" dans cet objet
+  c0: kick,
+  d0: clap,
+  e0: hat
 }).toMaster();
 const synth = new Tone.PolySynth().toMaster();
-const trackIndex = ["c0", "d0", "e0"];
-const sounds = ["Kick", "Clap", "Hat", "synth"];
-const generateSteps = () => Array.from({ length: 16 }, () => 0);
+const trackIndex = ["c0", "d0", "e0"]; //tableau de l'index des sons, les prochains : f0, g0 etc en rapport avec la const drums
+// (peut-être générer le tableau en fonction des propriétés de drums)
+const sounds = ["Kick", "Clap", "Hat", "synth"]; //Tableau des sons, push ici le nom d'un son => ajoute une piste automatiquement
+const generateSteps = () => Array.from({ length: 16 }, () => 0); //taille de la longueur des pistes (remplacer 16 en fonction d'une taille variable)
 const initialTracks = sounds.map((t) => ({
   name: t,
   steps: generateSteps()
@@ -21,16 +28,16 @@ const initialTracks = sounds.map((t) => ({
 
 
 function StepSequencer() {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(false); //lancement des pistes sur faux
   const [tracks, setTracks] = useState(initialTracks);
   const [colIndex, setColIndex] = useState(0);
 
   const stepIndex = useRef(0);
   useEffect(() => {
     if (playing) {
-      Tone.Transport.start();
+      Tone.Transport.start(); //lance les pistes
     } else {
-      Tone.Transport.stop();
+      Tone.Transport.stop(); //arrête les pistes
     }
   }, [playing]);
   useEffect(() => {
@@ -67,8 +74,9 @@ function StepSequencer() {
     [tracks, setTracks]
   );
   return (
-    <div className="App">
+    
       <div className="sequencer">
+
         {tracks.map((track, trackIndex) => (
           <div className="row" key={track.name}>
             <div className="trackName">{track.name}</div>
@@ -85,9 +93,12 @@ function StepSequencer() {
             </div>
           </div>
         ))}
+
+        <button onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
+
       </div>
-      <button onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
-    </div>
+      
+    
   );
 }
 

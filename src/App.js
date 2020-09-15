@@ -25,6 +25,7 @@ function App() {
 
       <main>
         <>
+        {/* <Pattern/> ici => objet contenant les pattern */}
         <StepSequencer/>
         {/* Route et composant */}
         </>

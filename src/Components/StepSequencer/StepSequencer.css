@@ -11,7 +11,7 @@
 }
 
 .trackName {
-  background: yellow;
+  background: #ffc457;
   border: 1px solid white;
 }
 
@@ -26,7 +26,6 @@
 .step {
   padding-top: calc(100% - 2px);
   border: 1px solid white;
-  background-color: #ccc;
   cursor: pointer;
 }
 
@@ -40,5 +39,9 @@
 
 .marked.col {
   background-color: red;
+}
+
+button {
+  padding: 1rem;
 }
 /*# sourceMappingURL=StepSequencer.css.map */
