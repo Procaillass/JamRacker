@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import "./styles.css";
-import Tone from "tone";
-
-
+import "./StepSequencer.scss";
+import * as Tone from 'tone';
 
 Tone.Transport.bpm.value = 100;
 const drums = new Tone.Sampler({
@@ -22,7 +20,7 @@ const initialTracks = sounds.map((t) => ({
 
 
 
-export default function StepSequencer() {
+function StepSequencer() {
   const [playing, setPlaying] = useState(false);
   const [tracks, setTracks] = useState(initialTracks);
   const [colIndex, setColIndex] = useState(0);
@@ -92,3 +90,5 @@ export default function StepSequencer() {
     </div>
   );
 }
+
+export default StepSequencer;

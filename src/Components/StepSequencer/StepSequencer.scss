@@ -1,0 +1,34 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+  .trackName {
+    background: yellow;
+    border: 1px solid white;
+  }
+  .track {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+  }
+  .step {
+    padding-top: calc(100% - 2px);
+    border: 1px solid white;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  .marked {
+    background-color: #fa7070;
+  }
+  
+  .col {
+    background-color: #70fa7070;
+  }
+  .marked.col {
+    background-color: red;
+  }
+  
