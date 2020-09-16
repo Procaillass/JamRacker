@@ -1,8 +1,3 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
-}
-
 .row {
   display: -ms-grid;
   display: grid;
@@ -11,7 +6,7 @@
 }
 
 .trackName {
-  background: #ffc457;
+  background: tomato;
   border: 1px solid white;
 }
 
@@ -26,22 +21,19 @@
 .step {
   padding-top: calc(100% - 2px);
   border: 1px solid white;
+  background-color: #ccc;
   cursor: pointer;
 }
 
 .marked {
-  background-color: #fa7070;
+  background-color: red;
 }
 
 .col {
-  background-color: #70fa7070;
+  background-color: green;
 }
 
 .marked.col {
   background-color: red;
-}
-
-button {
-  padding: 1rem;
 }
 /*# sourceMappingURL=StepSequencer.css.map */
