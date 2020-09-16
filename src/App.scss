@@ -35,7 +35,9 @@ body{
     align-items: center; 
     border-bottom: 1px solid $light-color;
     margin-right: 10px;
-    p{
+    flex-basis: 10%; //Fixer une largeur pour le changement du range
+    p,
+    label{
       color: $light-color;
       margin: 0 10px;
     }
@@ -45,6 +47,9 @@ body{
       border: none;
       outline: none;
       color: $light-color;
+    }
+    label{
+      width: 100%; //Fixer une largeur pour le changement du range
     }
   }
   &_patern-container{

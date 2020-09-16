@@ -1,38 +1,43 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect, useRef, useContext } from "react";
 import "./StepSequencer.scss";
 import * as Tone from 'tone';
 
 import kick from "../../Assets/Sounds/kick.wav";
 import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav"; // voir les sons dans tone
-
-
-
-Tone.Transport.bpm.value = 100; // remplacer la value par une variable qui vient du parent (contexte)
-const drums = new Tone.Sampler({ //ici pour l'ajout d'un nouveau son =>push ",f0 : nomdelinstrument" dans cet objet
-  c0: kick,
-  d0: clap,
-  e0: hat
-}).toMaster();
-const synth = new Tone.PolySynth().toMaster();
-const trackIndex = ["c0", "d0", "e0"]; //tableau de l'index des sons, les prochains : f0, g0 etc en rapport avec la const drums
-// (peut-être générer le tableau en fonction des propriétés de drums)
-const sounds = ["Kick", "Clap", "Hat", "synth"]; //Tableau des sons, push ici le nom d'un son => ajoute une piste automatiquement
-const generateSteps = () => Array.from({ length: 16 }, () => 0); //taille de la longueur des pistes (remplacer 16 en fonction d'une taille variable)
-const initialTracks = sounds.map((t) => ({
-  name: t,
-  steps: generateSteps()
-}));
-
-
-
+import BpmContext from "../../context/bpmContext";
 
 function StepSequencer() {
+
+  const bpmContext = useContext(BpmContext); //Récuperation du contexte et du BPM
+  const bpm = bpmContext.dataBpm.bpm; //Récupération du BPM
+
+  const drums = new Tone.Sampler({ //ici pour l'ajout d'un nouveau son =>push ",f0 : nomdelinstrument" dans cet objet
+    c0: kick,
+    d0: clap,
+    e0: hat
+  }).toMaster();
+  const synth = new Tone.PolySynth().toMaster();
+  const trackIndex = ["c0", "d0", "e0"]; //tableau de l'index des sons, les prochains : f0, g0 etc en rapport avec la const drums
+  // (peut-être générer le tableau en fonction des propriétés de drums)
+  const sounds = ["Kick", "Clap", "Hat", "synth"]; //Tableau des sons, push ici le nom d'un son => ajoute une piste automatiquement
+  const generateSteps = () => Array.from({ length: 16 }, () => 0); //taille de la longueur des pistes (remplacer 16 en fonction d'une taille variable)
+  const initialTracks = sounds.map((t) => ({
+    name: t,
+    steps: generateSteps()
+  }));
+
   const [playing, setPlaying] = useState(false); //lancement des pistes sur faux
   const [tracks, setTracks] = useState(initialTracks);
   const [colIndex, setColIndex] = useState(0);
-
   const stepIndex = useRef(0);
+
+  //UseEffect du BPM
+  useEffect(() => {
+    if(bpm){
+      Tone.Transport.bpm.value = bpm;
+    }
+  }, [bpm]);
   useEffect(() => {
     if (playing) {
       Tone.Transport.start(); //lance les pistes
@@ -41,6 +46,7 @@ function StepSequencer() {
     }
   }, [playing]);
   useEffect(() => {
+    
     Tone.Transport.cancel();
     Tone.Transport.scheduleRepeat((time) => {
       tracks.forEach((track, index) => {
