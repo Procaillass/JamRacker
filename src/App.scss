@@ -18,6 +18,7 @@ body{
 }
 
 .header{
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
@@ -25,7 +26,7 @@ body{
   display: flex;
   height: 50px;
   background-color: $dark-color-2;
-
+  margin-bottom: 5rem;
   &_play-button{
     width: 50px;
     background-color: $light-color;
@@ -33,7 +34,7 @@ body{
     cursor: pointer;
     outline: none;
   }
-
+  
   &_nav{
     display: flex;
     align-items: center;
@@ -103,35 +104,75 @@ body{
   }
 }
 
+// pianoRoll //
+
+.piano_global{
+  padding-top: 7rem;
+}
+.borad{
+  width:100%;
+  display: flex;
+  margin-left: 3rem 
+
+}
 .piano-container{
   display: flex;
   flex-direction: column;
-  background-color: grey;
+  background-color: red;
+  justify-content: stretch;
+  margin-top: 1.45rem ;
+  .white{
+    margin-top: -1.4rem;
+    height:           50px;
+    width:            150px;
+    z-index:          1;
+    border-top:1px solid black;       
+    border-bottom:1px solid black;
+    border-left:1px solid black;   
+    background-color: #CBCBCB;;
+  
+  }
+  .white:nth-child(8){
+    margin-top: -2px;
+  }
+  .black{
+    position: relative;
+    top: -.6rem;
+    height:20px;
+    width:100px;
+    z-index:2;
+    border:2px solid black;
+    background-color: black;
+  }
+  .key{
+    float:    left;
+    position: relative;
+  }
 }
 
-main{
-  margin-top: 50px;
-  display: flex;
+.test{
+  background-color: red !important;
+}
+.roles-containter:nth-child(7){
+  background-color: aqua;
 }
 
-main button{
-  height: 40px;
-  width: 100px;
+div.roles-containter > div:nth-child(12){
+  height: 38.5px;
 }
-
-.black{
-  background-color: black;
-  height: 20px;
-  width: 100px;
-}
-
-.grid-item-black{
-  height: 20px;
-  width: 100px;
-  background-color: rgb(168, 168, 168);
-}
-.grid-item-white{
-  height: 40px;
-  width: 100px;
-  background-color: rgb(75, 75, 75);
+.roles-containter{
+  margin-top: 2px;
+  .grid-item-white{
+    height: 32.5px;
+    width: 100px;
+    background-color: rgb(168, 168, 168);
+    border: 1px solid rgb(75, 75, 75) ;
+    
+  }
+  .grid-item-black{
+    height: 20px;
+    width: 100px;
+    background-color: rgb(75, 75, 75);
+   
+  }
 }
