@@ -6,11 +6,16 @@ import kick from "../../Assets/Sounds/kick.wav";
 import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav"; // voir les sons dans tone
 import BpmContext from "../../context/bpmContext";
+import { Sampler } from "tone";
 
 function StepSequencer() {
 
-  const bpmContext = useContext(BpmContext); //Récuperation du contexte et du BPM
-  const bpm = bpmContext.dataBpm.bpm; //Récupération du BPM
+  //Récuperation du contexte et du BPM
+  const bpmContext = useContext(BpmContext);
+  //Récupération du BPM
+  const bpm = bpmContext.dataBpm.bpm;
+
+  let drums2 = new Tone.Sampler();
 
 
 // Ici pour l'ajout d'un nouveau son =>push "f0 : nomdelinstrument" dans cet objet
@@ -20,6 +25,7 @@ const drums = new Tone.Sampler({
   e0: hat
 }).toDestination();
 const synth = new Tone.PolySynth().toDestination();
+
 
 // Tableau de l'index des sons, les prochains : f0, g0 etc en rapport avec la const drums
 const trackIndex = ["c0", "d0", "e0"]; 
@@ -43,6 +49,33 @@ const initialTracks = sounds.map((t) => ({
   const [playing, setPlaying] = useState(false); //lancement des pistes sur faux
   const [tracks, setTracks] = useState(initialTracks);
   const [colIndex, setColIndex] = useState(0);
+  const [data, setData] = useState([
+    {
+      index: "c0",
+      name: "kick",
+      sound: kick,
+      type: "sampler"
+    },
+    {
+      index: "d0",
+      name: "clap",
+      sound: clap,
+      type: "sampler"
+    },
+    {
+      index: "e0",
+      name: "hat",
+      sound: hat,
+      type: "sampler"
+    },
+    {
+      index: null,
+      name: "synth",
+      sound: null,
+      type: "polySynth"
+    },
+  ])
+  const [test, setTest] = useState({})
 
 
   //
@@ -53,8 +86,20 @@ const initialTracks = sounds.map((t) => ({
 
   //
   // EFFECTS
-  //
 
+  useEffect(() =>{
+      data.map((drum) => () =>{
+          if(drum.type === "sampler"){
+            const idDrum = drum.index;
+            const sound = drum.sound;
+            setTest(new Tone.Sampler({idDrum: sound}))
+            
+          }
+        });
+        
+      } , [data])
+
+console.log("test",test)
    //UseEffect du BPM
    useEffect(() => {
     if(bpm){
@@ -73,7 +118,6 @@ const initialTracks = sounds.map((t) => ({
 
   // Se lance à chaque fois que le state "tracks" est updaté
   useEffect(() => {
-    
     Tone.Transport.cancel();
     Tone.Transport.scheduleRepeat((time) => {
       tracks.forEach((track, index) => {
@@ -84,7 +128,7 @@ const initialTracks = sounds.map((t) => ({
               stepIndex.current < 7 ? ["c4", "d#4", "g4"] : ["a#3", "d4", "g4"];
             synth.triggerAttackRelease(chord, 0.5);
           } else {
-            drums.triggerAttack(trackIndex[index]);
+            test.triggerAttack(trackIndex[index]);
           }
         }
       });
@@ -93,6 +137,8 @@ const initialTracks = sounds.map((t) => ({
     }, "16n");
   }, [tracks]);
 
+  console.log("drum",drums);
+  console.log("drum2",drums2);
   // Se lance quand l'utilisateur clique sur play
   const handlePlaying = () => {
     setPlaying((playing) => !playing);

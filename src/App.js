@@ -23,7 +23,7 @@ function App() {
           <div className="header_bpm-container">
             <p>BPM:</p>
               <label>{dataBpm.bpm}</label>
-              <input name="bpm" min="1" max="300" type="range" onChange={handleBPM}/>
+              <input name="bpm" min="1" max="200" type="range" onChange={handleBPM}/>
           </div>
           <div className="header_patern-container">
             <p>Patern:</p>
