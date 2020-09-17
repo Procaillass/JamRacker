@@ -1,23 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
 
 // Variables couleurs
-$light-color : white ;
-$dark-color-1 : #191D20;
-$dark-color-2 : #26272B;
-$dark-color-3 : black;
+$light-color: white;
+$dark-color-1: #191d20;
+$dark-color-2: #26272b;
+$dark-color-3: black;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $dark-color-2;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $light-color;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
 
-body{
+body {
   background-color: $dark-color-1;
+  counter-reset: col;
 }
 
-.header{
+.header {
   z-index: 10;
   position: fixed;
   top: 0;
@@ -27,21 +47,21 @@ body{
   height: 50px;
   background-color: $dark-color-2;
   margin-bottom: 5rem;
-  &_play-button{
+  &_play-button {
     width: 50px;
     background-color: $light-color;
     border: none;
     cursor: pointer;
     outline: none;
   }
-  
-  &_nav{
+
+  &_nav {
     display: flex;
     align-items: center;
-    &-list{
+    &-list {
       display: flex;
       list-style: none;
-      li{
+      li {
         height: 50px;
         margin: 0 15px;
         color: grey;
@@ -49,25 +69,23 @@ body{
         display: flex;
         align-items: center;
         cursor: pointer;
-        &:hover{
+        &:hover {
           color: $light-color;
         }
       }
     }
   }
 
-
-
-  &_bpm-container{
+  &_bpm-container {
     display: flex;
-    align-items: center; 
+    align-items: center;
     border-bottom: 1px solid $light-color;
     margin: 0 5px;
-    p{
+    p {
       color: $light-color;
       margin: 0 10px;
     }
-    input{
+    input {
       width: 40px;
       background-color: transparent;
       border: none;
@@ -75,16 +93,16 @@ body{
       color: $light-color;
     }
   }
-  &_patern-container{
+  &_patern-container {
     display: flex;
-    align-items: center; 
+    align-items: center;
     border-bottom: 1px solid $light-color;
     margin: 0 5px;
-    p{
+    p {
       color: $light-color;
       margin: 0 10px;
     }
-    input{
+    input {
       width: 40px;
       background-color: transparent;
       border: none;
@@ -92,13 +110,13 @@ body{
       color: $light-color;
     }
   }
-  &_select{
+  &_select {
     background-color: transparent;
     border: none;
     outline: none;
     border-bottom: 1px solid $light-color;
     color: $light-color;
-    option{
+    option {
       color: $dark-color-3;
     }
   }
@@ -106,73 +124,173 @@ body{
 
 // pianoRoll //
 
-.piano_global{
+.piano_global {
   padding-top: 7rem;
+  padding-bottom: 3rem;
 }
-.borad{
-  width:100%;
+.board {
+  width: 100%;
   display: flex;
-  margin-left: 3rem 
-
+  margin-left: 3rem;
 }
-.piano-container{
+.clavier-container {
   display: flex;
   flex-direction: column;
-  background-color: red;
+  // background-color: red;
   justify-content: stretch;
-  margin-top: 1.45rem ;
-  .white{
+  margin-top: 1.45rem;
+
+  .white {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
     margin-top: -1.4rem;
-    height:           50px;
-    width:            150px;
-    z-index:          1;
-    border-top:1px solid black;       
-    border-bottom:1px solid black;
-    border-left:1px solid black;   
-    background-color: #CBCBCB;;
-  
+    height: 50px;
+    width: 150px;
+    z-index: 1;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    background-color: #cbcbcb;
   }
-  .white:nth-child(8){
+  .white:nth-child(8) {
     margin-top: -2px;
   }
-  .black{
+  .black {
     position: relative;
-    top: -.6rem;
-    height:20px;
-    width:100px;
-    z-index:2;
-    border:2px solid black;
-    background-color: black;
-  }
-  .key{
-    float:    left;
-    position: relative;
-  }
-}
-
-.test{
-  background-color: red !important;
-}
-.roles-containter:nth-child(7){
-  background-color: aqua;
-}
-
-div.roles-containter > div:nth-child(12){
-  height: 38.5px;
-}
-.roles-containter{
-  margin-top: 2px;
-  .grid-item-white{
-    height: 32.5px;
-    width: 100px;
-    background-color: rgb(168, 168, 168);
-    border: 1px solid rgb(75, 75, 75) ;
-    
-  }
-  .grid-item-black{
+    top: -0.6rem;
     height: 20px;
     width: 100px;
-    background-color: rgb(75, 75, 75);
-   
+    z-index: 2;
+    border: 2px solid black;
+    background-color: black;
+  }
+  .key {
+    float: left;
+    position: relative;
+  }
+}
+
+.test {
+  background-color: red !important;
+}
+
+//quentin
+
+.piano-containter {
+  margin-top: 2px;
+}
+
+// main {
+//   margin-top: 50px;
+//   height: calc(100vh - 50px);
+// }
+
+.piano_grid.white {
+  height: 30.4px;
+}
+.piano_grid.black {
+  height: 20px;
+  div {
+    background-color: #292929;
+  }
+}
+
+.Roll {
+  .board:nth-child(3) {
+    :nth-child(2) {
+      :first-child {
+        :nth-child(4n + 1) {
+          position: relative;
+          &::before {
+            counter-increment: col;
+            content: "" counter(col);
+            position: absolute;
+            top: -30px;
+            left: -5px;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .board {
+    :first-child {
+      // background-color: red;
+
+      .piano-container {
+        .piano_grid:first-child {
+          div {
+            position: relative;
+            &:nth-child(4n + 1)::before {
+              counter-increment: col;
+              content: "" counter(col);
+              position: absolute;
+              top: -30px;
+              left: -5px;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.piano_grid {
+  margin-left: 5px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 50px);
+  // grid-template-rows: repeat(auto-fit, );
+  gap: 2px;
+  grid-auto-flow: column;
+  margin-bottom: 2px;
+
+  // &:first-child {
+  //   div {
+  //     position: relative;
+  //     &:nth-child(4n + 1)::before {
+  //       counter-increment: col;
+  //       content: "" counter(col);
+  //       position: absolute;
+  //       top: -30px;
+  //       left: -5px;
+  //       color: white;
+  //     }
+  //   }
+  // }
+
+  &_note-black {
+    background-color: black;
+  }
+  &_note-white {
+    background-color: white;
+  }
+
+  button {
+    position: fixed;
+    display: none;
+    left: 0;
+    cursor: pointer;
+    grid-column: 1;
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    border: none;
+    height: 30px;
+    width: 102px;
+    outline: none;
+    &:hover {
+      box-shadow: inset 0 0 0 5px rgb(221, 154, 100);
+    }
+  }
+  div {
+    min-width: 50px;
+    cursor: cell;
+    background-color: rgb(77, 90, 90);
+    &:hover ~ button {
+      box-shadow: inset 0 0 0 5px rgb(221, 154, 100);
+    }
   }
 }
