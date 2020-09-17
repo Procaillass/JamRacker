@@ -79,6 +79,7 @@ function StepSequencer() {
    */
 
   const stepIndex = useRef(0);
+  const stepsFld = useRef(steps);
 
   /*
    * -------------
@@ -102,6 +103,10 @@ function StepSequencer() {
     };
     setTracks([...tracks, newTrack]);
     sampler.add("c0", kick);
+  };
+
+  const handleSteps = (ev) => {
+    setSteps(stepsFld.current.value);
   };
 
   const handleClose = (ev) => {
@@ -139,7 +144,8 @@ function StepSequencer() {
 
   //
   useEffect(() => {
-  }, [tracks])
+    setTracks([...tracks].map(el => ({...el, steps: generateSteps(steps)})));
+  }, [steps])
 
 
   //
@@ -164,7 +170,6 @@ function StepSequencer() {
   * RENDER
   * -------------
   */
-
   return (
     
       <div className="box sequencer">
@@ -174,6 +179,9 @@ function StepSequencer() {
         </div>
 
         <div className="box__content">
+
+        <label>{steps}</label>
+        <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
 
         {tracks.map((track, trackIdx) => (
           <div className="sequencer__row" key={trackIdx+"_"+track.name}>
