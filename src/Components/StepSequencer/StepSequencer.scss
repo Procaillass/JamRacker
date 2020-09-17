@@ -53,6 +53,7 @@ $text: #87878a;
   &__sound {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     background: $sequencer_sound_bg;
     border: 1px solid $box_bg;
     color: white;
@@ -83,12 +84,18 @@ $text: #87878a;
   &__controls {
     display: flex;
 
-    button:first-child {
+    select:first-child {
       margin-right: auto;
     }
     
-    button {
-      padding: .7rem 2rem;
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: none;
+    }
+    
+    select ,button {
+      padding: .7rem 1rem;
       margin-top: 1rem;
       transition: all 0.5s ease;
       background-color: $text;

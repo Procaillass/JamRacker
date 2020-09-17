@@ -18,11 +18,12 @@ function StepSequencer() {
    const generateSteps = (stepsNum = 16) => Array.from({ length: stepsNum }, () => 0);
 
   // ACTIVE / DEACTIVE STEPS
-  const updateStep = (trackIdx, stepIdx) => {
+  const updateStep = (trackIdx, stepIdx, trackNote) => {
     Tone.context.resume(); // deal with "The AudioContext was not allowed to start."
     const newTracks = [...tracks];
     newTracks[trackIdx].steps[stepIdx] = newTracks[trackIdx].steps[stepIdx] === 0 ? 1 : 0;
     setTracks(newTracks);
+    sampler.triggerAttackRelease(trackNote, 0);
   };
 
   const trackToSample = (tracks) => {
@@ -52,7 +53,7 @@ function StepSequencer() {
   const [playing, setPlaying] = useState(false);
   const [colIndex, setColIndex] = useState(0);
   const [steps, setSteps] = useState(16);
-  const [tracks, setTracks] = useState([
+  const [sounds, setSounds] = useState([
     {
       index: "d0",
       name: "clap",
@@ -69,7 +70,16 @@ function StepSequencer() {
       duration: 0,
       steps: generateSteps(steps)
     },
+    {
+      index: "c0",
+      name: "kick",
+      sound: kick,
+      type: "sampler",
+      duration: 0,
+      steps: generateSteps(steps)
+    }
   ]);
+  const [tracks, setTracks] = useState([...sounds]);
   const [sampler, setSampler] = useState(new Tone.Sampler(trackToSample(tracks)).toDestination());
 
   /*
@@ -93,19 +103,17 @@ function StepSequencer() {
 
   const handleAddTrack = (ev) => {
     ev.preventDefault();
-    const newTrack = {
-      index: "c0",
-      name: "kick",
-      sound: kick,
-      type: "sampler",
-      duration: 0,
-      steps: generateSteps(steps)
-    };
-    setTracks([...tracks, newTrack]);
-    sampler.add("c0", kick);
+    if(ev.target.value !== "") {
+      const val = ev.target.value;
+      const newTrack = [...sounds].filter( (el) => el.name === val );
+      setTracks([...tracks, ...newTrack]);
+      sampler.add("c0", kick);
+    }
+    ev.target.value = "";
   };
 
   const handleSteps = (ev) => {
+    ev.preventDefault();
     setSteps(stepsFld.current.value);
   };
 
@@ -113,6 +121,10 @@ function StepSequencer() {
     ev.preventDefault();
     alert("close");
   };
+
+  const handleRemoveTrack = (id) => {
+    setTracks(tracks.filter((track) => track.index !== id));
+  }
 
   /*
    * -------------
@@ -136,10 +148,10 @@ function StepSequencer() {
 
 
   //
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("did mount");
     console.log(sampler);
-  }, [])
+  }, []) */
 
 
   //
@@ -155,8 +167,6 @@ function StepSequencer() {
       tracks.forEach((track, index) => {
         const step = track.steps[stepIndex.current];
         if (step === 1) {
-            //myDrums.triggerAttack(tracks[index].index);
-            //synth.triggerAttackRelease(["a#3", "d4", "g4"], 0.5);
             sampler.triggerAttackRelease(tracks[index].index, track.duration);
         }
       });
@@ -185,7 +195,10 @@ function StepSequencer() {
 
         {tracks.map((track, trackIdx) => (
           <div className="sequencer__row" key={trackIdx+"_"+track.name}>
-            <div className="sequencer__sound">{track.name}</div>
+            <div className="sequencer__sound">
+              <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.index)}}}>Remove sound</button>
+              <span>{track.name}</span>
+            </div>
             <div className="sequencer__track">
               {track.steps.map((step, stepIdx) => (
                 <div
@@ -193,7 +206,7 @@ function StepSequencer() {
                   className={`sequencer__step ${step ? "sequencer__stepmarked" : ""} ${
                     stepIdx === colIndex ? "sequencer__stepcol" : ""
                   }`}
-                  onClick={() => updateStep(trackIdx, stepIdx)}
+                  onClick={() => updateStep(trackIdx, stepIdx, track.index)}
                 />
               ))}
             </div>
@@ -201,7 +214,12 @@ function StepSequencer() {
         ))}
         
         <div className="sequencer__controls">
-          <button className="sequencer__addtrack" onClick={handleAddTrack}>Add a track</button>
+          <select className="sequencer__addtrack" onChange={handleAddTrack}>
+            <option value="">Add a track</option>
+            {sounds.map((sound, index) => (
+              <option key={index+'_'+sound} value={sound.name}>{sound.name}</option>
+            ))}
+          </select>
           <button className="sequencer__play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
         </div>
 
