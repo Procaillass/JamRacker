@@ -7,6 +7,7 @@ import bassDrum from "../../Assets/Sounds/bass_drum.wav";
 import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav"; // voir les sons dans tone
 import BpmContext from "../../context/bpmContext";
+//import Play from "../../Components/Play/Play";
 
 function StepSequencer() {
 
