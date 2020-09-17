@@ -1,0 +1,39 @@
+.row {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20% 80%;
+      grid-template-columns: 20% 80%;
+}
+
+.trackName {
+  background: tomato;
+  border: 1px solid white;
+}
+
+.track {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[16];
+      grid-template-columns: repeat(16, 1fr);
+}
+
+.step {
+  padding-top: calc(100% - 2px);
+  border: 1px solid white;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.marked {
+  background-color: red;
+}
+
+.col {
+  background-color: green;
+}
+
+.marked.col {
+  background-color: red;
+}
+/*# sourceMappingURL=StepSequencer.css.map */
