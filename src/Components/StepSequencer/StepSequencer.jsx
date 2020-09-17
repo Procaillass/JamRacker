@@ -106,6 +106,7 @@ function StepSequencer() {
   };
 
   const handleSteps = (ev) => {
+    ev.preventDefault();
     setSteps(stepsFld.current.value);
   };
 
@@ -113,6 +114,10 @@ function StepSequencer() {
     ev.preventDefault();
     alert("close");
   };
+
+  const handleRemoveTrack = (id) => {
+    setTracks(tracks.filter((track) => track.index !== id))
+  }
 
   /*
    * -------------
@@ -136,10 +141,10 @@ function StepSequencer() {
 
 
   //
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("did mount");
     console.log(sampler);
-  }, [])
+  }, []) */
 
 
   //
@@ -185,7 +190,10 @@ function StepSequencer() {
 
         {tracks.map((track, trackIdx) => (
           <div className="sequencer__row" key={trackIdx+"_"+track.name}>
-            <div className="sequencer__sound">{track.name}</div>
+            <div className="sequencer__sound">
+              <button className="btn__removeTrack" onClick={() => handleRemoveTrack(track.index)}>Remove sound</button>
+              <span>{track.name}</span>
+            </div>
             <div className="sequencer__track">
               {track.steps.map((step, stepIdx) => (
                 <div
