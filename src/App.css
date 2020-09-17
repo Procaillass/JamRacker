@@ -36,9 +36,12 @@ body {
           align-items: center;
   border-bottom: 1px solid white;
   margin-right: 10px;
+  -ms-flex-preferred-size: 10%;
+      flex-basis: 10%;
 }
 
-.header_bpm-container p {
+.header_bpm-container p,
+.header_bpm-container label {
   color: white;
   margin: 0 10px;
 }
@@ -49,6 +52,10 @@ body {
   border: none;
   outline: none;
   color: white;
+}
+
+.header_bpm-container label {
+  width: 100%;
 }
 
 .header_patern-container {

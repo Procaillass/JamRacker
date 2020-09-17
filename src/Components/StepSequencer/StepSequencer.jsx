@@ -3,6 +3,7 @@ import "./StepSequencer.scss";
 import * as Tone from 'tone';
 
 import kick from "../../Assets/Sounds/kick.wav";
+import bassDrum from "../../Assets/Sounds/bass_drum.wav";
 import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav"; // voir les sons dans tone
 import BpmContext from "../../context/bpmContext";
@@ -54,6 +55,26 @@ function StepSequencer() {
   const [colIndex, setColIndex] = useState(0);
   const [steps, setSteps] = useState(16);
   const [sounds, setSounds] = useState([
+
+
+    //séquenceur {
+//     "timeSig": "4/4",
+//    "bpm": 120,
+//     "tracks": [
+//         [
+//             { "eventType": "note", "absTime": 0, "duration": 1, "midinote": 60 },
+//             { "eventType": "note", "absTime": 1, "duration": 1, "midinote": 64 },
+//             { "eventType": "note", "absTime": 3, "duration": 1, "midinote": 67 },
+//         ],
+//         [
+//             { "eventType": "note", "absTime": 0, "duration": 3, "midinote": 60 },
+//         ]
+//     ]
+// } -> contexte -> instrument <- choisir dans le newComposant
+
+    // note, durée
+
+    
     {
       index: "d0",
       name: "clap",
@@ -74,6 +95,14 @@ function StepSequencer() {
       index: "c0",
       name: "kick",
       sound: kick,
+      type: "sampler",
+      duration: 0,
+      steps: generateSteps(steps)
+    },
+    {
+      index: "b0",
+      name: "bassDrum",
+      sound: bassDrum,
       type: "sampler",
       duration: 0,
       steps: generateSteps(steps)

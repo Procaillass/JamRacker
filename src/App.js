@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './App.scss';
 import StepSequencer from './Components/StepSequencer/StepSequencer';
+import Instrument from './Components/Instrument/Instrument';
 /**Context for sequencer */
 import {BpmProvider} from './context/bpmContext';
+import {InstrumentProvider} from './context/instrumentContext';
 
 function App() {
   /**State BPM */
   const [dataBpm, setDataBpm] = useState({bpm:100});
+  const [dataInstrument, setDataInstrument] = useState("");
 
   //Récupération du bpm lors du changement du range
   const handleBPM = (event) => {
@@ -17,6 +20,7 @@ function App() {
   }
   return (
     <BpmProvider value={{dataBpm}}>
+      <InstrumentProvider value={{dataInstrument, setDataInstrument}}>
       <div className="App">
         <header className="header">
           <button className="header_play-button"><i className="fas fa-play"></i></button>
@@ -40,10 +44,12 @@ function App() {
           <>
           {/* <Pattern/> ici => objet contenant les pattern */}
           <StepSequencer/>
+          <Instrument/>
           {/* Route et composant */}
           </>
         </main>
         </div>
+        </InstrumentProvider>
     </BpmProvider>
   );
 }
