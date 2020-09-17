@@ -15,9 +15,6 @@ function PianoRoll(props) {
 
   const div = []
   let savedNotes = props.savedNotes
- 
-
-  /* const [savedNotes, setSavedNotes] = useState(localStorage.getItem('savedNote') ? JSON.parse(localStorage.getItem('savedNote')) : []) */
 
   const playNote = (note, e) =>  {
     synth.triggerAttackRelease(note, "8n")
@@ -28,24 +25,32 @@ function PianoRoll(props) {
       console.log("attribute e.target",e.target.getAttribute('data-id') )
 
       savedNotes.map(item => {
-        if (e.target.getAttribute('data-id') === item.col && e.target.getAttribute('data-note') === item.note) {
-            
+        if ( item.col == e.target.getAttribute('data-id') && item.note == e.target.getAttribute('data-note')  ) {
+          console.log(item)
            savedNotes.splice(item,1)
+           
            console.log(savedNotes, e.target.getAttribute('data-id'))
+           props.setSavedNotes(savedNotes) 
+            
           }
         })
 
 
-      props.setSavedNotes(savedNotes) 
-      localStorage.setItem('savedNote', JSON.stringify(savedNotes))
+      // props.setSavedNotes(savedNotes) 
+      localStorage.setItem('savedNote', JSON.stringify(savedNotes)) 
 
     } else {
       e.target.classList.add('test')
       console.log(note, e.currentTarget.getAttribute('data-id'))
       let col = e.currentTarget.getAttribute('data-id')
       let touche = note
+      savedNotes.map(item => {
+        if ( item.col == e.target.getAttribute('data-id') && item.note == e.target.getAttribute('data-note') ) {
+            return console.log('fault')
+        }
+      })
       props.setSavedNotes(old => [...old, {
-        col,
+        col: col,
         note: touche
       }]) 
       localStorage.setItem('savedNote', JSON.stringify(savedNotes))
@@ -69,13 +74,11 @@ function PianoRoll(props) {
           }
         });
       })
-    }, 20);
+    }, 10);
 
 
     localStorage.setItem('savedNote', JSON.stringify(savedNotes))
   })
-
-
 
 
   // navigator.requestMIDIAccess().then(access => {
@@ -91,16 +94,6 @@ function PianoRoll(props) {
   //   console.log(message);
   // }
 
-
-  /* function loop() {
-    for (let i = 4; i < 5; i++) {
-      note.map(item => {
-        notes.push(item + i)
-      })
-    }
-    notes.reverse()
-  } */
-
   function loopDiv() {
     for (let d = 0; d < 20; d++) {
       div.push(d)
@@ -108,10 +101,6 @@ function PianoRoll(props) {
   }
 
   loopDiv()
-
-  // loop()
-
-
 
   return (
     <div className="board">
