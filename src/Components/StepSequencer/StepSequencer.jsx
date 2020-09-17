@@ -123,7 +123,7 @@ function StepSequencer() {
   };
 
   const handleRemoveTrack = (id) => {
-    setTracks(tracks.filter((track) => track.index !== id))
+    setTracks(tracks.filter((track) => track.index !== id));
   }
 
   /*
@@ -196,7 +196,7 @@ function StepSequencer() {
         {tracks.map((track, trackIdx) => (
           <div className="sequencer__row" key={trackIdx+"_"+track.name}>
             <div className="sequencer__sound">
-              <button className="btn__removeTrack" onClick={() => handleRemoveTrack(track.index)}>Remove sound</button>
+              <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.index)}}}>Remove sound</button>
               <span>{track.name}</span>
             </div>
             <div className="sequencer__track">
