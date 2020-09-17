@@ -10,7 +10,7 @@ export default function PianoRoll() {
   
   /* let [plusBtn, setplusBtn] = useState(4)
   const [MoinsBtn, setMoinsBtn] = useState(4) */
-
+  const [savedNotes, setSavedNotes] = useState(localStorage.getItem('savedNote') ? JSON.parse(localStorage.getItem('savedNote')) : [])
   const [octLength, setoctLength] = useState([5])
 
   useEffect(() => {
@@ -38,12 +38,10 @@ export default function PianoRoll() {
 
       {octLength.map((item, index) => {
         return(
-          <PinaoOctave key={index} octave={item}/>
+          <PinaoOctave key={index} octave={item} savedNotes={savedNotes} setSavedNotes={setSavedNotes}/>
         )
       })}
 
     </div>
   );
 }
-
-

@@ -11,37 +11,44 @@ function PianoRoll(props) {
   // const note = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
   const note = [`C${octave}`, `C#${octave}`, `D${octave}`, `D#${octave}`, `E${octave}`, `F${octave}`, `F#${octave}`, `G${octave}`, `G#${octave}`, `A${octave}`, `A#${octave}`, `B${octave}`]
   note.reverse()
-  // const notes = []
-  //let nbColumn = 50
+
 
   const div = []
+  let savedNotes = props.savedNotes
+ 
 
-  /* var mouse_IsDown = false;
-  document.documentElement.addEventListener("mousedown", function () {
-    mouse_IsDown = true;
-  });
-  document.documentElement.addEventListener("mouseup", function () {
-    mouse_IsDown = false;
-  }); */
-
-  const [savedNotes, setSavedNotes] = useState(localStorage.getItem('savedNote') ? JSON.parse(localStorage.getItem('savedNote')) : [])
+  /* const [savedNotes, setSavedNotes] = useState(localStorage.getItem('savedNote') ? JSON.parse(localStorage.getItem('savedNote')) : []) */
 
   const playNote = (note, e) =>  {
     synth.triggerAttackRelease(note, "8n")
     console.log(e.target)
     if (e.target.classList.contains('test')) {
       e.target.classList.remove('test')
+      console.log("savedNotes",savedNotes)
+      console.log("attribute e.target",e.target.getAttribute('data-id') )
+
+      savedNotes.map(item => {
+        if (e.target.getAttribute('data-id') === item.col && e.target.getAttribute('data-note') === item.note) {
+            
+           savedNotes.splice(item,1)
+           console.log(savedNotes)
+          }
+        })
+
+
+        props.setSavedNotes(savedNotes=savedNotes) 
+      localStorage.setItem('savedNote', JSON.stringify(savedNotes))
 
     } else {
       e.target.classList.add('test')
       console.log(note, e.currentTarget.getAttribute('data-id'))
       let col = e.currentTarget.getAttribute('data-id')
       let touche = note
-      setSavedNotes(old => [...old, {
+      props.setSavedNotes(old => [...old, {
         col,
         note: touche
-      }])
-
+      }]) 
+      localStorage.setItem('savedNote', JSON.stringify(savedNotes))
       
     }
   }
@@ -150,7 +157,7 @@ function PianoRoll(props) {
                   data-note={touch}
                   data-id={index}
                   onClick={(e) => playNote(touch, e)}
-                  key={index}>{touch}</div>
+                  key={index}>{/* {touch} */}</div>
               })}
               {touch.includes('#') ? <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-black"></button> : <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-white">{touch.includes('C') ? (touch.includes('#') ? "" : touch) : ""}</button>}
             </section>
@@ -170,5 +177,3 @@ function PianoRoll(props) {
 
 
 export default React.memo(PianoRoll)
-
-
