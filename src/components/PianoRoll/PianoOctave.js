@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, } from 'react';
 import '../../App.scss';
 import * as Tone from 'tone'
 //import { Loop } from 'tone';
@@ -31,12 +31,12 @@ function PianoRoll(props) {
         if (e.target.getAttribute('data-id') === item.col && e.target.getAttribute('data-note') === item.note) {
             
            savedNotes.splice(item,1)
-           console.log(savedNotes)
+           console.log(savedNotes, e.target.getAttribute('data-id'))
           }
         })
 
 
-        props.setSavedNotes(savedNotes=savedNotes) 
+      props.setSavedNotes(savedNotes) 
       localStorage.setItem('savedNote', JSON.stringify(savedNotes))
 
     } else {
@@ -49,7 +49,7 @@ function PianoRoll(props) {
         note: touche
       }]) 
       localStorage.setItem('savedNote', JSON.stringify(savedNotes))
-      
+      console.log(savedNotes)
     }
   }
 
@@ -69,7 +69,7 @@ function PianoRoll(props) {
           }
         });
       })
-    }, 10);
+    }, 20);
 
 
     localStorage.setItem('savedNote', JSON.stringify(savedNotes))
@@ -157,7 +157,7 @@ function PianoRoll(props) {
                   data-note={touch}
                   data-id={index}
                   onClick={(e) => playNote(touch, e)}
-                  key={index}>{/* {touch} */}</div>
+                  key={index}>{touch}</div>
               })}
               {touch.includes('#') ? <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-black"></button> : <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-white">{touch.includes('C') ? (touch.includes('#') ? "" : touch) : ""}</button>}
             </section>
