@@ -109,6 +109,7 @@ function StepSequencer() {
       setTracks([...tracks, ...newTrack]);
       sampler.add("c0", kick);
     }
+    ev.target.value = "";
   };
 
   const handleSteps = (ev) => {
