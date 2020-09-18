@@ -3,12 +3,8 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import "./Instrument.scss";
 import instrumentContext from "../../context/instrumentContext";
 import Play from "../../Components/Play/Play";
-
-// const synth = new Tone.Synth().toDestination();
-// synth.triggerAttackRelease("C4", "8n");
-
-// const synth = new Tone.AMSynth().toDestination();
-// synth.triggerAttackRelease("C4", "4n");
+import * as Tone from 'tone';
+import {PlayProvider} from "../../context/playContext";
 
 function Instrument() {
 
@@ -18,7 +14,34 @@ function Instrument() {
    * -------------
    */
   
-   const {dataInstrument, setDataInstrument} = useContext(instrumentContext)
+   const {dataInstrument, setDataInstrument} = useContext(instrumentContext);
+
+   /*
+   * -------------
+   * STATES
+   * -------------
+   */
+
+  const [inst, setInst] = useState(new Tone.Synth().toDestination());
+
+  /*
+   * -------------
+   * METHODS
+   * -------------
+   */
+
+  const changeInst = (newInst) => { 
+  switch (newInst) {
+        case 'Synth':
+        setInst(new Tone.Synth().toDestination());
+        break;
+        case 'AMSynth':
+        setInst(new Tone.AMSynth().toDestination());
+        break;
+        default:
+        console.log(`Sorry bro.`);
+    }
+}
 
   /*
   * -------------
@@ -27,7 +50,6 @@ function Instrument() {
   */
  
   const handleInstrument = (ev) => {
-    
     if (ev.target.value) {
       setDataInstrument(ev.target.value);
     }
@@ -38,31 +60,35 @@ function Instrument() {
     alert("close");
   };
 
-  const handlePlay = (value) => {
-    console.log(value);
-  }
+  /*
+    * -------------
+    * EFFECTS
+    * -------------
+    */
 
+    useEffect(() => {
+      changeInst(dataInstrument);
+  }, [dataInstrument]);
 
-
-  return (
-  <div className="box instrument">
-    <div className="box__bar">
-      <button className="box__close" onClick={handleClose}>X</button>
-    </div>
+  /*
+    * -------------
+    * RENDER
+    * -------------
+    */
     
-    <div className="box__content">
 
-    <p>Context value: {dataInstrument}</p>
-      
+return (
+  <div className="instrument">
       <select onChange={handleInstrument} name="" id="">
         <option value="">Choisir un instrument</option>
         <option value="Synth">Synth</option>
         <option value="AMSynth">AMSynth</option>
       </select>
-
-      <Play handlePlay={handlePlay} />
-      
-    </div>
+      <>
+      <PlayProvider value={{inst, setInst}}>
+        <Play />
+      </PlayProvider>
+      </>
   </div>
   );
 }

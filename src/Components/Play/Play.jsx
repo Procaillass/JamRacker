@@ -2,17 +2,18 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import instrumentContext from "../../context/instrumentContext";
 import * as Tone from 'tone';
+import PlayContext from "../../context/playContext";
 
-function Play({handlePlay}) {
+function Play() {
 
   /*
    * -------------
    * CONTEXT
    * -------------
    */
-  
-   const {dataInstrument} = useContext(instrumentContext);
 
+   const instContext = useContext(PlayContext);
+   
    /*
    * -------------
    * STATES
@@ -20,27 +21,13 @@ function Play({handlePlay}) {
    */
  
    const [playing, setPlaying] = useState(false);
-   const [inst, setInst] = useState(new Tone.Synth().toDestination());
+   const [instState,setInst] = useState();
 
    /*
    * -------------
    * METHODS
    * -------------
    */
-
-   const changeInst = (newInst) => {
-
-        switch (newInst) {
-            case 'Synth':
-            setInst(new Tone.Synth().toDestination());
-            break;
-            case 'AMSynth':
-            setInst(new Tone.AMSynth().toDestination());
-            break;
-            default:
-            console.log(`Sorry bro.`);
-        }
-    }
 
     /*
     * -------------
@@ -49,10 +36,8 @@ function Play({handlePlay}) {
     */
  
     const handlePlaying = (ev) => {
-        //ev.preventDefault();
-        inst.triggerAttackRelease("C4", "4n");
-        handlePlay("playing");
-
+        ev.preventDefault();
+        instState.inst.triggerAttackRelease("C4", "4n");
     };
 
     /*
@@ -62,8 +47,8 @@ function Play({handlePlay}) {
     */
 
     useEffect(() => {
-        changeInst(dataInstrument);
-    }, [dataInstrument]);
+        setInst(instContext)
+    }, [instContext]);
 
     /*
     * -------------

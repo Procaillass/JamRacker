@@ -38,6 +38,15 @@ $text: #87878a;
 
   &__content {
     padding: 1rem;
+    label{
+      color: white;
+      padding: .5rem;
+    }
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
   }
 
 }
@@ -53,7 +62,7 @@ $text: #87878a;
   &__sound {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background: $sequencer_sound_bg;
     border: 1px solid $box_bg;
     color: white;

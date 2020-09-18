@@ -8,6 +8,7 @@ import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav"; // voir les sons dans tone
 import BpmContext from "../../context/bpmContext";
 //import Play from "../../Components/Play/Play";
+import Instrument from '../Instrument/Instrument';
 
 function StepSequencer() {
 
@@ -219,14 +220,17 @@ function StepSequencer() {
         </div>
 
         <div className="box__content">
-
-        <label>{steps}</label>
-        <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
-
+          <div className="box__action">
+            <div>
+              <label>{steps}</label>
+              <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
+            </div>
+            <Instrument/>
+          </div>
         {tracks.map((track, trackIdx) => (
           <div className="sequencer__row" key={trackIdx+"_"+track.name}>
             <div className="sequencer__sound">
-              <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.index)}}}>Remove sound</button>
+              <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.index)}}}>Remove</button>
               <span>{track.name}</span>
             </div>
             <div className="sequencer__track">
