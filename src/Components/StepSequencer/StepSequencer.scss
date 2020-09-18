@@ -79,86 +79,59 @@ $text: #87878a;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
   }
-  &__track_4 {
-    width: 100%;
-    display: grid;
+
+  
+
+  [data-step="4"] {
     grid-template-columns: repeat(4, 1fr);
   }
-  &__track_8 {
-    width: 100%;
-    display: grid;
+  [data-step="8"] {
     grid-template-columns: repeat(8, 1fr);
   }
-  &__track_12 {
-    width: 100%;
-    display: grid;
+  [data-step="12"] {
     grid-template-columns: repeat(12, 1fr);
   }
-  &__track_16 {
-    width: 100%;
-    display: grid;
+  [data-step="16"] {
     grid-template-columns: repeat(16, 1fr);
   }
-  &__track_20 {
-    width: 100%;
-    display: grid;
+  [data-step="20"] {
     grid-template-columns: repeat(20, 1fr);
   }
-  &__track_24 {
-    width: 100%;
-    display: grid;
+  [data-step="24"] {
     grid-template-columns: repeat(24, 1fr);
   }
-  &__track_28 {
-    width: 100%;
-    display: grid;
+  [data-step="28"] {
     grid-template-columns: repeat(28, 1fr);
   }
-  &__track_32 {
-    width: 100%;
-    display: grid;
+  [data-step="32"] {
     grid-template-columns: repeat(32, 1fr);
   }
-  &__track_36 {
-    width: 100%;
-    display: grid;
+  [data-step="36"] {
     grid-template-columns: repeat(36, 1fr);
   }
-  &__track_40 {
-    width: 100%;
-    display: grid;
+  [data-step="40"] {
     grid-template-columns: repeat(40, 1fr);
   }
-  &__track_44 {
-    width: 100%;
-    display: grid;
+  [data-step="44"] {
     grid-template-columns: repeat(44, 1fr);
   }
-  &__track_48 {
-    width: 100%;
-    display: grid;
+  [data-step="48"] {
     grid-template-columns: repeat(48, 1fr);
   }
-  &__track_52 {
-    width: 100%;
-    display: grid;
+  [data-step="52"] {
     grid-template-columns: repeat(52, 1fr);
   }
-  &__track_56 {
-    width: 100%;
-    display: grid;
+  [data-step="56"] {
     grid-template-columns: repeat(56, 1fr);
   }
-  &__track_60 {
-    width: 100%;
-    display: grid;
+  [data-step="60"] {
     grid-template-columns: repeat(60, 1fr);
   }
-  &__track_64 {
-    width: 100%;
-    display: grid;
+  [data-step="64"] {
     grid-template-columns: repeat(64, 1fr);
   }
+
+
 
 
   &__step {
