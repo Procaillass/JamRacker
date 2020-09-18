@@ -146,6 +146,17 @@ function StepSequencer() {
   const handleSteps = (ev) => {
     ev.preventDefault();
     setSteps(stepsFld.current.value);
+
+    console.log(stepsFld.current.value)
+
+    const stepsClassNumb = ("sequencer__track_"+stepsFld.current.value)
+    console.log(stepsClassNumb)
+
+    document.getElementById("sequencer__track").classList.remove("sequencer__track_"+((stepsFld.current.value)-4) & "sequencer__track_"+((stepsFld.current.value)+4));
+    document.getElementById("sequencer__track").classList.add(stepsClassNumb)
+
+    console.log("sequencer__track_"+((stepsFld.current.value)-4) & "sequencer__track_"+((stepsFld.current.value)+4))
+
   };
 
   const handleClose = (ev) => {
@@ -234,7 +245,7 @@ function StepSequencer() {
               <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.index)}}}>Remove</button>
               <span>{track.name}</span>
             </div>
-            <div className="sequencer__track">
+            <div id="sequencer__track" className="sequencer__track">
               {track.steps.map((step, stepIdx) => (
                 <div
                   key={stepIdx}

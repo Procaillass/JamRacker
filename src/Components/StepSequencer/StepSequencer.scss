@@ -79,6 +79,88 @@ $text: #87878a;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
   }
+  &__track_4 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  &__track_8 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
+  &__track_12 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  &__track_16 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+  }
+  &__track_20 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+  }
+  &__track_24 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+  }
+  &__track_28 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(28, 1fr);
+  }
+  &__track_32 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(32, 1fr);
+  }
+  &__track_36 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(36, 1fr);
+  }
+  &__track_40 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(40, 1fr);
+  }
+  &__track_44 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(44, 1fr);
+  }
+  &__track_48 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(48, 1fr);
+  }
+  &__track_52 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(52, 1fr);
+  }
+  &__track_56 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(56, 1fr);
+  }
+  &__track_60 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(60, 1fr);
+  }
+  &__track_64 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(64, 1fr);
+  }
+
+
   &__step {
     padding-top: calc(100% - 2px);
     border: 1px solid $box_bg;

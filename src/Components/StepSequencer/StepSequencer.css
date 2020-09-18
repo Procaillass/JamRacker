@@ -42,6 +42,20 @@
   padding: 1rem;
 }
 
+.box__content label {
+  color: white;
+  padding: .5rem;
+}
+
+.box__action {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .box__title {
   padding: .5rem 1rem;
 }
@@ -64,8 +78,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background: #393a40;
   border: 1px solid #43454b;
   color: white;
@@ -79,6 +94,134 @@
   display: grid;
   -ms-grid-columns: (1fr)[16];
       grid-template-columns: repeat(16, 1fr);
+}
+
+.sequencer__track_4 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+}
+
+.sequencer__track_8 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[8];
+      grid-template-columns: repeat(8, 1fr);
+}
+
+.sequencer__track_12 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[12];
+      grid-template-columns: repeat(12, 1fr);
+}
+
+.sequencer__track_16 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[16];
+      grid-template-columns: repeat(16, 1fr);
+}
+
+.sequencer__track_20 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[20];
+      grid-template-columns: repeat(20, 1fr);
+}
+
+.sequencer__track_24 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[24];
+      grid-template-columns: repeat(24, 1fr);
+}
+
+.sequencer__track_28 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[28];
+      grid-template-columns: repeat(28, 1fr);
+}
+
+.sequencer__track_32 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[32];
+      grid-template-columns: repeat(32, 1fr);
+}
+
+.sequencer__track_36 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[36];
+      grid-template-columns: repeat(36, 1fr);
+}
+
+.sequencer__track_40 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[40];
+      grid-template-columns: repeat(40, 1fr);
+}
+
+.sequencer__track_44 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[44];
+      grid-template-columns: repeat(44, 1fr);
+}
+
+.sequencer__track_48 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[48];
+      grid-template-columns: repeat(48, 1fr);
+}
+
+.sequencer__track_52 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[52];
+      grid-template-columns: repeat(52, 1fr);
+}
+
+.sequencer__track_56 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[56];
+      grid-template-columns: repeat(56, 1fr);
+}
+
+.sequencer__track_60 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[60];
+      grid-template-columns: repeat(60, 1fr);
+}
+
+.sequencer__track_64 {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[64];
+      grid-template-columns: repeat(64, 1fr);
 }
 
 .sequencer__step {
