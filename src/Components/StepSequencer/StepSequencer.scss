@@ -10,10 +10,11 @@ $text: #87878a;
 .box {
   background: $box_bg;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  flex: 1;
 
   &__bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background: $box_bar;
   }
 
@@ -38,6 +39,10 @@ $text: #87878a;
 
   &__content {
     padding: 1rem;
+  }
+
+  &__title {
+    padding: .5rem 1rem;
   }
 
 }

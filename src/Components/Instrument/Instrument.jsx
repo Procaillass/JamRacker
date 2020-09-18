@@ -47,6 +47,7 @@ function Instrument() {
   return (
   <div className="box instrument">
     <div className="box__bar">
+    <div className="box__title">Instrument</div>
       <button className="box__close" onClick={handleClose}>X</button>
     </div>
     
