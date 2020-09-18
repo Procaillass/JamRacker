@@ -9,6 +9,7 @@ $text: #87878a;
 
 .box {
   background: $box_bg;
+  background: $box_bg;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
   flex: 1;
 
@@ -78,7 +79,7 @@ $text: #87878a;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
-  }
+  } 
 
   
 
