@@ -2,15 +2,18 @@
   background: #43454b;
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
           box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .box__bar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background: #26272b;
 }
 
@@ -37,6 +40,10 @@
 
 .box__content {
   padding: 1rem;
+}
+
+.box__title {
+  padding: .5rem 1rem;
 }
 
 .sequencer {

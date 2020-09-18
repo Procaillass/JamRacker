@@ -216,6 +216,7 @@ function StepSequencer() {
       <div className="box sequencer">
 
         <div className="box__bar">
+        <div className="box__title">Sequencer</div>
           <button className="box__close" onClick={handleClose}>X</button>
         </div>
 

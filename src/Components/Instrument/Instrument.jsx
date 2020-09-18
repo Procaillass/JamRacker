@@ -74,8 +74,7 @@ function Instrument() {
     * -------------
     * RENDER
     * -------------
-    */
-    
+    */ 
 
 return (
   <div className="instrument">
