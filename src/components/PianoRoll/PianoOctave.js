@@ -18,43 +18,50 @@ function PianoRoll(props) {
 
   const playNote = (note, e) =>  {
     synth.triggerAttackRelease(note, "8n")
-    console.log(e.target)
+    //console.log(e.target)
     if (e.target.classList.contains('test')) {
-      e.target.classList.remove('test')
-      console.log("savedNotes",savedNotes)
-      console.log("attribute e.target",e.target.getAttribute('data-id') )
+      
+      //console.log("savedNotes",savedNotes)
+      //console.log("attribute e.target",e.target.getAttribute('data-id') )
 
-      savedNotes.map(item => {
-        if ( item.col == e.target.getAttribute('data-id') && item.note == e.target.getAttribute('data-note')  ) {
-          console.log(item)
-           savedNotes.splice(item,1)
-           
-           console.log(savedNotes, e.target.getAttribute('data-id'))
-           props.setSavedNotes(savedNotes) 
-            
-          }
-        })
-
+     /*  savedNotes.map(item => {
+        if (item.col === e.target.getAttribute('data-id') && item.note === e.target.getAttribute('data-note')) {
+          console.log(item.col, item.note)
+          console.log(e.target.getAttribute('data-id'), e.target.getAttribute('data-note'))
+          console.log("col",item.col === e.target.getAttribute('data-id'));
+          console.log("row",item.note === e.target.getAttribute('data-note'));
+          
+          
+          
+          savedNotes.splice(item,1)
+        props.setSavedNotes(savedNotes) 
+        localStorage.setItem('savedNote', JSON.stringify(savedNotes)) 
+          console.log("list local dans le map",savedNotes)
+          console.log("localstorage",localStorage.getItem('savedNote') )
+        }
+      })
+      
+      localStorage.setItem('savedNote', JSON.stringify(savedNotes)) 
+      console.log("list local",savedNotes) */
 
       // props.setSavedNotes(savedNotes) 
-      localStorage.setItem('savedNote', JSON.stringify(savedNotes)) 
-
+        e.target.classList.remove('test')
     } else {
       e.target.classList.add('test')
-      console.log(note, e.currentTarget.getAttribute('data-id'))
+      /* console.log(note, e.currentTarget.getAttribute('data-id'))
       let col = e.currentTarget.getAttribute('data-id')
       let touche = note
       savedNotes.map(item => {
-        if ( item.col == e.target.getAttribute('data-id') && item.note == e.target.getAttribute('data-note') ) {
-            return console.log('fault')
+        if ( item.col === e.target.getAttribute('data-id') && item.note === e.target.getAttribute('data-note') ) {
+             console.log('fault')
         }
       })
       props.setSavedNotes(old => [...old, {
         col: col,
         note: touche
       }]) 
-      localStorage.setItem('savedNote', JSON.stringify(savedNotes))
-      console.log(savedNotes)
+      return localStorage.setItem('savedNote', JSON.stringify(savedNotes)) */
+      //console.log(savedNotes)
     }
   }
 
@@ -77,7 +84,7 @@ function PianoRoll(props) {
     }, 10);
 
 
-    localStorage.setItem('savedNote', JSON.stringify(savedNotes))
+   // localStorage.setItem('savedNote', JSON.stringify(savedNotes))
   })
 
 
@@ -134,9 +141,6 @@ function PianoRoll(props) {
         }
       </div>
 
-
-
-
       <section className="piano-containter">
         {note.map((touch, index) => {
           return (
@@ -146,21 +150,14 @@ function PianoRoll(props) {
                   data-note={touch}
                   data-id={index}
                   onClick={(e) => playNote(touch, e)}
-                  key={index}>{touch}</div>
+                  key={index}>{/* {touch} */}</div>
               })}
               {touch.includes('#') ? <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-black"></button> : <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-white">{touch.includes('C') ? (touch.includes('#') ? "" : touch) : ""}</button>}
             </section>
           )
         })}
       </section>
-
-
-
-
-
     </div>
-
-
   );
 }
 

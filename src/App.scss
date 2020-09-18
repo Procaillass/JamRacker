@@ -46,7 +46,7 @@ body {
   display: flex;
   height: 50px;
   background-color: $dark-color-2;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   &_play-button {
     width: 50px;
     background-color: $light-color;
@@ -125,7 +125,7 @@ body {
 // pianoRoll //
 
 .piano_global {
-  padding-top: 7rem;
+  padding-top: 5rem;
   padding-bottom: 3rem;
 }
 .board {
@@ -172,7 +172,7 @@ body {
 }
 
 .test {
-  background-color: red !important;
+  background-color: rgba(88,235,144,.8) !important;
 }
 
 //quentin
@@ -285,6 +285,7 @@ body {
       box-shadow: inset 0 0 0 5px rgb(221, 154, 100);
     }
   }
+  
   div {
     min-width: 50px;
     cursor: cell;
@@ -293,4 +294,10 @@ body {
       box-shadow: inset 0 0 0 5px rgb(221, 154, 100);
     }
   }
+}
+
+.plusBtn, .moinsBtn{
+  width: 8rem !important;
+  padding: 1rem;
+  margin: 0rem 1rem 3rem 1rem;
 }

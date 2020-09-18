@@ -32,8 +32,8 @@ export default function PianoRoll() {
   
   return (
     <div className="Roll">
-      <button onClick={() => plusOcatve()}>+</button>
-      <button onClick={() => moinsOctave()}>-</button>
+      <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
+      <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
       {/* <PinaoOctave octave={octave -1 }/> */}
 
       {octLength.map((item, index) => {
