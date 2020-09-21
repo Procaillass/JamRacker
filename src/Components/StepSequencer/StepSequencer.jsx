@@ -99,8 +99,8 @@ function StepSequencer() {
     notes.map( (note, index) => tracks.map(el => el.name).includes(note.name) === true && console.log( 'ok' ));
   };
 
-  const handleRemoveTrack = (id) => {
-    setdataStepSeq({...dataStepSeq, tracks: tracks.filter((track) => track.index !== id)});
+  const handleRemoveTrack = (name) => {
+    setdataStepSeq({...dataStepSeq, tracks: tracks.filter((track) => track.name !== name)});
     //setTracks();
   }
 
@@ -153,9 +153,7 @@ function StepSequencer() {
   * RENDER
   * -------------
   */
- //console.log("context steps", dataStepSeq)
 
-console.log(dataStepSeq);
   return (
     
       <div className="box sequencer">
@@ -177,7 +175,7 @@ console.log(dataStepSeq);
           
           <div className="sequencer__row" key={trackIdx+"_"+track.name}>
       <div className="sequencer__sound">
-        <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.index)}}}>Remove sound</button>
+        <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.name)}}}>Remove sound</button>
         <span>{track.name}</span>
       </div>
       <div data-step={steps} className="sequencer__track">
