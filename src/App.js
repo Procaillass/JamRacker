@@ -39,12 +39,12 @@ function App() {
   tracks: [
     {
       name: "A0",
-      duration: 0,
+      duration: 0.2,
       steps: generateSteps(16)
     },
     {
       name: "D7",
-      duration: 0,
+      duration: 0.2,
       steps: generateSteps(16)
     },
   ],
