@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import StepSequencer from './Components/StepSequencer/StepSequencer';
-import Instrument from './Components/Instrument/Instrument';
+import Sampler from './Components/Sampler/Sampler';
 /**Context for sequencer */
 import {BpmProvider} from './context/bpmContext';
 import {InstrumentProvider} from './context/instrumentContext';
@@ -84,7 +84,9 @@ function App() {
           <>
           {/* <Pattern/> ici => objet contenant les pattern */}
           <StepSequencer/>
-          <Instrument/>
+
+         
+          <Sampler/>
           {/* Route et composant */}
           </>
         </main>

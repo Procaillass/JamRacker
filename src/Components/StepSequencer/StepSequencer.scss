@@ -9,11 +9,13 @@ $text: #87878a;
 
 .box {
   background: $box_bg;
+  background: $box_bg;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  flex: 1;
 
   &__bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background: $box_bar;
   }
 
@@ -38,6 +40,19 @@ $text: #87878a;
 
   &__content {
     padding: 1rem;
+    label{
+      color: white;
+      padding: .5rem;
+    }
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    padding: .5rem 1rem;
   }
 
 }
@@ -53,7 +68,7 @@ $text: #87878a;
   &__sound {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background: $sequencer_sound_bg;
     border: 1px solid $box_bg;
     color: white;
@@ -64,7 +79,62 @@ $text: #87878a;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
+  } 
+
+  
+
+  [data-step="4"] {
+    grid-template-columns: repeat(4, 1fr);
   }
+  [data-step="8"] {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  [data-step="12"] {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  [data-step="16"] {
+    grid-template-columns: repeat(16, 1fr);
+  }
+  [data-step="20"] {
+    grid-template-columns: repeat(20, 1fr);
+  }
+  [data-step="24"] {
+    grid-template-columns: repeat(24, 1fr);
+  }
+  [data-step="28"] {
+    grid-template-columns: repeat(28, 1fr);
+  }
+  [data-step="32"] {
+    grid-template-columns: repeat(32, 1fr);
+  }
+  [data-step="36"] {
+    grid-template-columns: repeat(36, 1fr);
+  }
+  [data-step="40"] {
+    grid-template-columns: repeat(40, 1fr);
+  }
+  [data-step="44"] {
+    grid-template-columns: repeat(44, 1fr);
+  }
+  [data-step="48"] {
+    grid-template-columns: repeat(48, 1fr);
+  }
+  [data-step="52"] {
+    grid-template-columns: repeat(52, 1fr);
+  }
+  [data-step="56"] {
+    grid-template-columns: repeat(56, 1fr);
+  }
+  [data-step="60"] {
+    grid-template-columns: repeat(60, 1fr);
+  }
+  [data-step="64"] {
+    grid-template-columns: repeat(64, 1fr);
+  }
+
+
+
+
   &__step {
     padding-top: calc(100% - 2px);
     border: 1px solid $box_bg;

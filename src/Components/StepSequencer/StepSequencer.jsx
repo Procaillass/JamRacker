@@ -9,6 +9,7 @@ import hat from "../../Assets/Sounds/hat.wav"; // voir les sons dans tone
 import BpmContext from "../../context/bpmContext";
 //import Play from "../../Components/Play/Play";
 import StepSeqContext from "../../context/stepSequencerContext";
+import Instrument from '../Instrument/Instrument';
 
 function StepSequencer() {
 
@@ -85,6 +86,8 @@ function StepSequencer() {
     ev.target.value = "";
   };
 
+
+
   const handleSteps = (ev) => {
     ev.preventDefault();
     setdataStepSeq({...dataStepSeq, stepsNum: stepsFld.current.value});
@@ -158,21 +161,26 @@ console.log(dataStepSeq);
       <div className="box sequencer">
 
         <div className="box__bar">
+        <div className="box__title">Sequencer</div>
           <button className="box__close" onClick={handleClose}>X</button>
         </div>
 
         <div className="box__content">
-
-        <label>{steps}</label>
-        <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
-
+          <div className="box__action">
+            <div>
+              <label>{steps}</label>
+              <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
+            </div>
+            <Instrument/>
+          </div>
         {tracks.map((track, trackIdx) => (
-    <div className="sequencer__row" key={trackIdx+"_"+track.name}>
+          
+          <div className="sequencer__row" key={trackIdx+"_"+track.name}>
       <div className="sequencer__sound">
         <button className="btn__removeTrack" onClick={() => {if(window.confirm('Are you sure you want to delete the track ?')){handleRemoveTrack(track.index)}}}>Remove sound</button>
         <span>{track.name}</span>
       </div>
-      <div className="sequencer__track">
+      <div data-step={steps} className="sequencer__track">
         {track.steps.map((step, stepIdx) => (
           <div
             key={stepIdx}

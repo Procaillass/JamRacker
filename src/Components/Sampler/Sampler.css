@@ -1,0 +1,16 @@
+.sampler {
+  margin: 0 50px;
+}
+
+.box__title {
+  color: white;
+}
+
+.sampler_content_Lane {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25% 25% 25% 15%;
+      grid-template-columns: 25% 25% 25% 15%;
+  grid-column-gap: 1em;
+}
+/*# sourceMappingURL=Sampler.css.map */
