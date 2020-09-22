@@ -1,0 +1,27 @@
+.tracker {
+    margin: 50px;
+}
+
+.box__content__pistes {
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+
+    &__piste {
+        list-style: none;
+        border: 1px dashed #26272B;
+        text-align: center;
+        display: grid;
+        grid-template-rows: 7%;
+
+    }
+
+    &__rangeesNumb {
+        list-style: none;
+        border: 1px dashed #26272B;
+        text-align: center;
+        display: grid;
+        grid-template-rows: 7%;
+    }
+
+}

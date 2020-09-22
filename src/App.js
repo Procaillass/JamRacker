@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import './App.scss';
 import StepSequencer from './Components/StepSequencer/StepSequencer';
 import Sampler from './Components/Sampler/Sampler';
+import Tracker from './Components/Tracker/Tracker';
 import AudioGenerator from './Components/AudioGenerator/AudioGenerator';
 /**Context for sequencer */
 import { BpmProvider } from './context/bpmContext';
 import { InstrumentProvider } from './context/instrumentContext';
 import { StepSeqProvider } from './context/stepSequencerContext';
+import { TrackerProvider } from './context/trackerContext';
 
 function App() {
 
@@ -17,6 +19,9 @@ function App() {
    */
   // REFACTORER EN HELPER OU HOOK CAR REPETE
   const generateSteps = (stepsNum = 16) => Array.from({ length: stepsNum }, () => 0);
+
+  // State Tracker
+  const [dataTracker, setDataTracker] = useState({ volume: 100 });
 
   /**State BPM */
   const [dataBpm, setDataBpm] = useState({ bpm: 100 });
@@ -70,6 +75,7 @@ tracks: [
     <BpmProvider value={{ dataBpm }}>
       <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
         <StepSeqProvider value={{ dataStepSeq, setdataStepSeq }}>
+        <TrackerProvider value={{ dataTracker, setDataTracker }}>
           <div className="App">
             <header className="header">
               <button className="header_play-button"><i className="fas fa-play"></i></button>
@@ -93,6 +99,7 @@ tracks: [
               <>
                 {/* <Pattern/> ici => objet contenant les pattern */}
                 <StepSequencer />
+                <Tracker />
 
 
                 <Sampler />
@@ -101,6 +108,7 @@ tracks: [
               </>
             </main>
           </div>
+          </TrackerProvider>
         </StepSeqProvider>
       </InstrumentProvider>
     </BpmProvider>
