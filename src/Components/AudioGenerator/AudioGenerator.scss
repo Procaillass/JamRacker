@@ -1,0 +1,84 @@
+$box_bar: #26272b;
+$box_bg: #43454b;
+$sequencer_sound_bg: #393a40;
+$sequencer_step_bg: #26272b;
+$sequencer_step_marked_bg: #749292;
+$sequencer_step_col_bg: #362928;
+$sequencer_step_marqued_col_bg: #517878;
+$text: #87878a;
+
+.audio-generator {
+    margin: 50px 50px;
+}
+
+.ag__content {
+    display: flex;
+    
+    > * + * {
+        margin-left: 1rem;
+    }
+}
+
+ .button {
+    display: inline-block;
+    padding: .7rem 1rem;
+    font: inherit;
+    font-size: inherit;
+    transition: all 0.5s ease;
+    background-color: $text;
+    color: $box_bar;
+    border: 1px solid $text;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: inherit;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: $box_bar;
+      border: 1px solid $box_bar;
+      color: $text;
+    }
+
+    &:focus {
+      box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+      outline:0;
+    }
+ }
+
+ .loader {
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 50px;
+  }
+  .loader div {
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    width: 3px;
+    background: #fff;
+    animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  .loader div:nth-child(1) {
+    left: 10px;
+    animation-delay: -0.24s;
+  }
+  .loader div:nth-child(2) {
+    left: 18px;
+    animation-delay: -0.12s;
+  }
+  .loader div:nth-child(3) {
+    left: 26px;
+    animation-delay: 0;
+  }
+  @keyframes loader {
+    0% {
+      top: 0px;
+      height: 50px;
+    }
+    50%, 100% {
+      top: 20px;
+      height: 10px;
+    }
+  }
