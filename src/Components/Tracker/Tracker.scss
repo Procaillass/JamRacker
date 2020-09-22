@@ -1,15 +1,38 @@
 .tracker {
     margin: 50px;
+
+}
+
+.selected {
+    background-color: #3a3a3a;
+}
+
+.disable {
+    display: none;
+}
+
+.tracker .box__content {
+    display: flex;
+    }
+
+.tracker_menu {
+    border: 5px solid rgb(43, 43, 43);
+    min-width: 300px;
+
+    & nav {
+    display: flex;
+    }
 }
 
 .box__content__pistes {
 
     display: grid;
     grid-template-columns: repeat(8, 1fr);
+    border: 5px solid rgb(119, 119, 119);
 
     &__piste {
         list-style: none;
-        border: 1px dashed #26272B;
+        border: 5px dashed #26272B;
         text-align: center;
         display: grid;
         grid-template-rows: 7%;
@@ -18,7 +41,7 @@
 
     &__rangeesNumb {
         list-style: none;
-        border: 1px dashed #26272B;
+        border: 5px dashed #26272B;
         text-align: center;
         display: grid;
         grid-template-rows: 7%;

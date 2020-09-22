@@ -2,16 +2,42 @@
   margin: 50px;
 }
 
+.selected {
+  background-color: #3a3a3a;
+}
+
+.disable {
+  display: none;
+}
+
+.tracker .box__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.tracker_menu {
+  border: 5px solid #2b2b2b;
+  min-width: 300px;
+}
+
+.tracker_menu nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .box__content__pistes {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[8];
       grid-template-columns: repeat(8, 1fr);
+  border: 5px solid #777777;
 }
 
 .box__content__pistes__piste {
   list-style: none;
-  border: 1px dashed #26272B;
+  border: 5px dashed #26272B;
   text-align: center;
   display: -ms-grid;
   display: grid;
@@ -21,7 +47,7 @@
 
 .box__content__pistes__rangeesNumb {
   list-style: none;
-  border: 1px dashed #26272B;
+  border: 5px dashed #26272B;
   text-align: center;
   display: -ms-grid;
   display: grid;

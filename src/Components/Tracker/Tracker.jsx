@@ -22,7 +22,45 @@ function Tracker() {
 
     const handleClose = (ev) => {
         ev.preventDefault();
-        alert("close");
+        
+    };
+
+    //menu nav disable switch game
+
+    const handleInspector = (ev) => {
+        ev.preventDefault();
+
+        document.querySelector(".box__title_inspector").classList.toggle("selected")
+        document.querySelector(".box__title_browser").classList.remove("selected")
+        document.querySelector(".box__title_project").classList.remove("selected")
+        
+        document.querySelector(".tracker_menu__nav__container__browser").classList.add("disable")
+        document.querySelector(".tracker_menu__nav__container__project").classList.add("disable")
+        document.querySelector(".tracker_menu__nav__container__inspector").classList.toggle("disable")
+
+
+    };
+    const handleBrowser = (ev) => {
+        ev.preventDefault();
+
+        document.querySelector(".tracker_menu__nav__container__browser").classList.toggle("disable")
+        document.querySelector(".tracker_menu__nav__container__project").classList.add("disable")
+        document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable")
+
+        document.querySelector(".box__title_inspector").classList.remove("selected")
+        document.querySelector(".box__title_browser").classList.toggle("selected")
+        document.querySelector(".box__title_project").classList.remove("selected")
+       
+    };
+    const handleProject = (ev) => {
+        ev.preventDefault();
+        document.querySelector(".tracker_menu__nav__container__browser").classList.add("disable")
+        document.querySelector(".tracker_menu__nav__container__project").classList.toggle("disable")
+        document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable")
+
+        document.querySelector(".box__title_inspector").classList.remove("selected")
+        document.querySelector(".box__title_browser").classList.remove("selected")
+        document.querySelector(".box__title_project").classList.toggle("selected")
     };
 
     const handleVolume = (event) => {
@@ -79,7 +117,7 @@ function Tracker() {
                         <div className="step">7</div>
                         <div className="step">8</div>
 
-                        <div>Volume -></div>
+                        <div>Volume -&gt;</div>
                         <div>range -></div>
                         <button>Mute ? -></button>
                         <div>fin de la piste</div>
@@ -142,31 +180,38 @@ function Tracker() {
                     </li>
                 </ul>
 
-                {<div className="tracker__controls">
-                    <select className="Tracker__addAudioFile" >
-                        {/* onChange={handleAddAudioFile} */}
-                        <option value="">Add Audio File</option>
-                        {/* {AudioFileList.map((AudioFile, index) =>
-              Listes.map(el => el.name).includes(note.name) === false &&
-              <option key={index + '_' + AudioFile.name} value={AudioFile.name}>{AudioFile.name}</option>
-            )} */}
-                    </select>
-                    <select className="Tracker__choosePiste" >
-                        <option value="">piste 1</option>
-                        <option value="">piste 2</option>
-                        <option value="">piste 3</option>
-                        <option value="">piste 4</option>
-                        <option value="">piste 5</option>
-                        <option value="">piste 6</option>
-                        <option value="">piste 7</option>
-                        <option value="">piste 8</option>
+                <div className="tracker_menu">
+
+                    <nav>
+
+                        <div className="box__bar" >
+                            <div className="box__title box__title_inspector" onClick={handleInspector}>Inspector</div>
+                        </div>
+
+                        <div className="box__bar">
+                            <div className="box__title box__title_browser selected" onClick={handleBrowser}>Browser</div>
+                        </div>
+
+                        <div className="box__bar">
+                            <div className="box__title box__title_project" onClick={handleProject}>Project</div>
+                        </div>
+
+                    </nav>
+
+                    <div className="tracker_menu__nav__container">
+
+                        <div className="tracker_menu__nav__container__inspector disable">INSPECTOR</div>
+                        <div className="tracker_menu__nav__container__browser disable">BROWSER</div>
+                        <div className="tracker_menu__nav__container__project disable">PROJECT</div>
+
+                    </div>
 
 
-                    </select>
-                    {/* <button " onClick={handlePlaying}>{playing ? "stop" : "play"}</button> */}
-                    <button className="tracker__addAudioFileToPiste"> Send To Piste</button>
-                </div>}
 
+
+
+
+                </div>
             </div>
 
         </div>
