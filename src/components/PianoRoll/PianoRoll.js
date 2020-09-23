@@ -1,46 +1,65 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import '../../App.scss';
 import PinaoOctave from './PianoOctave'
+import PianoContext from "../../context/PianoContext.js";
 
 export default function PianoRoll() {
 
-  //let octave = 4
-  /* let plusBtn = 4
-  let MoinsBtn = 4 */
-  
-  /* let [plusBtn, setplusBtn] = useState(4)
-  const [MoinsBtn, setMoinsBtn] = useState(4) */
-  const [savedNotes, setSavedNotes] = useState(localStorage.getItem('savedNote') ? JSON.parse(localStorage.getItem('savedNote')) : [])
-  const [octLength, setoctLength] = useState([5])
+  /*
+  * --------
+  * CONTEXT
+  * --------
+  */
 
+  const {dataPiano, setDataPiano} = useContext(PianoContext);
+
+  /*
+  * --------
+  * STATE
+  * --------
+  */
+
+  const [octLength, setoctLength] = useState([5]);
+
+  /*
+  * --------
+  * EFFECTS
+  * --------
+  */
+
+  // Update the local storage
   useEffect(() => {
-    // setoctLength(octLength.reverse())
-    //console.log(octLength);
-  })
+    //console.log( dataPiano.notes);
+    localStorage.setItem("Data-piano", JSON.stringify(dataPiano));
+  }, [dataPiano])
+
+  /*
+  * --------
+  * METHODS
+  * --------
+  */
 
   const plusOcatve = () => {
-    //setOctLenght(old => )
     setoctLength(old => [Math.max(...old) + 1, ...old])
-    
-    //console.log(octLength)
   }
   const moinsOctave = () => {
     setoctLength(old => [...old, Math.min(...old) -1])
-    
-    //console.log(octLength)
   }
+
+  /*
+  * --------
+  * RENDER
+  * --------
+  */
   
   return (
     <div className="Roll">
       <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
       <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
-      {/* <PinaoOctave octave={octave -1 }/> */}
 
-      {octLength.map((item, index) => {
-        return(
-          <PinaoOctave key={index} octave={item} savedNotes={savedNotes} setSavedNotes={setSavedNotes}/>
-        )
-      })}
+      {octLength.map((item, index) =>
+        <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
+      )}
 
     </div>
   );

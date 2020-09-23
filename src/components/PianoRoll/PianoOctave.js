@@ -1,165 +1,128 @@
-import React, { useEffect, } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import '../../App.scss';
 import * as Tone from 'tone'
 //import { Loop } from 'tone';
+import MusicalNotesContext from "../../context/MusicalNotesContext.js";
 
 function PianoRoll(props) {
 
-  const synth = new Tone.Synth().toDestination()
-  let octave = props.octave
+  /*
+  * --------
+  * SYNTH
+  * --------
+  */
+  
+  const synth = new Tone.Synth().toDestination();
 
-  // const note = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-  const note = [`C${octave}`, `C#${octave}`, `D${octave}`, `D#${octave}`, `E${octave}`, `F${octave}`, `F#${octave}`, `G${octave}`, `G#${octave}`, `A${octave}`, `A#${octave}`, `B${octave}`]
-  note.reverse()
+  /*
+  * --------
+  * CONST
+  * --------
+  */
 
+  const steps = Array.from({ length: 16 }, () => 0);
 
-  const div = []
-  let savedNotes = props.savedNotes
+  /*
+  * --------
+  * CONTEXTS
+  * --------
+  */
 
-  const playNote = (note, e) =>  {
+  const musicalNotes = useContext(MusicalNotesContext);
+
+  /*
+  * --------
+  * PROPS
+  * --------
+  */
+  
+  const octave = props.octave;
+  const notes = [...musicalNotes].filter( el => el.name.includes(octave)).reverse();
+  
+  const dataPiano = props.dataPiano;
+  const dataPianoNotes = props.dataPiano.notes;
+
+  /*
+  * --------
+  * METHODS
+  * --------
+  */
+
+  const noteMidiCompare = (note) => {
+    const myNote = musicalNotes.filter(el => el.name === note);
+    return myNote[0].midi;
+  }
+
+  const generateActiveClass = (note, col) => {
+    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.step === col );
+    if( currentActive !== undefined) return 'test';
+  }
+
+  const playNote = (note, col) =>  {
+
+    // Jouer la note
     synth.triggerAttackRelease(note, "8n")
-    //console.log(e.target)
-    if (e.target.classList.contains('test')) {
-      
-      //console.log("savedNotes",savedNotes)
-      //console.log("attribute e.target",e.target.getAttribute('data-id') )
 
-     /*  savedNotes.map(item => {
-        if (item.col === e.target.getAttribute('data-id') && item.note === e.target.getAttribute('data-note')) {
-          console.log(item.col, item.note)
-          console.log(e.target.getAttribute('data-id'), e.target.getAttribute('data-note'))
-          console.log("col",item.col === e.target.getAttribute('data-id'));
-          console.log("row",item.note === e.target.getAttribute('data-note'));
-          
-          
-          
-          savedNotes.splice(item,1)
-        props.setSavedNotes(savedNotes) 
-        localStorage.setItem('savedNote', JSON.stringify(savedNotes)) 
-          console.log("list local dans le map",savedNotes)
-          console.log("localstorage",localStorage.getItem('savedNote') )
-        }
-      })
-      
-      localStorage.setItem('savedNote', JSON.stringify(savedNotes)) 
-      console.log("list local",savedNotes) */
-
-      // props.setSavedNotes(savedNotes) 
-        e.target.classList.remove('test')
+    // Chercher si la note existe (donc active)
+    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.step === col );
+    
+    // Si la note existe, retirer la note
+    if( currentActive !== undefined) {
+      const newNotes = [...dataPianoNotes].filter(item => item.name !== note || item.step !== col);
+      props.setDataPiano({...dataPiano, notes: [...newNotes]});
+    
+    // Sinon, ajouter la note
     } else {
-      e.target.classList.add('test')
-      /* console.log(note, e.currentTarget.getAttribute('data-id'))
-      let col = e.currentTarget.getAttribute('data-id')
-      let touche = note
-      savedNotes.map(item => {
-        if ( item.col === e.target.getAttribute('data-id') && item.note === e.target.getAttribute('data-note') ) {
-             console.log('fault')
-        }
-      })
-      props.setSavedNotes(old => [...old, {
-        col: col,
-        note: touche
-      }]) 
-      return localStorage.setItem('savedNote', JSON.stringify(savedNotes)) */
-      //console.log(savedNotes)
+      const newNotes = [...dataPianoNotes, {
+          name: note,
+          midi: noteMidiCompare(note),
+          step: col,
+          time: 0,
+          velocity: 1,
+          duration: 0.2
+      }]
+      props.setDataPiano({...dataPiano, notes: [...newNotes]});
     }
   }
 
-
-  useEffect(() => {
-    let divs = document.querySelectorAll('.piano_grid div')
-
-    divs.forEach(element => {
-      element.classList.remove('test')
-    });
-
-    setTimeout(() => {
-      savedNotes.map(item => {
-        divs.forEach(element => {
-          if (element.getAttribute('data-id') === item.col && element.getAttribute('data-note') === item.note) {
-            element.classList.add('test')
-          }
-        });
-      })
-    }, 10);
-
-
-   // localStorage.setItem('savedNote', JSON.stringify(savedNotes))
-  })
-
-
-  // navigator.requestMIDIAccess().then(access => {
-  //   const devices = access.inputs.values()
-  //   for (let device of devices) {
-  //     console.log(device);
-  //     device.onmidimessage = OnMidiMessage
-  //   }
-  //   console.log(access)
-  // })
-
-  // function OnMidiMessage(message) {
-  //   console.log(message);
-  // }
-
-  function loopDiv() {
-    for (let d = 0; d < 20; d++) {
-      div.push(d)
-    }
-  }
-
-  loopDiv()
+  /*
+  * --------
+  * RENDER
+  * --------
+  */
 
   return (
     <div className="board">
+      
       <div className="clavier-container" id="keyboard">
-
-        {
-          note.map((item, index) => {
-            if (item.includes("#")) {
-              return (
-                <div onClick={() => synth.triggerAttackRelease(item, "8n")} key={index} value={item} className="black key"></div>
-              )
-            }
-            else {
-              if (item.includes('C')) {
-                if (item.includes('#')) {
-
-                }
-                else {
-                  return (
-                    <div onClick={() => synth.triggerAttackRelease(item, "8n")} key={index} value={item} className="white key">{item}</div>
-                  )
-                }
-              }
-              else {
-                return (
-                  <div onClick={() => synth.triggerAttackRelease(item, "8n")} key={index} value={item} className="white key"></div>
-                )
-              }
-            }
-          })
-        }
+        { notes.map((note, index) =>
+          <div
+            onClick={() => synth.triggerAttackRelease(note.name, "8n")}
+            key={`${index}_keyboard`}
+            className={("key", note.name.includes('#') ? "black" : "white")}>
+              { note.name.includes('C') && note.name }
+          </div>
+        )}
       </div>
 
       <section className="piano-containter">
-        {note.map((touch, index) => {
-          return (
-            <section className={touch.includes('#') ? "piano_grid black" : "piano_grid white"}>
-              {div.map((item, index) => {
-                return <div
-                  data-note={touch}
-                  data-id={index}
-                  onClick={(e) => playNote(touch, e)}
-                  key={index}>{/* {touch} */}</div>
-              })}
-              {touch.includes('#') ? <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-black"></button> : <button onClick={(e) => playNote(touch, e)} key={index} className="piano_grid_note-white">{touch.includes('C') ? (touch.includes('#') ? "" : touch) : ""}</button>}
-            </section>
-          )
-        })}
+        {notes.map( note =>
+          <section className={note.name.includes('#') ? "piano_grid black" : "piano_grid white"}>
+            {steps.map((step, index) =>
+              <div
+                data-note={note.name}
+                data-id={index}
+                onClick={(ev) => playNote(note.name, index)}
+                key={index}
+                className={generateActiveClass(note.name, index)}>
+              </div>
+            )}
+          </section>
+        )}
       </section>
     </div>
   );
 }
 
-
-export default React.memo(PianoRoll)
+// Pourquoi React.memo ?
+export default PianoRoll
