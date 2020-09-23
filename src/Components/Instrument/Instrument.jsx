@@ -6,6 +6,7 @@ import Play from "../../Components/Play/Play";
 import * as Tone from 'tone';
 import {PlayProvider} from "../../context/playContext";
 
+
 function Instrument() {
 
   /*
@@ -15,6 +16,7 @@ function Instrument() {
    */
   
    const {dataInstrument, setDataInstrument} = useContext(instrumentContext);
+  
 
    /*
    * -------------

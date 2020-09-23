@@ -30,7 +30,7 @@ function App() {
 
     stepsNum: 16,
 
-    notes: [
+    notesList: [
       { name: "A0", midi: 21 }, { name: "A#0", midi: 22 }, { name: "B0", midi: 23 },
       { name: "C1", midi: 24 }, { name: "C#1", midi: 25 }, { name: "D1", midi: 26 }, { name: "D#1", midi: 27 }, { name: "E1", midi: 28 }, { name: "F1", midi: 29 }, { name: "F#1", midi: 30 }, { name: "G1", midi: 31 }, { name: "G#1", midi: 32 }, { name: "A1", midi: 33 }, { name: "A#1", midi: 34 }, { name: "B1", midi: 35 },
       { name: "C2", midi: 36 }, { name: "C#2", midi: 37 }, { name: "D2", midi: 38 }, { name: "D#2", midi: 39 }, { name: "E2", midi: 40 }, { name: "F2", midi: 41 }, { name: "F#2", midi: 42 }, { name: "G2", midi: 43 }, { name: "G#2", midi: 44 }, { name: "A2", midi: 45 }, { name: "A#2", midi: 46 }, { name: "B2", midi: 47 },
@@ -40,21 +40,20 @@ function App() {
       { name: "C6", midi: 84 }, { name: "C#6", midi: 85 }, { name: "D6", midi: 86 }, { name: "D#6", midi: 87 }, { name: "E6", midi: 88 }, { name: "F6", midi: 89 }, { name: "F#6", midi: 90 }, { name: "G6", midi: 91 }, { name: "G#6", midi: 92 }, { name: "A6", midi: 93 }, { name: "A#6", midi: 94 }, { name: "B6", midi: 95 },
       { name: "C7", midi: 96 }, { name: "C#7", midi: 97 }, { name: "D7", midi: 98 }, { name: "D#7", midi: 99 }, { name: "E7", midi: 100 }, { name: "F7", midi: 101 }, { name: "F#7", midi: 102 }, { name: "G7", midi: 103 }, { name: "G#7", midi: 104 }, { name: "A7", midi: 105 }, { name: "A#7", midi: 106 }, { name: "B7", midi: 107 },
       { name: "C8", midi: 108 }, { name: "C#8", midi: 109 }
-    ],
-
-tracks: [
-    {
-      name: "A0",
-      duration: 0.2,
-      steps: generateSteps(16)
-    },
-    {
-      name: "D7",
-      duration: 0.2,
-      steps: generateSteps(16)
-    },
-  ],
+    ]
 });
+
+const [dataTracks, setDataTracks] = useState({
+  notes: [
+    {
+      name:"A0",
+      duration:0,
+      time: (60 / 120) * 0,
+      steps:0
+    }
+  ]
+});
+
 
   //Récupération du bpm lors du changement du range
   const handleBPM = (event) => {
@@ -74,8 +73,8 @@ tracks: [
   return (
     <BpmProvider value={{ dataBpm }}>
       <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
-        <StepSeqProvider value={{ dataStepSeq, setdataStepSeq }}>
-        <TrackerProvider value={{ dataTracker, setDataTracker }}>
+        <StepSeqProvider value={{ dataStepSeq,setdataStepSeq, dataTracks, setDataTracks}}>
+        <TrackerProvider value={{ dataTracker, setDataTracker}}>
           <div className="App">
             <header className="header">
               <button className="header_play-button"><i className="fas fa-play"></i></button>

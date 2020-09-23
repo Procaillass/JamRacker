@@ -26,9 +26,19 @@ function StepSequencer() {
   const updateStep = (trackIdx, stepIdx, trackNote) => {
     Tone.context.resume();
     const newTracks = [...tracks];
+    if(trackNote !== null){
+      const newNotes = dataTracks.notes.push(
+        {
+          name:trackNote,
+          duration: 2,
+          time: (60 / bpm) * stepIdx,
+          steps:stepIdx
+        }
+      )
+      setDataTracks({...dataTracks, newNotes});
+    }
     newTracks[trackIdx].steps[stepIdx] = newTracks[trackIdx].steps[stepIdx] === 0 ? 1 : 0;
     setdataStepSeq({ ...dataStepSeq, tracks: newTracks });
-    console.log(trackNote);
     instru.triggerAttackRelease(trackNote, 0.2);
   };
 
@@ -40,10 +50,12 @@ function StepSequencer() {
 
   const bpmContext = useContext(BpmContext);
   const bpm = bpmContext.dataBpm.bpm;
+  let midi;
   // console.log("bpm", bpmContext);
 
   const { dataStepSeq, setdataStepSeq } = useContext(StepSeqContext);
-  const notes = dataStepSeq.notes;
+  const { dataTracks, setDataTracks } = useContext(StepSeqContext);
+  const notesList = dataStepSeq.notesList;
   const tracks = Array.isArray(dataStepSeq.tracks) && dataStepSeq.tracks.length ? dataStepSeq.tracks : [];
   const steps = dataStepSeq.stepsNum;
 
@@ -80,8 +92,11 @@ function StepSequencer() {
     ev.preventDefault();
     if (ev.target.value !== "") {
       const note = ev.target.value;
+      console.log("noteAdd",note);
+     /*  midi = document.querySelector(".test").getAttribute('name') */
       const newTrack = { name: note, duration: 0, steps: generateSteps(steps) };
       setdataStepSeq({ ...dataStepSeq, tracks: [...dataStepSeq.tracks, newTrack] });
+      console.log("a",dataStepSeq,"b",dataStepSeq.tracks)
     }
     ev.target.value = "";
   };
@@ -96,7 +111,7 @@ function StepSequencer() {
   const handleClose = (ev) => {
     ev.preventDefault();
     //alert("close");
-    notes.map((note, index) => tracks.map(el => el.name).includes(note.name) === true && console.log('ok'));
+    notesList.map((note, index) => tracks.map(el => el.name).includes(note.name) === true && console.log('ok'));
   };
 
   const handleRemoveTrack = (name) => {
@@ -127,7 +142,6 @@ function StepSequencer() {
 
   //
   useEffect(() => {
-    console.log("steps", steps);
     const newTracks = [...tracks].map(el => ({ ...el, steps: generateSteps(steps) }));
     setdataStepSeq({ ...dataStepSeq, tracks: newTracks });
   }, [steps])
@@ -194,9 +208,9 @@ function StepSequencer() {
         {<div className="sequencer__controls">
           <select className="sequencer__addtrack" onChange={handleAddTrack}>
             <option value="">Add a track</option>
-            {notes.map((note, index) =>
+            {notesList.map((note, index) =>
               tracks.map(el => el.name).includes(note.name) === false &&
-              <option key={index + '_' + note.name} value={note.name}>{note.name}</option>
+              <option className="test" key={index + '_' + note.name} value={note.name} name={note.midi}>{note.name}</option>
             )}
           </select>
           <button className="sequencer__play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
