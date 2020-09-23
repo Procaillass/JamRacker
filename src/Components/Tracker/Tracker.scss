@@ -1,14 +1,25 @@
+$box_bar: #26272b;
+$box_bg: #43454b;
+$sequencer_sound_bg: #393a40;
+$sequencer_step_bg: #26272b;
+$sequencer_step_marked_bg: #749292;
+$sequencer_step_col_bg: #362928;
+$sequencer_step_marqued_col_bg: #517878;
+$text: #87878a;
+
+
 .tracker {
     margin: 50px;
 
 }
 
 .selected {
-    background-color: #3a3a3a;
+    background-color: #3a3a3a !important;
+    color: $text !important;
 }
 
 .disable {
-    display: none;
+    display: none !important;
 }
 
 .tracker .box__content {
@@ -17,10 +28,12 @@
 
 .tracker_menu {
     border: 5px solid rgb(43, 43, 43);
-    min-width: 300px;
+    min-width: 360px;
+    max-width: 360px;
 
     & nav {
     display: flex;
+    justify-content: space-between;
     }
 }
 
@@ -29,6 +42,8 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     border: 5px solid rgb(119, 119, 119);
+    min-height: 500px;
+    max-height: 500px;
 
     &__piste {
         list-style: none;
@@ -48,3 +63,96 @@
     }
 
 }
+
+.tracker_menu__nav__container__browser {
+
+    display: flex;
+    flex-direction: column;
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+    }
+}
+
+.tracker_menu__nav__container__project__buttons {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    padding: 1rem;
+}
+
+.tracker_menu__nav__container__inspector__fx {
+
+    display: flex;
+
+    & select {max-width: 175px;}
+    & input {max-width: 120px;}
+    & label {max-width: 55px;
+    min-width: 55px;}
+    
+}
+
+.button {
+    display: inline-block;
+    padding: .7rem 1rem;
+    font: inherit;
+    font-size: inherit;
+    transition: all 0.5s ease;
+    background-color: $text;
+    color: $box_bar;
+    border: 1px solid $text;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: inherit;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: $box_bar;
+      border: 1px solid $box_bar;
+      color: $text;
+    }
+
+    &:focus {
+      box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+      outline:0;
+    }
+
+    &_pink {
+        background-color: pink !important;
+      }
+      &_red {
+        background-color: red !important;
+      }
+      &_orange {
+        background-color: orange !important;
+      }
+      &_blue {
+        background-color: blue !important;
+      }
+      &_violet {
+        background-color: violet !important;
+      }
+      &_yellow {
+        background-color: yellow !important;
+      }
+      &_green {
+        background-color: green !important;
+      }
+ }
+
+ .input {
+
+    background-color: rgb(224, 224, 224) !important;
+
+ }
+
+ textarea {
+    max-width: 100%;
+ }
