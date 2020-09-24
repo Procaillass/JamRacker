@@ -1,0 +1,101 @@
+.audio-generator {
+  margin: 50px 50px;
+}
+
+.ag__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.ag__content > * + * {
+  margin-left: 1rem;
+}
+
+.button {
+  display: inline-block;
+  padding: .7rem 1rem;
+  font: inherit;
+  font-size: inherit;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: #87878a;
+  color: #26272b;
+  border: 1px solid #87878a;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: inherit;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.button:hover {
+  background-color: #26272b;
+  border: 1px solid #26272b;
+  color: #87878a;
+}
+
+.button:focus {
+  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  outline: 0;
+}
+
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 36px;
+  height: 50px;
+}
+
+.loader div {
+  display: inline-block;
+  position: absolute;
+  left: 10px;
+  width: 3px;
+  background: #fff;
+  -webkit-animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+          animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.loader div:nth-child(1) {
+  left: 10px;
+  -webkit-animation-delay: -0.24s;
+          animation-delay: -0.24s;
+}
+
+.loader div:nth-child(2) {
+  left: 18px;
+  -webkit-animation-delay: -0.12s;
+          animation-delay: -0.12s;
+}
+
+.loader div:nth-child(3) {
+  left: 26px;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+}
+
+@-webkit-keyframes loader {
+  0% {
+    top: 0px;
+    height: 50px;
+  }
+  50%, 100% {
+    top: 20px;
+    height: 10px;
+  }
+}
+
+@keyframes loader {
+  0% {
+    top: 0px;
+    height: 50px;
+  }
+  50%, 100% {
+    top: 20px;
+    height: 10px;
+  }
+}
+/*# sourceMappingURL=AudioGenerator.css.map */

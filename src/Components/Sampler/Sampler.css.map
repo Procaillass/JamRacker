@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACL,MAAM,EAAE,MAAM;CACjB;;AAED,AAAA,WAAW,CAAC;EAER,KAAK,EAAE,KAAK;CACf;;AAED,AAAA,qBAAqB,CAAC;EAClB,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,eAAe;EACtC,eAAe,EAAE,GAAG;CACvB",
+    "sources": [
+        "Sampler.scss"
+    ],
+    "names": [],
+    "file": "Sampler.css"
+}
