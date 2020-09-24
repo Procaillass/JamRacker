@@ -45,12 +45,12 @@ function App() {
 
 const [dataTracks, setDataTracks] = useState({
   notes: [
-    {
+    /* {
       name:"A0",
       duration:0,
       time: (60 / 120) * 0,
       steps:0
-    }
+    } */
   ]
 });
 
