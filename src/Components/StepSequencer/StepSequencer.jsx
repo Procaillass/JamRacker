@@ -148,7 +148,7 @@ function StepSequencer() {
 
 
   //
-  useEffect(() => {
+ /*  useEffect(() => {
     Tone.Transport.cancel();
     Tone.Transport.scheduleRepeat((time) => {
       tracks.forEach((track, index) => {
@@ -160,7 +160,7 @@ function StepSequencer() {
       setColIndex(stepIndex.current);
       stepIndex.current = (stepIndex.current + 1) % steps;
     }, steps + "n");
-  }, [tracks]);
+  }, [tracks]); */
 
   /*
   * -------------

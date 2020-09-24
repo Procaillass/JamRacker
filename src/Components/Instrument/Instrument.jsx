@@ -40,6 +40,12 @@ function Instrument() {
         case 'AMSynth':
         setInst(new Tone.AMSynth().toDestination());
         break;
+        case 'PluckSynth':
+        setInst(new Tone.PluckSynth().toDestination());
+        break;
+        case 'PolySynth':
+        setInst(new Tone.PolySynth().toDestination());
+        break;
         default:
         console.log(`Sorry bro.`);
     }
@@ -84,6 +90,8 @@ return (
         <option value="">Choisir un instrument</option>
         <option value="Synth">Synth</option>
         <option value="AMSynth">AMSynth</option>
+        <option value="PluckSynth">PluckSynth</option>
+        <option value="PolySynth">PolySynth</option>
       </select>
       <>
       <PlayProvider value={{inst, setInst}}>
