@@ -46,6 +46,16 @@ export default function PianoRoll() {
     setoctLength(old => [...old, Math.min(...old) -1])
   }
 
+  const SavePatern = (ev) => {
+    ev.preventDefault();
+    alert("Save patern to DB");
+  }
+
+  const handleClose = (ev) => {
+    ev.preventDefault();
+    alert("Save patern to DB");
+  }
+
   /*
   * --------
   * RENDER
@@ -53,14 +63,27 @@ export default function PianoRoll() {
   */
   
   return (
-    <div className="Roll">
-      <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
-      <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
+    <div class="box">
+      <div className="box__bar">
+        <div className="box__title">Sequencer</div>
+        <button className="box__close" onClick={handleClose}>X</button>
+      </div>
+      <div className="box__content">
+        <div className="Roll">
+          <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
+          <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
 
-      {octLength.map((item, index) =>
-        <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
-      )}
+          {octLength.map((item, index) =>
+            <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
+          )}
 
+          <form onSubmit={SavePatern}>
+            <input className="roll-patern-title" />
+            <button className="roll-save-patern">Enregistrer</button>
+          </form>
+
+        </div>
+      </div>
     </div>
   );
 }

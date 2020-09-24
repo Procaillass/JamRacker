@@ -55,10 +55,19 @@ function PianoRoll(props) {
 
   const generateActiveClass = (note, col) => {
     const currentActive = [...dataPianoNotes].find( el => el.name === note && el.step === col );
-    if( currentActive !== undefined) return 'test';
+    if( currentActive !== undefined) return `test`;
   }
 
-  const playNote = (note, col) =>  {
+  const generateActiveStyles = (note, col) => {
+    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.step === col );
+    const styles = {gridColumnStart: col+1, gridRow: 1}
+    if( currentActive !== undefined)  styles.gridColumnEnd = `span ${currentActive.stepNum}`;
+    return styles;
+  }
+
+  const playNote = (ev, note, col) =>  {
+
+    if(ev.target.classList.contains("piano-modify-duration")) return;
 
     // Jouer la note
     synth.triggerAttackRelease(note, "8n")
@@ -77,6 +86,7 @@ function PianoRoll(props) {
           name: note,
           midi: noteMidiCompare(note),
           step: col,
+          stepNum: 1,
           time: 0,
           velocity: 1,
           duration: 0.2
@@ -84,6 +94,31 @@ function PianoRoll(props) {
       props.setDataPiano({...dataPiano, notes: [...newNotes]});
     }
   }
+
+  const modifyDuration = (ev, note, col, modifier) => {
+
+    // Recupère la note donc active
+    const currentNote = [...dataPianoNotes].find( el => el.name === note && el.step === col );
+    // Recupère l'index de la active
+    const currentNoteIndex = [...dataPianoNotes].indexOf( currentNote );
+
+    // Si la note existe
+    if( currentNoteIndex !== -1) {
+      const newNotes = [...dataPianoNotes];
+
+      let newStepNum = newNotes[currentNoteIndex].stepNum
+      if( modifier === "longer") {
+        newStepNum ++;
+      }
+      if( modifier === "shorter" && newStepNum > 1) {
+        newStepNum --;
+      }
+      
+      synth.triggerAttackRelease(note, newStepNum/16+"n")
+      newNotes[currentNoteIndex].stepNum = newStepNum;
+      props.setDataPiano({...dataPiano, notes: [...newNotes]});
+    }
+  };
 
   /*
   * --------
@@ -112,9 +147,21 @@ function PianoRoll(props) {
               <div
                 data-note={note.name}
                 data-id={index}
-                onClick={(ev) => playNote(note.name, index)}
+                onClick={(ev) => playNote(ev, note.name, index)}
+                //onWheel={(ev) => modifyDuration(ev, note.name, index)}
                 key={index}
-                className={generateActiveClass(note.name, index)}>
+                className={generateActiveClass(note.name, index)}
+                style={generateActiveStyles(note.name, index)}>
+                  
+                <span
+                  onClick={(ev) => modifyDuration(ev, note.name, index, "shorter")}
+                  className="piano-modify-duration piano-shorter-duration">
+                </span>
+                  
+                  <span
+                    onClick={(ev) => modifyDuration(ev, note.name, index, "longer")}
+                    className="piano-modify-duration piano-longer-duration">
+                  </span>
               </div>
             )}
           </section>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './box.scss';
 import './App.scss';
 import PianoRoll from './components/PianoRoll/PianoRoll'
 import { PianoProvider } from './context/PianoContext';

@@ -128,10 +128,14 @@ body {
   padding-top: 5rem;
   padding-bottom: 3rem;
 }
+.Roll {
+  background-color: $dark-color-2;
+  padding: 2rem 1rem 1rem 1rem;
+
+}
 .board {
   width: 100%;
   display: flex;
-  margin-left: 3rem;
 }
 .board-content {
   width: 100%;
@@ -178,6 +182,7 @@ body {
 
 .test {
   background-color: rgba(88,235,144,.8) !important;
+  z-index: 1;
 }
 
 //quentin
@@ -203,9 +208,8 @@ body {
 
 .Roll {
   .board:nth-child(3) {
-    :nth-child(2) {
-      :first-child {
-        :nth-child(4n + 1) {
+    .piano_grid:first-child {
+        > :nth-child(4n + 1) {
           position: relative;
           &::before {
             counter-increment: col;
@@ -217,7 +221,6 @@ body {
           }
         }
       }
-    }
   }
 
   .board {
@@ -305,4 +308,30 @@ body {
   width: 8rem !important;
   padding: 1rem;
   margin: 0rem 1rem 3rem 1rem;
+}
+
+.piano-modify-duration {
+  display: none;
+  position: absolute;
+  top: 0px;
+  height: calc(100%);
+  width: calc(15px);
+  background: rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+.piano-longer-duration {
+  right: 0px;
+}
+
+.piano-shorter-duration {
+  left: 0px;
+}
+
+.test {
+  position: relative;
+}
+
+.test .piano-modify-duration {
+  display: block;
 }
