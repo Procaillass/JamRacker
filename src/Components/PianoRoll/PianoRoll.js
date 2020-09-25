@@ -69,7 +69,7 @@ export default function PianoRoll() {
   return (
     <div class="box">
       <div className="box__bar">
-        <div className="box__title">Sequencer</div>
+        <div className="box__title"><h2>Piano</h2></div>
         <button className="box__close" onClick={handleClose}>X</button>
       </div>
       <div className="box__content">
