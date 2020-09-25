@@ -366,9 +366,17 @@ main{
 .test .piano-modify-duration {
   display: block;
 }
-.roll-patern-content {
-  margin: 3rem 0 0 0;
+.roll-save-patern{
+  margin-bottom: 0;
 }
 .roll-patern-title {
   padding: 0.5rem 1rem;
+}
+.piano__controls{
+    display: flex;
+    align-items: center;
+    margin: 0 0 3rem 0;
+    justify-content: space-between;
+    max-width: 50%;
+    margin-top: 3rem;
 }

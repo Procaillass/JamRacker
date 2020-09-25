@@ -81,12 +81,13 @@ export default function PianoRoll() {
             <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
           )}
           
-          <Play dataTracks={dataPiano} instrument={inst} />
-
-          <form onSubmit={SavePatern}>
-            <input className="roll-patern-title" />
-            <button className="roll-save-patern">Enregistrer</button>
-          </form>
+          <div className="piano__controls">
+            <form onSubmit={SavePatern}>
+              <input className="roll-patern-title" />
+              <button className="roll-save-patern">Enregistrer</button>
+            </form>
+            <Play dataTracks={dataPiano} instrument={inst} />
+          </div>
 
         </div>
       </div>
