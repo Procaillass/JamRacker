@@ -132,7 +132,7 @@ function StepSequencer() {
   }, [bpm]);
 
 
-  // START / STOP PLAYING
+  // START / STOP PLAYING/
   useEffect(() => {
     if (playing) { Tone.Transport.start(); }
     else { Tone.Transport.stop(); }
