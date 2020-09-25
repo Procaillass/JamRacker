@@ -4,8 +4,6 @@ import * as Tone from 'tone'
 //import { Loop } from 'tone';
 import MusicalNotesContext from "../../context/MusicalNotesContext.js";
 
-console.log("ok");
-
 function PianoRoll(props) {
 
   /*
@@ -56,12 +54,12 @@ function PianoRoll(props) {
   }
 
   const generateActiveClass = (note, col) => {
-    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.steps === col );
+    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.step === col );
     if( currentActive !== undefined) return `test`;
   }
 
   const generateActiveStyles = (note, col) => {
-    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.steps === col );
+    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.step === col );
     const styles = {gridColumnStart: col+1, gridRow: 1}
     if( currentActive !== undefined)  styles.gridColumnEnd = `span ${currentActive.stepNum}`;
     return styles;
@@ -75,11 +73,11 @@ function PianoRoll(props) {
     synth.triggerAttackRelease(note, "8n")
 
     // Chercher si la note existe (donc active)
-    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.steps === col );
+    const currentActive = [...dataPianoNotes].find( el => el.name === note && el.step === col );
     
     // Si la note existe, retirer la note
     if( currentActive !== undefined) {
-      const newNotes = [...dataPianoNotes].filter(item => item.name !== note || item.steps !== col);
+      const newNotes = [...dataPianoNotes].filter(item => item.name !== note || item.step !== col);
       props.setDataPiano({...dataPiano, notes: [...newNotes]});
     
     // Sinon, ajouter la note
@@ -87,7 +85,7 @@ function PianoRoll(props) {
       const newNotes = [...dataPianoNotes, {
           name: note,
           midi: noteMidiCompare(note),
-          steps: col,
+          step: col,
           stepNum: 1,
           time: 0,
           velocity: 1,
@@ -100,7 +98,7 @@ function PianoRoll(props) {
   const modifyDuration = (ev, note, col, modifier) => {
 
     // Recupère la note donc active
-    const currentNote = [...dataPianoNotes].find( el => el.name === note && el.steps === col );
+    const currentNote = [...dataPianoNotes].find( el => el.name === note && el.step === col );
     // Recupère l'index de la active
     const currentNoteIndex = [...dataPianoNotes].indexOf( currentNote );
 
@@ -118,7 +116,6 @@ function PianoRoll(props) {
       
       synth.triggerAttackRelease(note, newStepNum/16+"n")
       newNotes[currentNoteIndex].stepNum = newStepNum;
-      newNotes[currentNoteIndex].duration = newStepNum/16+"n";
       props.setDataPiano({...dataPiano, notes: [...newNotes]});
     }
   };

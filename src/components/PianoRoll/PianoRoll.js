@@ -2,11 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import '../../App.scss';
 import PinaoOctave from './PianoOctave'
 import PianoContext from "../../context/PianoContext.js";
-import Instrument from '../Instrument/Instrument';
-import Play from "../../Components/Play/Play";
-import * as Tone from 'tone';
-
-console.log("ok");
 
 export default function PianoRoll() {
 
@@ -25,7 +20,6 @@ export default function PianoRoll() {
   */
 
   const [octLength, setoctLength] = useState([5]);
-  const [inst, setInst] = useState(new Tone.PolySynth().toDestination());
 
   /*
   * --------
@@ -71,7 +65,7 @@ export default function PianoRoll() {
   return (
     <div class="box">
       <div className="box__bar">
-        <div className="box__title">Piano</div>
+        <div className="box__title">Sequencer</div>
         <button className="box__close" onClick={handleClose}>X</button>
       </div>
       <div className="box__content">
@@ -82,8 +76,6 @@ export default function PianoRoll() {
           {octLength.map((item, index) =>
             <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
           )}
-          
-          <Play dataTracks={dataPiano} instrument={inst} />
 
           <form onSubmit={SavePatern}>
             <input className="roll-patern-title" />
