@@ -8,7 +8,7 @@ function PianoRoll(props) {
 
   /*
   * --------
-  * SYNTH
+  * SYNTH /
   * --------
   */
   

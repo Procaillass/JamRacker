@@ -7,7 +7,7 @@ export default function PianoRoll() {
 
   /*
   * --------
-  * CONTEXT
+  * CONTEXT /
   * --------
   */
 
