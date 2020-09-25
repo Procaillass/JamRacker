@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import '../../App.scss';
 import PinaoOctave from './PianoOctave'
 import PianoContext from "../../context/PianoContext.js";
+import Instrument from '../Instrument/Instrument';
 
 export default function PianoRoll() {
 
@@ -76,6 +77,8 @@ export default function PianoRoll() {
           {octLength.map((item, index) =>
             <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
           )}
+          
+          <Instrument dataTracks={dataPiano} />
 
           <form onSubmit={SavePatern}>
             <input className="roll-patern-title" />

@@ -92,11 +92,11 @@ function StepSequencer() {
     ev.preventDefault();
     if (ev.target.value !== "") {
       const note = ev.target.value;
-      console.log("noteAdd",note);
+      //console.log("noteAdd",note);
      /*  midi = document.querySelector(".test").getAttribute('name') */
       const newTrack = { name: note, duration: 0, steps: generateSteps(steps) };
       setdataStepSeq({ ...dataStepSeq, tracks: [...dataStepSeq.tracks, newTrack] });
-      console.log("a",dataStepSeq,"b",dataStepSeq.tracks)
+      //console.log("a",dataStepSeq,"b",dataStepSeq.tracks)
     }
     ev.target.value = "";
   };
@@ -183,7 +183,7 @@ function StepSequencer() {
             <label>{steps}</label>
             <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
           </div>
-          <Instrument />
+          <Instrument dataTracks={dataTracks} />
         </div>
         {tracks.map((track, trackIdx) => (
 

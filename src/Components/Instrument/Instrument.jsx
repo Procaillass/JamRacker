@@ -7,7 +7,7 @@ import * as Tone from 'tone';
 import {PlayProvider} from "../../context/playContext";
 
 
-function Instrument() {
+function Instrument({dataTracks}) {
 
   /*
    * -------------
@@ -47,7 +47,7 @@ function Instrument() {
         setInst(new Tone.PolySynth().toDestination());
         break;
         default:
-        console.log(`Sorry bro.`);
+          setInst(new Tone.Synth().toDestination());
     }
 }
 
@@ -82,7 +82,8 @@ function Instrument() {
     * -------------
     * RENDER
     * -------------
-    */ 
+    */
+   console.log("props inst", dataTracks);
 
 return (
   <div className="instrument">
@@ -95,7 +96,7 @@ return (
       </select>
       <>
       <PlayProvider value={{inst, setInst}}>
-        <Play />
+        <Play dataTracks={dataTracks} />
       </PlayProvider>
       </>
   </div>
