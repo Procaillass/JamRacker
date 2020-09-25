@@ -24,7 +24,7 @@ function Instrument({dataTracks}) {
    * -------------
    */
 
-  const [inst, setInst] = useState(new Tone.Synth().toDestination());
+  /* const [inst, setInst] = useState(new Tone.Synth().toDestination()); */
 
   /*
    * -------------
@@ -35,19 +35,19 @@ function Instrument({dataTracks}) {
   const changeInst = (newInst) => { 
   switch (newInst) {
         case 'Synth':
-        setInst(new Tone.Synth().toDestination());
+          setDataInstrument(new Tone.Synth().toDestination());
         break;
         case 'AMSynth':
-        setInst(new Tone.AMSynth().toDestination());
+          setDataInstrument(new Tone.AMSynth().toDestination());
         break;
         case 'PluckSynth':
-        setInst(new Tone.PluckSynth().toDestination());
+          setDataInstrument(new Tone.PluckSynth().toDestination());
         break;
         case 'PolySynth':
-        setInst(new Tone.PolySynth().toDestination());
+          setDataInstrument(new Tone.PolySynth().toDestination());
         break;
         default:
-          setInst(new Tone.Synth().toDestination());
+          setDataInstrument(new Tone.Synth().toDestination());
     }
 }
 
@@ -59,7 +59,7 @@ function Instrument({dataTracks}) {
  
   const handleInstrument = (ev) => {
     if (ev.target.value) {
-      setDataInstrument(ev.target.value);
+      changeInst(ev.target.value);
     }
   };
   
@@ -74,16 +74,16 @@ function Instrument({dataTracks}) {
     * -------------
     */
 
-    useEffect(() => {
+    /* useEffect(() => {
       changeInst(dataInstrument);
-  }, [dataInstrument]);
+  }, [dataInstrument]); */
 
   /*
     * -------------
     * RENDER
     * -------------
     */
-   console.log("props inst", dataTracks);
+   //console.log("props inst", dataTracks);
 
 return (
   <div className="instrument">
@@ -94,11 +94,6 @@ return (
         <option value="PluckSynth">PluckSynth</option>
         <option value="PolySynth">PolySynth</option>
       </select>
-      <>
-      <PlayProvider value={{inst, setInst}}>
-        <Play dataTracks={dataTracks} />
-      </PlayProvider>
-      </>
   </div>
   );
 }
