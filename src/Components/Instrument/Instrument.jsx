@@ -24,7 +24,7 @@ function Instrument() {
    * -------------
    */
 
-  const [inst, setInst] = useState(new Tone.Synth().toDestination());
+  const [inst, setInst] = useState();
 
   /*
    * -------------
@@ -85,9 +85,9 @@ function Instrument() {
     */ 
 
 return (
-  <div className="instrument">
+  <div className="sequencer__addtrack instrument">
       <select onChange={handleInstrument} name="" id="">
-        <option value="">Choisir un instrument</option>
+        <option value="">choose an instrument</option>
         <option value="Synth">Synth</option>
         <option value="AMSynth">AMSynth</option>
         <option value="PluckSynth">PluckSynth</option>

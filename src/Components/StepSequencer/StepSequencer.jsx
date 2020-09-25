@@ -30,7 +30,7 @@ function StepSequencer() {
       const newNotes = dataTracks.notes.push(
         {
           name:trackNote,
-          duration: 2,
+          duration: 0,
           time: (60 / bpm) * stepIdx,
           steps:stepIdx
         }
@@ -92,7 +92,6 @@ function StepSequencer() {
     ev.preventDefault();
     if (ev.target.value !== "") {
       const note = ev.target.value;
-      console.log("noteAdd",note);
      /*  midi = document.querySelector(".test").getAttribute('name') */
       const newTrack = { name: note, duration: 0, steps: generateSteps(steps) };
       setdataStepSeq({ ...dataStepSeq, tracks: [...dataStepSeq.tracks, newTrack] });
@@ -178,7 +177,7 @@ function StepSequencer() {
       </div>
 
       <div className="box__content">
-        <div className="box__action">
+        <div className="sequencer__controls">
           <div>
             <label>{steps}</label>
             <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
@@ -189,7 +188,7 @@ function StepSequencer() {
 
           <div className="sequencer__row" key={trackIdx + "_" + track.name}>
             <div className="sequencer__sound">
-              <button className="btn__removeTrack" onClick={() => { if (window.confirm('Are you sure you want to delete the track ?')) { handleRemoveTrack(track.name) } }}>Remove sound</button>
+              <button className="btn__remove" onClick={() => { if (window.confirm('Are you sure you want to delete the track ?')) { handleRemoveTrack(track.name) } }}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#a7080b" width="24px" height="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
               <span>{track.name}</span>
             </div>
             <div data-step={steps} className="sequencer__track">
@@ -210,10 +209,10 @@ function StepSequencer() {
             <option value="">Add a track</option>
             {notesList.map((note, index) =>
               tracks.map(el => el.name).includes(note.name) === false &&
-              <option className="test" key={index + '_' + note.name} value={note.name} name={note.midi}>{note.name}</option>
+              <option key={index + '_' + note.name} value={note.name} name={note.midi}>{note.name}</option>
             )}
           </select>
-          <button className="sequencer__play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
+          {/* <button className="sequencer__play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button> */}
         </div>}
 
       </div>

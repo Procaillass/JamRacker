@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useRef, useContext } from "react";
 import instrumentContext from "../../context/instrumentContext";
+import "./Play.scss";
 import * as Tone from 'tone';
 import PlayContext from "../../context/playContext";
 import StepSeqContext from "../../context/stepSequencerContext";
@@ -131,6 +132,6 @@ function Play() {
     * -------------
     */
     
-    return ( <button className="play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button> );
+    return ( <button className="play__button" onClick={handlePlaying}>{playing ? "stop" : "play"}</button> );
 }
 export default Play;

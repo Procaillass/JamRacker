@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import { useHistory } from 'react-router';
 import './App.scss';
+import './box.scss';
+/**Components*/
 import StepSequencer from './Components/StepSequencer/StepSequencer';
 import Sampler from './Components/Sampler/Sampler';
 import Tracker from './Components/Tracker/Tracker';
 import AudioGenerator from './Components/AudioGenerator/AudioGenerator';
-/**Context for sequencer */
+import PianoRoll from './Components/PianoRoll/PianoRoll'
+import MenuNav from './Components/MenuNav/MenuNav'
+/**Context*/
 import { BpmProvider } from './context/bpmContext';
 import { InstrumentProvider } from './context/instrumentContext';
 import { StepSeqProvider } from './context/stepSequencerContext';
 import { TrackerProvider } from './context/trackerContext';
-
-import './box.scss';
-import PianoRoll from './Components/PianoRoll/PianoRoll'
 import { PianoProvider } from './context/PianoContext';
 import { MusicalNotesProvider } from './context/MusicalNotesContext';
 
@@ -61,7 +64,7 @@ function App() {
   const [dataBpm, setDataBpm] = useState({ bpm: 100 });
   const [dataInstrument, setDataInstrument] = useState("");
   const [dataStepSeq, setdataStepSeq] = useState({
-
+ 
     stepsNum: 16,
 
     notesList: [
@@ -74,6 +77,24 @@ function App() {
       { name: "C6", midi: 84 }, { name: "C#6", midi: 85 }, { name: "D6", midi: 86 }, { name: "D#6", midi: 87 }, { name: "E6", midi: 88 }, { name: "F6", midi: 89 }, { name: "F#6", midi: 90 }, { name: "G6", midi: 91 }, { name: "G#6", midi: 92 }, { name: "A6", midi: 93 }, { name: "A#6", midi: 94 }, { name: "B6", midi: 95 },
       { name: "C7", midi: 96 }, { name: "C#7", midi: 97 }, { name: "D7", midi: 98 }, { name: "D#7", midi: 99 }, { name: "E7", midi: 100 }, { name: "F7", midi: 101 }, { name: "F#7", midi: 102 }, { name: "G7", midi: 103 }, { name: "G#7", midi: 104 }, { name: "A7", midi: 105 }, { name: "A#7", midi: 106 }, { name: "B7", midi: 107 },
       { name: "C8", midi: 108 }, { name: "C#8", midi: 109 }
+    ],
+
+    tracks: [
+      {
+        name:"A0",
+        duration: 0, 
+        steps: generateSteps() 
+      },
+      {
+        name:"c1",
+        duration: 0, 
+        steps: generateSteps() 
+      },
+      {
+        name:"c4",
+        duration: 0, 
+        steps: generateSteps() 
+      }
     ]
 });
 
@@ -97,12 +118,13 @@ const [dataTracks, setDataTracks] = useState({
     })
   }
 
-  const handleInstrument = (event) => {
+  /* const handleInstrument = (event) => {
     const instrument = event.target.value
     setDataInstrument({
       instrument
     })
-  }
+  } */
+
 
   return (
     <MusicalNotesProvider value={musicalNotes}>
@@ -111,45 +133,50 @@ const [dataTracks, setDataTracks] = useState({
       <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
         <StepSeqProvider value={{ dataStepSeq,setdataStepSeq, dataTracks, setDataTracks}}>
         <TrackerProvider value={{ dataTracker, setDataTracker}}>
-          <div className="App">
-            <header className="header">
-              <button className="header_play-button"><i className="fas fa-play"></i></button>
-              <div className="header_bpm-container">
-                <p>BPM:</p>
-                <label>{dataBpm.bpm}</label>
-                <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
-              </div>
-              <div className="header_patern-container">
-                <p>Patern:</p>
-                <input defaultValue="1" min="1" max="300" type="number"></input>
-              </div>
-              <select onChange={handleInstrument} className="header_select">
-                <option selected>Home</option>
-                <option>Sequencer</option>
-                <option>Playlist</option>
-              </select>
-        <nav className="header_nav">
-          <ul className="header_nav-list">
-            <li title="Step Sequencer"><i className="fas fa-th-list"></i></li>
-            <li title="Tracker"><i className="fas fa-list-ol"></i></li>
-          </ul>
-        </nav>
-            </header>
+          <Router besename="/">
+            <div className="App">
+              <header className="header">
+                <button className="header_play-button"><i className="fas fa-play"></i></button>
+                <div className="header_bpm-container">
+                  <p>BPM:</p>
+                  <label>{dataBpm.bpm}</label>
+                  <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
+                </div>
+                <div className="header_patern-container">
+                  <p>Patern:</p>
+                  <input defaultValue="1" min="1" max="300" type="number"></input>
+                </div>
+                <MenuNav/>
+                {/* <nav className="header_nav">
+                  <ul className="header_nav-list">
+                    <li title="Step Sequencer"><i className="fas fa-th-list"></i></li>
+                    <li title="Tracker"><i className="fas fa-list-ol"></i></li>
+                  </ul>
+                </nav> */}
+              </header>
 
-            <main>
-              <>
-                {/* <Pattern/> ici => objet contenant les pattern */}
-                <div className="piano_global"><PianoRoll /></div>
-                <StepSequencer />
-                <Tracker />
-
-
-                <Sampler />
-                <AudioGenerator />
-                {/* Route et composant */}
-              </>
-            </main>
-          </div>
+              <main>
+                <>
+                  {/* <Pattern/> ici => objet contenant les pattern */}
+                   {/* Route et composant */}
+                  <Switch>
+                    <Route exact path="/">
+                        <div className="piano_global"><PianoRoll /></div>
+                        <StepSequencer />
+                        <Sampler />
+                        <AudioGenerator />
+                    </Route>
+                  </Switch>
+                  <Switch>
+                    <Route exact path="/playlist">
+                      <Tracker />
+                    </Route>
+                  </Switch>
+                </>
+              </main>
+            </div>
+            
+          </Router>
           </TrackerProvider>
         </StepSeqProvider>
       </InstrumentProvider>

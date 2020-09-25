@@ -78,10 +78,12 @@ body {
 
   &_bpm-container {
     display: flex;
-    align-items: center;
+    align-items: center; 
     border-bottom: 1px solid $light-color;
-    margin: 0 5px;
-    p {
+    margin-right: 10px;
+    flex-basis: 10%; //Fixer une largeur pour le changement du range
+    p,
+    label{
       color: $light-color;
       margin: 0 10px;
     }
