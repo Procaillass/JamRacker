@@ -10,6 +10,8 @@ import BpmContext from "../../context/bpmContext";
 //import Play from "../../Components/Play/Play";
 import StepSeqContext from "../../context/stepSequencerContext";
 import Instrument from '../Instrument/Instrument';
+import Play from "../../Components/Play/Play";
+import instrumentContext from "../../context/instrumentContext";
 
 function StepSequencer() {
 
@@ -30,7 +32,7 @@ function StepSequencer() {
       const newNotes = dataTracks.notes.push(
         {
           name:trackNote,
-          duration: 0,
+          duration: 0.2,
           time: (60 / bpm) * stepIdx,
           steps:stepIdx
         }
@@ -58,6 +60,8 @@ function StepSequencer() {
   const notesList = dataStepSeq.notesList;
   const tracks = Array.isArray(dataStepSeq.tracks) && dataStepSeq.tracks.length ? dataStepSeq.tracks : [];
   const steps = dataStepSeq.stepsNum;
+
+  const {dataInstrument, setDataInstrument} = useContext(instrumentContext);
 
   /*
   * -------------
@@ -92,10 +96,11 @@ function StepSequencer() {
     ev.preventDefault();
     if (ev.target.value !== "") {
       const note = ev.target.value;
+      //console.log("noteAdd",note);
      /*  midi = document.querySelector(".test").getAttribute('name') */
-      const newTrack = { name: note, duration: 0, steps: generateSteps(steps) };
+      const newTrack = { name: note, duration: 0.2, steps: generateSteps(steps) };
       setdataStepSeq({ ...dataStepSeq, tracks: [...dataStepSeq.tracks, newTrack] });
-      console.log("a",dataStepSeq,"b",dataStepSeq.tracks)
+      //console.log("a",dataStepSeq,"b",dataStepSeq.tracks)
     }
     ev.target.value = "";
   };
@@ -167,6 +172,8 @@ function StepSequencer() {
   * -------------
   */
 
+  console.log("instrument", instrumentContext);
+
   return (
 
     <div className="box sequencer">
@@ -182,7 +189,9 @@ function StepSequencer() {
             <label>{steps}</label>
             <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
           </div>
-          <Instrument />
+          <Instrument dataTracks={dataTracks} />
+          <Play dataTracks={dataTracks} instrument={dataInstrument} />
+
         </div>
         {tracks.map((track, trackIdx) => (
 
