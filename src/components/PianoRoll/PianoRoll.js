@@ -6,6 +6,8 @@ import Instrument from '../Instrument/Instrument';
 import Play from "../../Components/Play/Play";
 import * as Tone from 'tone';
 
+console.log("ok");
+
 export default function PianoRoll() {
 
   /*

@@ -4,6 +4,8 @@ import * as Tone from 'tone'
 //import { Loop } from 'tone';
 import MusicalNotesContext from "../../context/MusicalNotesContext.js";
 
+console.log("ok");
+
 function PianoRoll(props) {
 
   /*
