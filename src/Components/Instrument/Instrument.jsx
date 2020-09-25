@@ -92,6 +92,7 @@ return (
         <option value="AMSynth">AMSynth</option>
         <option value="PluckSynth">PluckSynth</option>
         <option value="PolySynth">PolySynth</option>
+        <option value="Sampler">Sampler</option>
       </select>
       <>
       <PlayProvider value={{inst, setInst}}>

@@ -60,7 +60,7 @@ function App() {
   // State Tracker
   const [dataTracker, setDataTracker] = useState({ volume: 100 });
 
-  /**State BPM */
+  /**State*/
   const [dataBpm, setDataBpm] = useState({ bpm: 100 });
   const [dataInstrument, setDataInstrument] = useState("");
   const [dataStepSeq, setdataStepSeq] = useState({
@@ -99,14 +99,7 @@ function App() {
 });
 
 const [dataTracks, setDataTracks] = useState({
-  notes: [
-    /* {
-      name:"A0",
-      duration:0,
-      time: (60 / 120) * 0,
-      steps:0
-    } */
-  ]
+  notes: []
 });
 
 
