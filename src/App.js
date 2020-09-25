@@ -157,7 +157,6 @@ const [dataTracks, setDataTracks] = useState({
                         <div className="piano_global"><PianoRoll /></div>
                         <StepSequencer />
                         <Sampler />
-                        <AudioGenerator />
                     </Route>
                   </Switch>
                   <Switch>

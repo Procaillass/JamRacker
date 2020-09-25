@@ -315,7 +315,7 @@ main{
   }
 }
 
-.plusBtn, .moinsBtn, .roll-save-patern{
+.plusBtn, .moinsBtn, .roll-save-patern , button{
       padding: .7rem 1rem;
       margin: 0rem 1rem 3rem 1rem;
       transition: all 0.5s ease;
@@ -366,7 +366,7 @@ main{
 .test .piano-modify-duration {
   display: block;
 }
-.roll-save-patern{
+.roll-save-patern, button{
   margin-bottom: 0;
 }
 .roll-patern-title {
@@ -376,7 +376,5 @@ main{
     display: flex;
     align-items: center;
     margin: 0 0 3rem 0;
-    justify-content: space-between;
-    max-width: 50%;
     margin-top: 3rem;
 }
