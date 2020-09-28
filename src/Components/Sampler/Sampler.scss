@@ -1,14 +1,42 @@
-.sampler {
-    margin: 0 50px;
-}
+$box_bar: #26272b;
+$box_bg: #43454b;
+$sequencer_sound_bg: #393a40;
+$sequencer_step_bg:rgb(77, 90, 90) /* #26272b */;
+$sequencer_step_marked_bg: #749292;
+$sequencer_step_col_bg: #27623e /* #362928 */;
+$sequencer_step_marqued_col_bg: #517878;
+$text: #87878a;
+$sequencer__controls_btn_bg: #004e88;
+$sequencer__controls_btn_color: #ffffff;
+$sequencer__controls_btn_border: #23236f;
 
-.box__title {
 
-    color: white;
-}
-
-.sampler_content_Lane {
+.sampler__Lane {
     display: grid;
-    grid-template-columns: 25% 25% 25% 15%;
-    grid-column-gap: 1em;
+    grid-template-columns: repeat(2, calc(45% - .4rem)) 10%;
+    grid-column-gap: .4rem;
+
+    > * {
+        background: $sequencer_sound_bg;
+        border: 0 none;
+        color: white;
+        padding: 1rem;
+
+    }
+
+    h3 {
+        font-size: inherit;
+    }
+
+    select {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+
+    }
+
+    &:not(:first-child) {
+        margin-top: 2px;
+    }
 }

@@ -26,63 +26,41 @@ function Sampler() {
             </div>
 
             <div className="box__content">
-               <div className="Roll">
-                    <div className="sampler_content">
-                            <div className="sampler_content_Lane">
-                                <div>Sounds</div>
-                                <div>Range</div>
-                                <div>(vide)</div>
-                                <div>loop</div>
-                            </div>
+                <div className="sampler__content">
 
-                            <div className="sampler_content_Lane">
-                                <select name="importSound" id="">
-                                    <option value="">piste 1</option>
-                                    <option value="">piste 2</option>
-                                </select>
+                <select className="sequencer__addtrack">
+                    <option value="">Choisir une composition</option>
+                    <option value="">Compo 01</option>
+                    <option value="">Compo 02</option>
+                </select>
+                    
+                    <div className="sampler__Lane">
+                        <h3>Sounds</h3>
+                        <h3>Note</h3>
+                        <h3>loop</h3>
+                    </div>
+                    
+                    <div className="sampler__Lane">
+                        <select className="sampler__sound">
+                            <option value="">Choisir un son</option>
+                            <option value="">piste 1</option>
+                            <option value="">piste 2</option>
+                        </select>
+                        
+                        <select className="sampler__note">
+                            <option value="">Choisir un range de départ</option>
+                            <option value="">piste 1</option>
+                            <option value="">piste 2</option>
+                        </select>
 
-                                <select name="range" id="">
-                                    <option value="">C3</option>
-                                    <option value="">C4</option>
-                                </select>
-
-                                <select name="" id="">
-                                    <option value="">B6</option>
-                                    <option value="">B5</option>
-                                </select>
-                                <input type="checkbox" />
-                            </div>
-
-                            <div className="new_sampler_row">
-                                <div className="sample_content_Lane">
-                                    <div>Import</div>
-                                </div>
-                                <div className="sampler_content_Lane">
-                                    <select name="importSound" id="">
-                                        <option value="">piste 1</option>
-                                        <option value="">piste 2</option>
-                                        <option value="">piste 3</option>
-                                    </select>
-
-                                    <select name="range" id="">
-                                        <option value="">C2</option>
-                                        <option value="">C1</option>
-                                    </select>
-
-                                    <select name="" id="">
-                                        <option value="">B6</option>
-                                        <option value="">B5</option>
-                                    </select>
-                                    <input type="checkbox" />
-                                </div>
-                            </div>
+                        <div className="sampler__loop">
+                            <input className="" type="checkbox" />
                         </div>
+                    </div>
+
                 </div>
             </div>
-
         </div>
-
-
     );
 }
 
