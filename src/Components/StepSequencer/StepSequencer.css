@@ -1,13 +1,100 @@
+<<<<<<< Updated upstream
 .row {
+=======
+/* #26272b */
+/* #362928 */
+.box {
+  background: #43454b;
+  background: #43454b;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.box__bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #26272b;
+}
+
+.box__close {
+  display: block;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  color: #87878a;
+  line-height: .2rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  background-color: #26272b;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.box__close:hover {
+  background-color: #87878a;
+  color: #26272b;
+}
+
+.box__content {
+  padding: 1rem;
+}
+
+.box__content label {
+  color: white;
+  padding: .5rem;
+}
+
+.box__action {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.box__title {
+  padding: .5rem 1rem;
+}
+
+.sequencer__row {
+>>>>>>> Stashed changes
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 20% 80%;
       grid-template-columns: 20% 80%;
 }
 
+<<<<<<< Updated upstream
 .trackName {
   background: tomato;
   border: 1px solid white;
+=======
+.sequencer__sound {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #393a40;
+  border: 1px solid #43454b;
+  color: white;
+  padding: 1rem;
+  text-transform: uppercase;
+>>>>>>> Stashed changes
 }
 
 .track {
@@ -20,6 +107,7 @@
 
 .step {
   padding-top: calc(100% - 2px);
+<<<<<<< Updated upstream
   border: 1px solid white;
   background-color: #ccc;
   cursor: pointer;
@@ -31,9 +119,85 @@
 
 .col {
   background-color: green;
+=======
+  border: 1px solid #43454b;
+  background-color: #4d5a5a;
+  cursor: pointer;
+}
+
+.sequencer__stepmarked {
+  background-color: #749292;
+}
+
+.sequencer__stepcol {
+  background-color: #27623e;
+}
+
+.sequencer__stepcol.sequencer__stepmarked {
+  background-color: #517878;
+}
+
+.sequencer__controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 0 3rem 0;
+}
+
+.sequencer__controls select:first-child {
+  margin-right: auto;
+}
+
+.sequencer__controls select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+}
+
+.sequencer__controls select, .sequencer__controls button {
+  padding: .7rem 1rem;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: #004e88;
+  color: #ffffff;
+  border: 1px solid #23236f;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.sequencer__controls select:hover, .sequencer__controls button:hover {
+  background-color: #003c69;
+  color: #d4d4d4;
+  border-color: #23235f;
+>>>>>>> Stashed changes
 }
 
 .marked.col {
   background-color: red;
+}
+
+.sequencer__controls .play__button {
+  margin: 0 0 0 1rem;
+}
+
+.sequencer__controls.below {
+  margin: 3rem 0;
+}
+
+.sequencer .btn__remove {
+  padding: .7rem .5rem;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: transparent;
+  border: none;
+}
+
+.sequencer .btn__remove:focus {
+  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  outline: 0;
 }
 /*# sourceMappingURL=StepSequencer.css.map */
