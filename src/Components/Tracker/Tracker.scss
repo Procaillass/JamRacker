@@ -7,6 +7,13 @@ $sequencer_step_col_bg: #362928;
 $sequencer_step_marqued_col_bg: #517878;
 $text: #87878a;
 
+.step {
+  // padding-top: calc(100% - 2px);
+  border: 1px solid $box_bg;
+  background-color: $sequencer_step_bg;
+  cursor: pointer;
+}
+
 
 .tracker {
     margin: 50px;
@@ -24,6 +31,7 @@ $text: #87878a;
 
 .tracker .box__content {
     display: flex;
+    // max-width: 100vw;
     }
 
 .tracker_menu {
@@ -39,23 +47,27 @@ $text: #87878a;
 .box__content__pistes {
 
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    border: 5px solid rgb(119, 119, 119);
-    min-height: 500px;
-    max-height: 500px;
+    grid-template-columns: repeat(9, 1fr);
+    border: 1px solid rgb(119, 119, 119);
+    width: 100%;
+    // min-height: 500px;
+    // max-height: 500px;
 
     &__piste {
         list-style: none;
-        border: 5px dashed #26272B;
+        border: 1px solid #26272B;
         text-align: center;
-        display: grid;
-        grid-template-rows: 7%;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        // grid-template-rows: 7%;
+        width: 100%;
 
     }
 
     &__rangeesNumb {
         list-style: none;
-        border: 5px dashed #26272B;
+        border: 1px solid #26272B;
         text-align: center;
         display: grid;
         grid-template-rows: 7%;

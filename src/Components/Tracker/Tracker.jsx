@@ -99,10 +99,21 @@ function Tracker() {
     const { dataTracker, setDataTracker } = useContext(trackerContext)
 
 
-    const generatePistes = (stepsNum = 8) => Array.from({ length: stepsNum }, () => 0);
+    const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
+
+    const [dataSounds, setdataSounds] = useState({
+
+        Sounds : [
+            {
+                name:"wav1",
+                url: ""
+            }
+        ]
+    })
+
     const [dataPistes, setdataPistes] = useState({
  
-        stepsNum: 8,
+        stepsNum: 12,
     
         tracks: [
           {
@@ -144,11 +155,6 @@ function Tracker() {
             name:"8",
             duration: 0, 
             steps: generatePistes() 
-          },
-          {
-            name:"9",
-            duration: 0, 
-            steps: generatePistes() 
           }
         ]
     });
@@ -176,80 +182,27 @@ function Tracker() {
                 {/* _______________________________________________________________________début de la grille */}
                 <ul className="box__content__pistes">
                     {/* Première colonne à gauche de la grille pour les nombres */}
-                    <li className="box__content__pistes__rangeesNumb">
-
-                        <div>Nom -></div>
-                        <div>x</div>
-                        <div className="step">1</div>
-                        <div className="step">2</div>
-                        <div className="step">3</div>
-                        <div className="step">4</div>
-                        <div className="step">5</div>
-                        <div className="step">6</div>
-                        <div className="step">7</div>
-                        <div className="step">8</div>
-                        {/* les 4 élément qui suivent sont là pour avoir le même nombre d'élément (de fractions grid) que dans les pistes */}
-                        <div>Volume -&gt;</div>
-                        <div>range -></div>
-                        <button>Mute ? -></button>
-                        <div>fin de la piste</div>
-
-                    </li>
-                    <li className="box__content__pistes__piste">
+                    
+                    
                         {/* colonne de la Première piste */}
-                        <div>debut de la piste 1</div>
-                        <div>1</div>
+                      
 
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-
-                        {/* Essai de génération de la piste fail */}
-                        {/* <div data-pistes={pistes} className="tracker__track">
-                                {track.pistes.map((piste, pisteIdx) => (
-                                    <div
-                                        key={pisteIdx}
-                                        
-                                    />
-                                ))}
-                            </div> */}
-
-                        <div>Volume : {dataTracker.volume}</div>
+                        {tracks.map((track,trackIdx) => (<li className="box__content__pistes__piste">
+               
+                    <h2>{track.name}</h2>
+                   {track.steps.map((step,stepIdx) => (
+                   
+                       <div className="step">{stepIdx}</div>
+                       
+                   )) 
+                   }
+                   <div>Volume : {dataTracker.volume}</div>
                         <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
                         <button>Mute</button>
-                        <div>fin de la piste 1</div>
-
-                    </li>
-                    <li className="box__content__pistes__piste">
-                        {/* colonne de la deuxième piste */}
-                        <div>debut de la piste 2</div>
-                        <div>2</div>
-
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-
-                        {/* <div data-pistes={pistes} className="tracker__track">
-                            {track.pistes.map((piste, pisteIdx) => (
-                                <div key={pisteIdx} /> ))}
-                                                                    </div> */}
-
-                        <div>Volume : {dataTracker.volume}</div>
-                        <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
-                        <button>Mute</button>
-                        <div>fin de la piste 2</div>
-
-                    </li>
+                </li>
+            ))}
+                  
+                    
                 </ul>
 
                 {/* ______________________________________________________________________________________fin de la grille */}
@@ -356,7 +309,17 @@ function Tracker() {
                         <div className="tracker_menu__nav__container__browser disable">
                             <p>Liste de mes pistes audio</p>
                             {/* image pour représenter la liste des Audio perso */}
-                            <img src={require('./soundpalette.PNG')} />
+                           <ul>
+                               <li>
+                                   <div className="step button">wav from db 1</div>
+                               </li>
+                                  <li>
+                                   <div className="step button">wav 2</div>
+                               </li>
+                                  <li>
+                                   <div className="step button">wav 3</div>
+                               </li>
+                           </ul>
 
                             <div className="tracker_menu__nav__container__browser__buttons">
                                 {/* créer un nouveau son */}
@@ -401,14 +364,7 @@ function Tracker() {
 
             </div>{/* _________________________________fin du box_content tracker */}
 
-            {tracks.map((track,trackIdx) => (
-                <div>
-                    <h2>{track.name}</h2>
-                   {track.steps.map((step,stepIdx) => (
-                       <div>{step}</div>
-                   ))}
-                </div>
-            ))}
+          
         </div> 
 
 
