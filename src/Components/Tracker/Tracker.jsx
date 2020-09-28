@@ -98,6 +98,66 @@ function Tracker() {
 
     const { dataTracker, setDataTracker } = useContext(trackerContext)
 
+
+    const generatePistes = (stepsNum = 8) => Array.from({ length: stepsNum }, () => 0);
+    const [dataPistes, setdataPistes] = useState({
+ 
+        stepsNum: 8,
+    
+        tracks: [
+          {
+            name:"1",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"2",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"3",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"4",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"5",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"6",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"7",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"8",
+            duration: 0, 
+            steps: generatePistes() 
+          },
+          {
+            name:"9",
+            duration: 0, 
+            steps: generatePistes() 
+          }
+        ]
+    });
+    const tracks = Array.isArray(dataPistes.tracks) && dataPistes.tracks.length ? dataPistes.tracks : [];
+    const steps = dataPistes.stepsNum;
+    useEffect(() => {
+        const newTracks = [...tracks].map(el => ({ ...el, steps: generatePistes(steps) }));
+        setdataPistes({ ...dataPistes, tracks: newTracks });
+      }, [steps])
     /*
     * -------------
     * RENDER
@@ -341,6 +401,14 @@ function Tracker() {
 
             </div>{/* _________________________________fin du box_content tracker */}
 
+            {tracks.map((track,trackIdx) => (
+                <div>
+                    <h2>{track.name}</h2>
+                   {track.steps.map((step,stepIdx) => (
+                       <div>{step}</div>
+                   ))}
+                </div>
+            ))}
         </div> 
 
 
