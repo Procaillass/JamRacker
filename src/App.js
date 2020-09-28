@@ -10,6 +10,8 @@ import Tracker from './Components/Tracker/Tracker';
 import AudioGenerator from './Components/AudioGenerator/AudioGenerator';
 import PianoRoll from './Components/PianoRoll/PianoRoll'
 import MenuNav from './Components/MenuNav/MenuNav'
+import Login from './Components/Auth/Login';
+import Logout from './Components/Auth/Logout';
 /**Context*/
 import { BpmProvider } from './context/bpmContext';
 import { InstrumentProvider } from './context/instrumentContext';
@@ -125,6 +127,8 @@ const [dataTracks, setDataTracks] = useState({
     })
   } */
 
+  // Auth user
+  const pseudo = JSON.parse(localStorage.getItem("pseudo"));
 
   return (
     <MusicalNotesProvider value={musicalNotes}>
@@ -153,6 +157,11 @@ const [dataTracks, setDataTracks] = useState({
                     <li title="Tracker"><i className="fas fa-list-ol"></i></li>
                   </ul>
                 </nav> */}
+                {pseudo}
+                {
+                  localStorage.getItem("pseudo") ? <Logout/> : <button className="logBtn"><Link to="/login">Login</Link></button>
+                }
+                
               </header>
 
               <main>
@@ -166,10 +175,14 @@ const [dataTracks, setDataTracks] = useState({
                         <Sampler />
                         <AudioGenerator />
                     </Route>
-                  </Switch>
-                  <Switch>
                     <Route exact path="/playlist">
                       <Tracker />
+                    </Route>
+                    <Route exact path="/login">
+                      <Login />
+                    </Route>
+                    <Route exact path="/logout">
+                      <Logout />
                     </Route>
                   </Switch>
                 </>

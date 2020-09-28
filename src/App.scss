@@ -340,3 +340,112 @@ body {
 .test .piano-modify-duration {
   display: block;
 }
+
+// login
+
+.logBtn {
+  border: none;
+  outline: none;
+  width: 150px;
+  padding: 10px 0;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: 1px;
+  background: #61dafb;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.logBtn a{
+  text-decoration: none;
+  color: white;
+}
+.login {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 20px;
+  background: #e9e9e9;
+  display: flex;
+  background-color: $dark-color-1;
+}
+
+.login .loginContainer {
+  margin: 0 ;
+  padding: 60px;
+ 
+  max-width: 520px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1rem;
+    color: white;
+    border: 1px solid #61dafb;
+    
+    box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.login .loginContainer label {
+  color: white;
+  margin: 14px 0;
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+}
+
+
+.login .loginContainer input {
+  border: 1px solid #61dafb;
+  width: 80%;
+  background-color: transparent;
+  font-size: 1rem;
+  padding: .2rem ;
+  
+  transition: all 01s;
+  color: white;
+  
+}
+.login .loginContainer input:focus{
+  
+  outline: none;
+  background-color: #61dafb;
+  box-shadow: 0px 0px 18px rgba(22, 247, 255, 0.8);
+  width: 100%;
+}
+
+.login .loginContainer .btnContainer {
+  width: 100%;
+  padding: 24px 0;
+}
+
+.login .loginContainer .btnContainer p {
+  margin: 14px 0 0 0;
+  text-align: right;
+  color: #fff;
+}
+
+.login .loginContainer .btnContainer p span {
+  color: yellow;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: all 400ms ease-in-out;
+}
+
+.login .loginContainer .btnContainer p span:hover {
+  color: red;
+}
+
+.login .loginContainer .errorMsg {
+  color: red;
+  font-size: 16px;
+}
