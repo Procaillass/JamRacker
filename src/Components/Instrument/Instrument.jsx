@@ -7,7 +7,7 @@ import * as Tone from 'tone';
 import {PlayProvider} from "../../context/playContext";
 
 
-function Instrument() {
+function Instrument({dataTracks}) {
 
   /*
    * -------------
@@ -24,7 +24,7 @@ function Instrument() {
    * -------------
    */
 
-  const [inst, setInst] = useState();
+  /* const [inst, setInst] = useState(); */
 
   /*
    * -------------
@@ -35,19 +35,19 @@ function Instrument() {
   const changeInst = (newInst) => { 
   switch (newInst) {
         case 'Synth':
-        setInst(new Tone.Synth().toDestination());
+          setDataInstrument(new Tone.Synth().toDestination());
         break;
         case 'AMSynth':
-        setInst(new Tone.AMSynth().toDestination());
+          setDataInstrument(new Tone.AMSynth().toDestination());
         break;
         case 'PluckSynth':
-        setInst(new Tone.PluckSynth().toDestination());
+          setDataInstrument(new Tone.PluckSynth().toDestination());
         break;
         case 'PolySynth':
-        setInst(new Tone.PolySynth().toDestination());
+          setDataInstrument(new Tone.PolySynth().toDestination());
         break;
         default:
-        console.log(`Sorry bro.`);
+          setDataInstrument(new Tone.Synth().toDestination());
     }
 }
 
@@ -59,7 +59,7 @@ function Instrument() {
  
   const handleInstrument = (ev) => {
     if (ev.target.value) {
-      setDataInstrument(ev.target.value);
+      changeInst(ev.target.value);
     }
   };
   
@@ -74,15 +74,16 @@ function Instrument() {
     * -------------
     */
 
-    useEffect(() => {
+    /* useEffect(() => {
       changeInst(dataInstrument);
-  }, [dataInstrument]);
+  }, [dataInstrument]); */
 
   /*
     * -------------
     * RENDER
     * -------------
-    */ 
+    */
+   //console.log("props inst", dataTracks);
 
 return (
   <div className="sequencer__addtrack instrument">
@@ -92,12 +93,8 @@ return (
         <option value="AMSynth">AMSynth</option>
         <option value="PluckSynth">PluckSynth</option>
         <option value="PolySynth">PolySynth</option>
+        <option value="Sampler">Sampler</option>
       </select>
-      <>
-      <PlayProvider value={{inst, setInst}}>
-        <Play />
-      </PlayProvider>
-      </>
   </div>
   );
 }

@@ -28,8 +28,7 @@ $text: #87878a;
 
 .tracker_menu {
     border: 5px solid rgb(43, 43, 43);
-    min-width: 360px;
-    max-width: 360px;
+    width: 25%;
 
     & nav {
     display: flex;
@@ -76,13 +75,18 @@ $text: #87878a;
         
     }
 }
+.tracker_menu__nav__container__project {
+  display: flex;
+  flex-flow: column;
+  justify-items: center;
+  width: 100%;
+}
 
 .tracker_menu__nav__container__project__buttons {
 
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
     height: 100%;
     padding: 1rem;
 }

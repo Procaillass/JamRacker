@@ -7,6 +7,11 @@ $sequencer_step_col_bg: #362928;
 $sequencer_step_marqued_col_bg: #517878;
 $text: #87878a;
 
+// BTN piano
+$piano_btn_bg: #004e88;
+$piano_btn_color: #ffffff;
+$piano_btn_border: #23236f;
+
 .audio-generator {
     margin: 50px 50px;
 }
@@ -20,19 +25,25 @@ $text: #87878a;
 }
 
  .button {
-    display: inline-block;
-    padding: .7rem 1rem;
-    font: inherit;
-    font-size: inherit;
-    transition: all 0.5s ease;
-    background-color: $text;
-    color: $box_bar;
-    border: 1px solid $text;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: inherit;
-    box-sizing: border-box;
+  padding: .7rem 1rem;
+  margin: 0rem 1rem;
+  transition: all 0.5s ease;
+  background-color: $piano_btn_bg;
+  color: $piano_btn_color;
+  border: 1px solid $piano_btn_border;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #003c69;
+    color: #d4d4d4;
+    border-color: #23235f;
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    outline:0;
+  }
 
     &:hover {
       background-color: $box_bar;

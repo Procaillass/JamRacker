@@ -5,6 +5,10 @@ $light-color: white;
 $dark-color-1: #191d20;
 $dark-color-2: #26272b;
 $dark-color-3: black;
+// BTN piano
+$piano_btn_bg: #004e88;
+$piano_btn_color: #ffffff;
+$piano_btn_border: #23236f;
 
 * {
   margin: 0;
@@ -29,6 +33,9 @@ $dark-color-3: black;
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+  h2 {
+    font-weight: 400;
   }
 }
 
@@ -127,12 +134,11 @@ body {
   }
 }
 
-// pianoRoll //
-
-.piano_global {
-  padding-top: 5rem;
-  padding-bottom: 3rem;
+main{
+  padding: 9rem 0 0 0;
 }
+
+// pianoRoll //
 .Roll {
   background-color: $dark-color-2;
   padding: 2rem 1rem 1rem 1rem;
@@ -165,7 +171,7 @@ body {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     border-left: 1px solid black;
-    background-color: #cbcbcb;
+    background-color: #ededed;
   }
   .white:nth-child(8) {
     margin-top: -2px;
@@ -309,10 +315,30 @@ body {
   }
 }
 
-.plusBtn, .moinsBtn{
-  width: 8rem !important;
-  padding: 1rem;
-  margin: 0rem 1rem 3rem 1rem;
+.plusBtn, .moinsBtn, .roll-save-patern , button{
+      padding: .7rem 1rem;
+      margin: 0rem 1rem 3rem 1rem;
+      transition: all 0.5s ease;
+      background-color: $piano_btn_bg;
+      color: $piano_btn_color;
+      border: 1px solid $piano_btn_border;
+      text-transform: uppercase;
+      font-weight: bold;
+  
+      &:hover {
+        background-color: #003c69;
+        color: #d4d4d4;
+        border-color: #23235f;
+      }
+
+      &:focus {
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+        outline:0;
+      }
+}
+
+.plusBtn{
+  margin-left: 0;
 }
 
 .piano-modify-duration {
@@ -448,4 +474,16 @@ body {
 .login .loginContainer .errorMsg {
   color: red;
   font-size: 16px;
+}
+.roll-save-patern, button{
+  margin-bottom: 0;
+}
+.roll-patern-title {
+  padding: 0.5rem 1rem;
+}
+.piano__controls{
+    display: flex;
+    align-items: center;
+    margin: 0 0 3rem 0;
+    margin-top: 3rem;
 }

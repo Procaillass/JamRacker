@@ -108,7 +108,7 @@ function Tracker() {
         <div className="box tracker">
 
             <div className="box__bar">
-                <div className="box__title">Tracker</div>
+                <div className="box__title"><h2>Tracker</h2></div>
                 <button className="box__close" onClick={handleClose}>X</button>
             </div>
 
