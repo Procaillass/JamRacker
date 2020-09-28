@@ -1,9 +1,19 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, createRef } from 'react';
 import '../../App.scss';
 import PinaoOctave from './PianoOctave'
 import PianoContext from "../../context/PianoContext.js";
+import { useHistory } from 'react-router';
+import { db } from '../../fire';
 
 export default function PianoRoll() {
+ 
+  /*
+  * --------
+  * HISTORY /
+  * --------
+  */  
+  const history = useHistory();
+
 
   /*
   * --------
@@ -20,6 +30,7 @@ export default function PianoRoll() {
   */
 
   const [octLength, setoctLength] = useState([5]);
+  const title = createRef();
 
   /*
   * --------
@@ -48,7 +59,22 @@ export default function PianoRoll() {
 
   const SavePatern = (ev) => {
     ev.preventDefault();
-    alert("Save patern to DB");
+    if(localStorage.getItem("pseudo")){
+      alert("Save patern to DB");
+      if(title !== "" && dataPiano.notes.length)
+      db.collection("Tracks").doc(title.current.value).set({
+        title: title.current.value,
+        author : JSON.parse(localStorage.getItem("pseudo")),
+        source :" Piano Roll ",
+        notes: dataPiano.notes
+      })
+
+
+      
+    }else{
+      alert("you not have account for register");
+      history.push("/login");
+    }
   }
 
   const handleClose = (ev) => {
@@ -65,7 +91,7 @@ export default function PianoRoll() {
   return (
     <div class="box">
       <div className="box__bar">
-        <div className="box__title">Sequencer</div>
+        <div className="box__title">Piano</div>
         <button className="box__close" onClick={handleClose}>X</button>
       </div>
       <div className="box__content">
@@ -78,8 +104,8 @@ export default function PianoRoll() {
           )}
 
           <form onSubmit={SavePatern}>
-            <input className="roll-patern-title" />
-            <button className="roll-save-patern">Enregistrer</button>
+            <input className="roll-patern-title" ref={title}/>
+            <button type="submit" className="roll-save-patern">Enregistrer</button>
           </form>
 
         </div>
