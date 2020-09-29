@@ -3,7 +3,9 @@ import "./Tracker.scss";
 // import * as Tone from 'tone';
 import trackerContext from "../../context/trackerContext";
 import { TrackerProvider } from "../../context/trackerContext";
-
+import DragDrop from "../DragDrop/DragDrop";
+import Card from "../DragDrop/Card";
+import DragDropContext from "../../context/dragDropContext";
 
 
 
@@ -96,17 +98,28 @@ function Tracker() {
 * -------------
 */
 
-    const { dataTracker, setDataTracker } = useContext(trackerContext)
-
+   /*  const listSound = useContext(DragDropContext); */
+    
+    const [test,setTest] = useState();
+    
+    const { dataTracker, setDataTracker } = useContext(trackerContext);
 
     const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
 
     const [dataSounds, setdataSounds] = useState({
 
-        Sounds : [
+        sounds : [
             {
-                name:"wav1",
-                url: ""
+                name:"sound1",
+                url: "../../Assets/Sounds/clap.wav"
+            },
+            {
+                name:"sound2",
+                url: "../../Assets/Sounds/hat.wav"
+            },
+            {
+                name:"sound3",
+                url: "../../Assets/Sounds/kick.wav"
             }
         ]
     })
@@ -164,6 +177,8 @@ function Tracker() {
         const newTracks = [...tracks].map(el => ({ ...el, steps: generatePistes(steps) }));
         setdataPistes({ ...dataPistes, tracks: newTracks });
       }, [steps])
+
+
     /*
     * -------------
     * RENDER
@@ -178,7 +193,7 @@ function Tracker() {
                 <button className="box__close" onClick={handleClose}>X</button>
             </div>
 
-            <div className="box__content">
+            <div  id="yes" className="grid-note box__content">
                 {/* _______________________________________________________________________début de la grille */}
                 <ul className="box__content__pistes">
                     {/* Première colonne à gauche de la grille pour les nombres */}
@@ -191,8 +206,7 @@ function Tracker() {
                
                     <h2>{track.name}</h2>
                    {track.steps.map((step,stepIdx) => (
-                   
-                       <div className="step">{stepIdx}</div>
+                       <DragDrop id="move" className="grid-item step">{stepIdx}</DragDrop>
                        
                    )) 
                    }
@@ -310,15 +324,13 @@ function Tracker() {
                             <p>Liste de mes pistes audio</p>
                             {/* image pour représenter la liste des Audio perso */}
                            <ul>
-                               <li>
-                                   <div className="step button">wav from db 1</div>
-                               </li>
-                                  <li>
-                                   <div className="step button">wav 2</div>
-                               </li>
-                                  <li>
-                                   <div className="step button">wav 3</div>
-                               </li>
+                               {dataSounds.sounds.map((sound,soundIdx) => (
+                                   <li key={soundIdx}>
+                                   <DragDrop id="move" className="grid-item">
+                                        <Card id={sound.name} className="grid-item-active step button" draggable="true">{sound.name}</Card> 
+                                   </DragDrop>
+                                    </li>
+                               ))}
                            </ul>
 
                             <div className="tracker_menu__nav__container__browser__buttons">

@@ -30,7 +30,6 @@ function App() {
   */
 
   const PianoLocalStorage = localStorage.getItem("Data-piano");
-  console.log(PianoLocalStorage);
   const PianoLocalStorageNotes= PianoLocalStorage !== null ? JSON.parse(PianoLocalStorage).notes : [];
   const intialPiano = {
     title: "Creation sur le Piano roll",
