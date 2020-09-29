@@ -19,6 +19,7 @@ import { StepSeqProvider } from './context/stepSequencerContext';
 import { TrackerProvider } from './context/trackerContext';
 import { PianoProvider } from './context/PianoContext';
 import { MusicalNotesProvider } from './context/MusicalNotesContext';
+import { DragDropProvider } from './context/dragDropContext';
 
 function App() {
 
@@ -103,6 +104,8 @@ const [dataTracks, setDataTracks] = useState({
   notes: []
 });
 
+const [dataDragDrop, setDataDragDrop] = useState([{}])
+
 
   //Récupération du bpm lors du changement du range
   const handleBPM = (event) => {
@@ -167,7 +170,10 @@ const [dataTracks, setDataTracks] = useState({
                         <Sampler />
                     </Route>
                     <Route exact path="/playlist">
-                      <Tracker />
+                      <DragDropProvider value={{dataDragDrop, setDataDragDrop}}>
+                          <Tracker />
+                      </DragDropProvider>
+                      
                     </Route>
                     <Route exact path="/login">
                       <Login />

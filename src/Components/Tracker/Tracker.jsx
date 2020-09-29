@@ -5,21 +5,111 @@ import trackerContext from "../../context/trackerContext";
 import { TrackerProvider } from "../../context/trackerContext";
 import DragDrop from "../DragDrop/DragDrop";
 import Card from "../DragDrop/Card";
-import DragDropContext from "../../context/dragDropContext";
-
+import DragDropContext, { DragDropProvider } from "../../context/dragDropContext";
+import * as Tone from 'tone';
+import kick from "../../Assets/Sounds/kick.wav";
+import bassDrum from "../../Assets/Sounds/bass_drum.wav";
+import clap from "../../Assets/Sounds/clap.wav";
+import hat from "../../Assets/Sounds/hat.wav"; 
 
 
 function Tracker() {
 
-    // const handleAddPiste = (ev) => {
-    //     ev.preventDefault();
-    //     if (ev.target.value !== "") {          
-    //       const newPiste = {pistes: generatePiste(piste)};
-    //       setdataTracker({ ...dataTracker, pistes: [...dataTracker.pistes, newPiste] });
-    //     }
-    //     ev.target.value = "";
-    //   };
+   /*
+   * -------------
+   * CONTEXT
+   * -------------
+   */
 
+    const {dataDragDrop, setDataDragDrop} = useContext(DragDropContext);
+    const { dataTracker, setDataTracker } = useContext(trackerContext);
+
+  /*
+   * -------------
+   * STATES
+   * -------------
+   */
+    
+    const [dataPlayPiste, setDataPlayPiste] = useState([]);
+    const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
+    const [dataSounds, setdataSounds] = useState({
+
+            sounds : [
+                {
+                    name:"sound1",
+                    url: hat
+                },
+                {
+                    name:"sound2",
+                    url: clap
+                },
+                {
+                    name:"sound3",
+                    url: bassDrum
+                },
+                {
+                    name:"sound4",
+                    url: kick
+                }
+            ]
+        })
+
+    const [dataPistes, setdataPistes] = useState({
+
+        stepsNum: 12,
+
+        tracks: [
+        {
+            name:"1",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"2",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"3",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"4",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"5",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"6",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"7",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"8",
+            duration: 0, 
+            steps: generatePistes() 
+        }
+        ]
+    });
+
+    const tracks = Array.isArray(dataPistes.tracks) && dataPistes.tracks.length ? dataPistes.tracks : [];
+    const steps = dataPistes.stepsNum;
+
+    /*
+    * -------------
+    * HANDLERS
+    * -------------
+    */
 
     //_____Fermeture de la fenetre______
     const handleClose = (ev) => {
@@ -79,106 +169,31 @@ function Tracker() {
     }
     //_____________________fin du changement de volume d'un piste______
 
-
-
-    // _____________essai de génération de pistes_______________
-    //      
-    //   useEffect(() => {
-    //     console.log("pistes", pistes);
-    //     const newPistes = [...pistes].map(el => ({ ...el, pistes: generatePistes(pistes) }));
-    //     setdataTracker({ ...dataTracker, pistes: newPistes });
-    //   }, [pistes])
-    //
-    // _____________fin essai de génération de pistes_______________
-
+    const handlePlaying = (ev) =>{
+        /* ev.preventDefault();
+        console.log("play",dataPlayPiste); */
+        const player = new Tone.Player([hat,clap]).toDestination();
+        player.autostart = true;
+        
+    }
 
     /*
-* -------------
-* CONTEXT
-* -------------
-*/
-
-   /*  const listSound = useContext(DragDropContext); */
+    * -------------
+    * EFFECTS
+    * -------------
+    */
     
-    const [test,setTest] = useState();
-    
-    const { dataTracker, setDataTracker } = useContext(trackerContext);
-
-    const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
-
-    const [dataSounds, setdataSounds] = useState({
-
-        sounds : [
-            {
-                name:"sound1",
-                url: "../../Assets/Sounds/clap.wav"
-            },
-            {
-                name:"sound2",
-                url: "../../Assets/Sounds/hat.wav"
-            },
-            {
-                name:"sound3",
-                url: "../../Assets/Sounds/kick.wav"
-            }
-        ]
-    })
-
-    const [dataPistes, setdataPistes] = useState({
- 
-        stepsNum: 12,
-    
-        tracks: [
-          {
-            name:"1",
-            duration: 0, 
-            steps: generatePistes() 
-          },
-          {
-            name:"2",
-            duration: 0, 
-            steps: generatePistes() 
-          },
-          {
-            name:"3",
-            duration: 0, 
-            steps: generatePistes() 
-          },
-          {
-            name:"4",
-            duration: 0, 
-            steps: generatePistes() 
-          },
-          {
-            name:"5",
-            duration: 0, 
-            steps: generatePistes() 
-          },
-          {
-            name:"6",
-            duration: 0, 
-            steps: generatePistes() 
-          },
-          {
-            name:"7",
-            duration: 0, 
-            steps: generatePistes() 
-          },
-          {
-            name:"8",
-            duration: 0, 
-            steps: generatePistes() 
-          }
-        ]
-    });
-    const tracks = Array.isArray(dataPistes.tracks) && dataPistes.tracks.length ? dataPistes.tracks : [];
-    const steps = dataPistes.stepsNum;
     useEffect(() => {
         const newTracks = [...tracks].map(el => ({ ...el, steps: generatePistes(steps) }));
         setdataPistes({ ...dataPistes, tracks: newTracks });
       }, [steps])
 
+    useEffect(() => {
+        setDataPlayPiste([...dataPlayPiste,dataDragDrop])
+        console.log("lis",dataPlayPiste,"drag",dataDragDrop)
+    },[dataDragDrop] )
 
+    
     /*
     * -------------
     * RENDER
@@ -193,7 +208,7 @@ function Tracker() {
                 <button className="box__close" onClick={handleClose}>X</button>
             </div>
 
-            <div  id="yes" className="grid-note box__content">
+            <div className="grid-note box__content">
                 {/* _______________________________________________________________________début de la grille */}
                 <ul className="box__content__pistes">
                     {/* Première colonne à gauche de la grille pour les nombres */}
@@ -206,7 +221,10 @@ function Tracker() {
                
                     <h2>{track.name}</h2>
                    {track.steps.map((step,stepIdx) => (
-                       <DragDrop id="move" className="grid-item step">{stepIdx}</DragDrop>
+                       
+                    <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>
+                       
+                       
                        
                    )) 
                    }
@@ -218,6 +236,7 @@ function Tracker() {
                   
                     
                 </ul>
+                
 
                 {/* ______________________________________________________________________________________fin de la grille */}
 
@@ -375,7 +394,7 @@ function Tracker() {
                 </div>{/* _________________________________fin du bloc menu à droite du tracker */}
 
             </div>{/* _________________________________fin du box_content tracker */}
-
+            <button className="button" onClick={handlePlaying}>Test PlayList</button>
           
         </div> 
 

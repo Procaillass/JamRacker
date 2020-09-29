@@ -6,12 +6,21 @@ $sequencer_step_marked_bg: #749292;
 $sequencer_step_col_bg: #362928;
 $sequencer_step_marqued_col_bg: #517878;
 $text: #87878a;
+$text_white: #d8d8d8;
+
+h2{
+  color: $text_white;
+}
 
 .step {
   // padding-top: calc(100% - 2px);
-  border: 1px solid $box_bg;
+  border: 1px solid #26272B;
   background-color: $sequencer_step_bg;
   cursor: pointer;
+  color:$text_white;
+  .button{
+    margin: 0;
+  }
 }
 
 
@@ -55,7 +64,6 @@ $text: #87878a;
 
     &__piste {
         list-style: none;
-        border: 1px solid #26272B;
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -85,6 +93,12 @@ $text: #87878a;
         justify-content: space-between;
         align-items: center;
         
+    }
+    li{
+      list-style: none;
+    }
+    .button {
+      margin: 0;
     }
 }
 .tracker_menu__nav__container__project {

@@ -1,11 +1,12 @@
-import React, {useState} from "react";
-import { DragDropProvider } from "../../context/dragDropContext";
+import React, {useContext, useState} from "react";
+import DragDropContext, { DragDropProvider } from "../../context/dragDropContext";
+import "./DragDrop.scss";
 
 function DragDrop(props) {
     let itsHere = false;
 
     let [listNote,setListNote] = useState([]);
-
+    const {dataDragDrop, setDataDragDrop} = useContext(DragDropContext);
 
     const drop = (ev) => {
         ev.preventDefault();
@@ -16,7 +17,11 @@ function DragDrop(props) {
                 
         // condition pour voir si l'element est deja a l'interieure ou non
         if(!itsHere){
-            ev.target.appendChild(document.getElementById(data));
+
+            ev.target.appendChild(document.getElementById(data))
+            const step = props.step;
+            const track = props.track;
+            setDataDragDrop({...dataDragDrop,step, track,data})
             
         }
         else{
@@ -25,7 +30,6 @@ function DragDrop(props) {
        
         
     }
-
     // moment du drag ou l'on passe au dessus des blocks ou l'ont peut deposé les blockElements
     const allowDrop = (ev) =>{
         ev.preventDefault();
