@@ -10,100 +10,128 @@ import * as Tone from 'tone';
 import kick from "../../Assets/Sounds/kick.wav";
 import bassDrum from "../../Assets/Sounds/bass_drum.wav";
 import clap from "../../Assets/Sounds/clap.wav";
-import hat from "../../Assets/Sounds/hat.wav"; 
+import hat from "../../Assets/Sounds/hat.wav";
+import { fire } from "../../fire";
 
 
 function Tracker() {
 
-   /*
-   * -------------
-   * CONTEXT
-   * -------------
-   */
 
-    const {dataDragDrop, setDataDragDrop} = useContext(DragDropContext);
+
+
+
+
+
+    /*
+    * -------------
+    * CONTEXT
+    * -------------
+    */
+
+    const { dataDragDrop, setDataDragDrop } = useContext(DragDropContext);
     const { dataTracker, setDataTracker } = useContext(trackerContext);
 
-  /*
-   * -------------
-   * STATES
-   * -------------
-   */
-    
+    /*
+     * -------------
+     * STATES
+     * -------------
+     */
+    const [allFile, setAllFile] = useState([])
     const [dataPlayPiste, setDataPlayPiste] = useState([]);
     const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
     const [dataSounds, setdataSounds] = useState({
 
-            sounds : [
-                {
-                    name:"sound1",
-                    url: hat
-                },
-                {
-                    name:"sound2",
-                    url: clap
-                },
-                {
-                    name:"sound3",
-                    url: bassDrum
-                },
-                {
-                    name:"sound4",
-                    url: kick
-                }
-            ]
-        })
+        sounds: [
+            {
+                name: "sound1",
+                url: hat
+            },
+            {
+                name: "sound2",
+                url: clap
+            },
+            {
+                name: "sound3",
+                url: bassDrum
+            },
+            {
+                name: "sound4",
+                url: kick
+            }
+        ]
+    })
 
     const [dataPistes, setdataPistes] = useState({
 
         stepsNum: 12,
 
         tracks: [
-        {
-            name:"1",
-            duration: 0, 
-            steps: generatePistes() 
-        },
-        {
-            name:"2",
-            duration: 0, 
-            steps: generatePistes() 
-        },
-        {
-            name:"3",
-            duration: 0, 
-            steps: generatePistes() 
-        },
-        {
-            name:"4",
-            duration: 0, 
-            steps: generatePistes() 
-        },
-        {
-            name:"5",
-            duration: 0, 
-            steps: generatePistes() 
-        },
-        {
-            name:"6",
-            duration: 0, 
-            steps: generatePistes() 
-        },
-        {
-            name:"7",
-            duration: 0, 
-            steps: generatePistes() 
-        },
-        {
-            name:"8",
-            duration: 0, 
-            steps: generatePistes() 
-        }
+            {
+                name: "1",
+                duration: 0,
+                steps: generatePistes()
+            },
+            {
+                name: "2",
+                duration: 0,
+                steps: generatePistes()
+            },
+            {
+                name: "3",
+                duration: 0,
+                steps: generatePistes()
+            },
+            {
+                name: "4",
+                duration: 0,
+                steps: generatePistes()
+            },
+            {
+                name: "5",
+                duration: 0,
+                steps: generatePistes()
+            },
+            {
+                name: "6",
+                duration: 0,
+                steps: generatePistes()
+            },
+            {
+                name: "7",
+                duration: 0,
+                steps: generatePistes()
+            },
+            {
+                name: "8",
+                duration: 0,
+                steps: generatePistes()
+            }
         ]
     });
 
     const tracks = Array.isArray(dataPistes.tracks) && dataPistes.tracks.length ? dataPistes.tracks : [];
     const steps = dataPistes.stepsNum;
+
+    /*
+    * -------------
+    * DB STORAGE
+    * -------------
+    */
+
+    const fecthSong = () => {
+
+        let gsReference = fire.storage().refFromURL('gs://jamracker-36ec0.appspot.com')
+
+
+        gsReference.listAll().then(res => {
+            console.log("res", res.items);
+            setAllFile(res.items)
+        })
+    }
+
+    useEffect(() => {
+        fecthSong();
+    }, [])
 
     /*
     * -------------
@@ -169,12 +197,12 @@ function Tracker() {
     }
     //_____________________fin du changement de volume d'un piste______
 
-    const handlePlaying = (ev) =>{
+    const handlePlaying = (ev) => {
         /* ev.preventDefault();
         console.log("play",dataPlayPiste); */
-        const player = new Tone.Player([hat,clap]).toDestination();
+        const player = new Tone.Player([hat, clap]).toDestination();
         player.autostart = true;
-        
+
     }
 
     /*
@@ -182,18 +210,18 @@ function Tracker() {
     * EFFECTS
     * -------------
     */
-    
+
     useEffect(() => {
         const newTracks = [...tracks].map(el => ({ ...el, steps: generatePistes(steps) }));
         setdataPistes({ ...dataPistes, tracks: newTracks });
-      }, [steps])
+    }, [steps])
 
     useEffect(() => {
-        setDataPlayPiste([...dataPlayPiste,dataDragDrop])
-        console.log("lis",dataPlayPiste,"drag",dataDragDrop)
-    },[dataDragDrop] )
+        setDataPlayPiste([...dataPlayPiste, dataDragDrop])
+        console.log("lis", dataPlayPiste, "drag", dataDragDrop)
+    }, [dataDragDrop])
 
-    
+
     /*
     * -------------
     * RENDER
@@ -212,29 +240,29 @@ function Tracker() {
                 {/* _______________________________________________________________________début de la grille */}
                 <ul className="box__content__pistes">
                     {/* Première colonne à gauche de la grille pour les nombres */}
-                    
-                    
-                        {/* colonne de la Première piste */}
-                      
 
-                        {tracks.map((track,trackIdx) => (<li className="box__content__pistes__piste">
-               
-                    <h2>{track.name}</h2>
-                   {track.steps.map((step,stepIdx) => (
-                       
-                    <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>  
-                       
-                   )) 
-                   }
-                   <div>Volume : {dataTracker.volume}</div>
+
+                    {/* colonne de la Première piste */}
+
+
+                    {tracks.map((track, trackIdx) => (<li className="box__content__pistes__piste">
+
+                        <h2>{track.name}</h2>
+                        {track.steps.map((step, stepIdx) => (
+
+                            <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>
+
+                        ))
+                        }
+                        <div>Volume : {dataTracker.volume}</div>
                         <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
                         <button>Mute</button>
-                </li>
-            ))}
-                  
-                    
+                    </li>
+                    ))}
+
+
                 </ul>
-                
+
 
                 {/* ______________________________________________________________________________________fin de la grille */}
 
@@ -340,15 +368,15 @@ function Tracker() {
                         <div className="tracker_menu__nav__container__browser disable">
                             <p>Liste de mes pistes audio</p>
                             {/* image pour représenter la liste des Audio perso */}
-                           <ul>
-                               {dataSounds.sounds.map((sound,soundIdx) => (
-                                   <li key={soundIdx}>
-                                   <DragDrop id="move" className="grid-item">
-                                        <Card id={sound.name} className="grid-item-active step button" draggable="true">{sound.name}</Card> 
-                                   </DragDrop>
+                            <ul>
+                                {dataSounds.sounds.map((sound, soundIdx) => (
+                                    <li key={soundIdx}>
+                                        <DragDrop id="move" className="grid-item">
+                                            <Card id={sound.name} className="grid-item-active step button" draggable="true">{sound.name}</Card>
+                                        </DragDrop>
                                     </li>
-                               ))}
-                           </ul>
+                                ))}
+                            </ul>
 
                             <div className="tracker_menu__nav__container__browser__buttons">
                                 {/* créer un nouveau son */}
@@ -393,8 +421,16 @@ function Tracker() {
 
             </div>{/* _________________________________fin du box_content tracker */}
             <button className="button" onClick={handlePlaying}>Test PlayList</button>
-          
-        </div> 
+            {/* <audio controls src={fileUrl} /> */}
+            {allFile.map((item,index) => {
+                return (
+                    <div key={index}>
+                        <p>{item.location.path}</p>
+                        <audio controls src={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} />
+                    </div>
+                )
+            })}
+        </div>
 
 
     );
