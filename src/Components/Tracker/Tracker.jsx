@@ -222,9 +222,7 @@ function Tracker() {
                     <h2>{track.name}</h2>
                    {track.steps.map((step,stepIdx) => (
                        
-                    <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>
-                       
-                       
+                    <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>  
                        
                    )) 
                    }
