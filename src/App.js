@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { useHistory } from 'react-router';
 import './App.scss';
 import './box.scss';
@@ -22,6 +22,7 @@ import { MusicalNotesProvider } from './context/MusicalNotesContext';
 
 function App() {
 
+  
 
   /*
   *
@@ -30,12 +31,13 @@ function App() {
   */
 
   const PianoLocalStorage = localStorage.getItem("Data-piano");
-  console.log(PianoLocalStorage);
-  const PianoLocalStorageNotes= PianoLocalStorage !== null ? JSON.parse(PianoLocalStorage).notes : [];
+  //console.log(PianoLocalStorage);
+  const PianoLocalStorageNotes = PianoLocalStorage !== null ? JSON.parse(PianoLocalStorage).notes : [];
   const intialPiano = {
     title: "Creation sur le Piano roll",
     source: "piano-roll",
-    notes:  PianoLocalStorageNotes !== [] ? PianoLocalStorageNotes : []}
+    notes: PianoLocalStorageNotes !== [] ? PianoLocalStorageNotes : []
+  }
   //const intialPiano = { title: "Creation sur le Piano roll", source: "piano-roll", notes: [] }
   const [dataPiano, setDataPiano] = useState(intialPiano);
 
@@ -66,7 +68,7 @@ function App() {
   const [dataBpm, setDataBpm] = useState({ bpm: 100 });
   const [dataInstrument, setDataInstrument] = useState("");
   const [dataStepSeq, setdataStepSeq] = useState({
- 
+
     stepsNum: 16,
 
     notesList: [
@@ -83,26 +85,26 @@ function App() {
 
     tracks: [
       {
-        name:"A0",
-        duration: 0, 
-        steps: generateSteps() 
+        name: "A0",
+        duration: 0,
+        steps: generateSteps()
       },
       {
-        name:"c1",
-        duration: 0, 
-        steps: generateSteps() 
+        name: "c1",
+        duration: 0,
+        steps: generateSteps()
       },
       {
-        name:"c4",
-        duration: 0, 
-        steps: generateSteps() 
+        name: "c4",
+        duration: 0,
+        steps: generateSteps()
       }
     ]
-});
+  });
 
-const [dataTracks, setDataTracks] = useState({
-  notes: []
-});
+  const [dataTracks, setDataTracks] = useState({
+    notes: []
+  });
 
 
   //Récupération du bpm lors du changement du range
@@ -125,68 +127,68 @@ const [dataTracks, setDataTracks] = useState({
 
   return (
     <MusicalNotesProvider value={musicalNotes}>
-    <PianoProvider value={{ dataPiano, setDataPiano }}>
-    <BpmProvider value={{ dataBpm }}>
-      <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
-        <StepSeqProvider value={{ dataStepSeq,setdataStepSeq, dataTracks, setDataTracks}}>
-        <TrackerProvider value={{ dataTracker, setDataTracker}}>
-          <Router besename="/">
-            <div className="App">
-              <header className="header">
-                <button className="header_play-button"><i className="fas fa-play"></i></button>
-                <div className="header_bpm-container">
-                  <p>BPM:</p>
-                  <label>{dataBpm.bpm}</label>
-                  <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
-                </div>
-                <div className="header_patern-container">
-                  <p>Patern:</p>
-                  <input defaultValue="1" min="1" max="300" type="number"></input>
-                </div>
-                <MenuNav/>
-                {/* <nav className="header_nav">
+      <PianoProvider value={{ dataPiano, setDataPiano }}>
+        <BpmProvider value={{ dataBpm }}>
+          <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
+            <StepSeqProvider value={{ dataStepSeq, setdataStepSeq, dataTracks, setDataTracks }}>
+              <TrackerProvider value={{ dataTracker, setDataTracker }}>
+                <Router besename="/">
+                  <div className="App">
+                    <header className="header">
+                      <button className="header_play-button"><i className="fas fa-play"></i></button>
+                      <div className="header_bpm-container">
+                        <p>BPM:</p>
+                        <label>{dataBpm.bpm}</label>
+                        <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
+                      </div>
+                      <div className="header_patern-container">
+                        <p>Patern:</p>
+                        <input defaultValue="1" min="1" max="300" type="number"></input>
+                      </div>
+                      <MenuNav />
+                      {/* <nav className="header_nav">
                   <ul className="header_nav-list">
                     <li title="Step Sequencer"><i className="fas fa-th-list"></i></li>
                     <li title="Tracker"><i className="fas fa-list-ol"></i></li>
                   </ul>
                 </nav> */}
-                {pseudo}
-                {
-                  localStorage.getItem("pseudo") ? <Logout/> : <button className="logBtn"><Link to="/login">Login</Link></button>
-                }
-                
-              </header>
+                      <div>{pseudo}</div>
+                      {
+                        localStorage.getItem("pseudo") ? <Logout /> : <button className="logBtn"><Link to="/login">Login</Link></button>
+                      }
 
-              <main>
-                <>
-                  {/* <Pattern/> ici => objet contenant les pattern */}
-                   {/* Route et composant */}
-                  <Switch>
-                    <Route exact path="/">
-                        <div className="piano_global"><PianoRoll /></div>
-                        <StepSequencer />
-                        <Sampler />
-                    </Route>
-                    <Route exact path="/playlist">
-                      <Tracker />
-                    </Route>
-                    <Route exact path="/login">
-                      <Login />
-                    </Route>
-                    <Route exact path="/logout">
-                      <Logout />
-                    </Route>
-                  </Switch>
-                </>
-              </main>
-            </div>
-            
-          </Router>
-          </TrackerProvider>
-        </StepSeqProvider>
-      </InstrumentProvider>
-    </BpmProvider>
-    </PianoProvider>
+                    </header>
+
+                    <main>
+                      <>
+                        {/* <Pattern/> ici => objet contenant les pattern */}
+                        {/* Route et composant */}
+                        <Switch>
+                          <Route exact path="/">
+                            <div className="piano_global"><PianoRoll /></div>
+                            <StepSequencer />
+                            <Sampler />
+                          </Route>
+                          <Route exact path="/playlist">
+                            <Tracker />
+                          </Route>
+                          <Route exact path="/login">
+                            <Login />
+                          </Route>
+                          <Route exact path="/logout">
+                            <Logout />
+                          </Route>
+                        </Switch>
+                      </>
+                    </main>
+                  </div>
+
+                </Router>
+              </TrackerProvider>
+            </StepSeqProvider>
+          </InstrumentProvider>
+        </BpmProvider>
+      </PianoProvider>
     </MusicalNotesProvider>
   );
 }

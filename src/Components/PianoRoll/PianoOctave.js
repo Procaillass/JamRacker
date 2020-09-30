@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {   useContext } from 'react';
 import '../../App.scss';
 import * as Tone from 'tone'
 //import { Loop } from 'tone';
@@ -142,8 +142,8 @@ function PianoRoll(props) {
       </div>
 
       <section className="piano-containter">
-        {notes.map( note =>
-          <section className={note.name.includes('#') ? "piano_grid black" : "piano_grid white"}>
+        {notes.map(( note,index) =>
+          <section key={index} className={note.name.includes('#') ? "piano_grid black" : "piano_grid white"}>
             {steps.map((step, index) =>
               <div
                 data-note={note.name}

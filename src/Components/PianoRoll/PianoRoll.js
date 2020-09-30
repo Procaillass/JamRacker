@@ -5,17 +5,19 @@ import PianoContext from "../../context/PianoContext.js";
 import Instrument from '../Instrument/Instrument';
 import Play from "../../Components/Play/Play";
 import { useHistory } from 'react-router';
-import { db } from '../../fire';
+import { db, fire } from '../../fire';
 import * as Tone from 'tone';
 
 export default function PianoRoll() {
- 
+
+
+
   /*
   * --------
   * HISTORY /
   * --------
-  */  
-  const history = useHistory(); 
+  */
+  const history = useHistory();
 
 
   /*
@@ -24,17 +26,28 @@ export default function PianoRoll() {
   * --------
   */
 
-  const {dataPiano, setDataPiano} = useContext(PianoContext);
+  const { dataPiano, setDataPiano } = useContext(PianoContext);
 
   /*
   * --------
   * STATE
   * --------
   */
-
+  const [wave,setWave] = useState("");
   const [octLength, setoctLength] = useState([5]);
   const [inst, setInst] = useState(new Tone.PolySynth().toDestination());
   const title = createRef();
+
+  /*
+  * --------------
+  * AUDIOGENERATOR /
+  * --------------
+  */
+  // 
+
+  const [src, setSrc] = useState("");
+  const [fileUrl,setFileUrl] = useState(null);
+
 
   /*
   * --------
@@ -58,24 +71,51 @@ export default function PianoRoll() {
     setoctLength(old => [Math.max(...old) + 1, ...old])
   }
   const moinsOctave = () => {
-    setoctLength(old => [...old, Math.min(...old) -1])
+    setoctLength(old => [...old, Math.min(...old) - 1])
   }
+  // const getSong = () => {
+
+  //   db.collection("Song").doc("test").get().then((doc) => {
+  //     console.log("test:",doc.data().url)
+  //     setWave(doc.data().url);
+  //   })
+    
+  // }
 
   const SavePatern = (ev) => {
     ev.preventDefault();
-    if(localStorage.getItem("pseudo")){
+    const titleValue = title.current.value
+
+    // const regex = /[a-z]/;
+    // const file = src.split("blob:")[1]
+
+    if (localStorage.getItem("pseudo")) {
       alert("Save patern to DB");
-      if(title !== "" && dataPiano.notes.length)
-      db.collection("Tracks").doc(title.current.value).set({
-        title: title.current.value,
-        author : JSON.parse(localStorage.getItem("pseudo")),
-        source :" Piano Roll ",
-        notes: dataPiano.notes
-      })
+     
+      if (titleValue !== "" && dataPiano.notes.length) {
 
+        // envoie dans le storage .wav
+        const storageRef = fire.storage().ref()
+        storageRef.child(titleValue).put(src)
 
-      
-    }else{
+        // envoie le lien dans une db 
+        // db.collection("Song").doc(titleValue).set({
+        //   title: titleValue,
+        //   author: JSON.parse(localStorage.getItem("pseudo")),
+        //   source: " Piano Roll ",
+        //   url: src
+        // })
+
+        // envoie vers la db firestore
+        db.collection("Tracks").doc(titleValue).set({
+          title: titleValue,
+          author: JSON.parse(localStorage.getItem("pseudo")),
+          source: " Piano Roll ",
+          notes: dataPiano.notes
+        })
+      }
+    }
+    else {
       alert("you not have account for register");
       history.push("/login");
     }
@@ -86,14 +126,16 @@ export default function PianoRoll() {
     alert("Save patern to DB");
   }
 
+ 
+
   /*
   * --------
   * RENDER
   * --------
   */
-  
+
   return (
-    <div class="box">
+    <div className="box">
       <div className="box__bar">
         <div className="box__title">Piano</div>
         <button className="box__close" onClick={handleClose}>X</button>
@@ -104,19 +146,22 @@ export default function PianoRoll() {
           <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
 
           {octLength.map((item, index) =>
-            <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
+            <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano} />
           )}
 
-          
+
           <div className="piano__controls">
             <form onSubmit={SavePatern}>
-            <input className="roll-patern-title" ref={title}/>
+              <input className="roll-patern-title" ref={title} />
               <button className="roll-save-patern">Enregistrer</button>
+              {/* <a className="button ag__download-btn" href={src} download={name}>Download audio file</a> */}
             </form>
-            <Play dataTracks={dataPiano} instrument={inst} />
+            <Play src={src} setSrc={setSrc} dataTracks={dataPiano} instrument={inst} />
+            
+          </div>
+          
+        </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 }

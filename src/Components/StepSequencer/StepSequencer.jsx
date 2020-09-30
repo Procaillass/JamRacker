@@ -172,7 +172,7 @@ function StepSequencer() {
   * -------------
   */
 
-  console.log("instrument", instrumentContext);
+  //console.log("instrument", instrumentContext);
 
   return (
 

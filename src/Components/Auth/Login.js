@@ -52,7 +52,6 @@ const Login = () => {
 
           snapshot.forEach((doc) => {
             let pseudal = doc.data().pseudo
-            console.log("pseudal :", pseudal);
 
             //setPseudo(pseudal)
             pseudo = pseudal
@@ -60,8 +59,6 @@ const Login = () => {
             history.push("/");
           });
         })
-        console.log("ici laaaaa")
-        console.log("history", history)
 
       })
       .catch(error => {

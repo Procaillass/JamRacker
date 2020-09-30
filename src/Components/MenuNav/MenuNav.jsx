@@ -29,8 +29,8 @@ function MenuNav() {
     */
 
     return (
-        <select onChange={handleChangeSelect} className="header_select">
-            <option selected value="/">Home</option>
+        <select onChange={handleChangeSelect} className="header_select" >
+            <option value="/">Home</option>
             <option value="/playlist">Playlist</option>
         </select>
     )
