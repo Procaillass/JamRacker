@@ -12,6 +12,7 @@ import bassDrum from "../../Assets/Sounds/bass_drum.wav";
 import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav";
 import { fire } from "../../fire";
+import TrackerPlayer from "./TrackerPlayer";
 
 
 function Tracker() {
@@ -124,7 +125,6 @@ function Tracker() {
 
 
         gsReference.listAll().then(res => {
-            console.log("res", res.items);
             setAllFile(res.items)
         })
     }
@@ -197,13 +197,6 @@ function Tracker() {
     }
     //_____________________fin du changement de volume d'un piste______
 
-    const handlePlaying = (ev) => {
-        /* ev.preventDefault();
-        console.log("play",dataPlayPiste); */
-        const player = new Tone.Player([hat, clap]).toDestination();
-        player.autostart = true;
-
-    }
 
     /*
     * -------------
@@ -216,12 +209,12 @@ function Tracker() {
         setdataPistes({ ...dataPistes, tracks: newTracks });
     }, [steps])
 
-    useEffect(() => {
+    /* useEffect(() => {
         setDataPlayPiste([...dataPlayPiste, dataDragDrop])
-        console.log("lis", dataPlayPiste, "drag", dataDragDrop)
+        
     }, [dataDragDrop])
-
-
+ */
+console.log("tracker",dataDragDrop)
     /*
     * -------------
     * RENDER
@@ -368,13 +361,25 @@ function Tracker() {
                         <div className="tracker_menu__nav__container__browser disable">
                             <p>Liste de mes pistes audio</p>
                             {/* image pour représenter la liste des Audio perso */}
-                            <ul>
+                            {/* <ul>
                                 {dataSounds.sounds.map((sound, soundIdx) => (
                                     <li key={soundIdx}>
-                                        <DragDrop id="move" className="grid-item">
-                                            <Card id={sound.name} className="grid-item-active step button" draggable="true">{sound.name}</Card>
+                                        
+                                            <Card id={sound.url} className="grid-item-active step button" draggable="true">{sound.name}</Card>
                                         </DragDrop>
                                     </li>
+                                ))}
+                            </ul> */}
+
+                            <ul>
+                                {allFile.map((item,index) => (
+                                <li>
+                                    <DragDrop id="move" className="grid-item">
+                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} className="grid-item-active step button" draggable="true">{item.location.path}</Card>
+                                    </DragDrop>
+                                </li>
+                                    
+                                
                                 ))}
                             </ul>
 
@@ -420,16 +425,16 @@ function Tracker() {
                 </div>{/* _________________________________fin du bloc menu à droite du tracker */}
 
             </div>{/* _________________________________fin du box_content tracker */}
-            <button className="button" onClick={handlePlaying}>Test PlayList</button>
+            <TrackerPlayer items={dataDragDrop} />
             {/* <audio controls src={fileUrl} /> */}
-            {allFile.map((item,index) => {
+            {/* {allFile.map((item,index) => {
                 return (
                     <div key={index}>
                         <p>{item.location.path}</p>
                         <audio controls src={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} />
                     </div>
                 )
-            })}
+            })} */}
         </div>
 
 
