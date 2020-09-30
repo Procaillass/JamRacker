@@ -21,6 +21,7 @@ import { PianoProvider } from './context/PianoContext';
 import { MusicalNotesProvider } from './context/MusicalNotesContext';
 import { SamplerProvider } from './context/samplerContext';
 import * as Tone from 'tone';
+import { DragDropProvider } from './context/dragDropContext';
 
 function App() {
 
@@ -108,6 +109,8 @@ function App() {
     notes: []
   });
 
+const [dataDragDrop, setDataDragDrop] = useState([{}])
+
 
   //Récupération du bpm lors du changement du range
   const handleBPM = (event) => {
@@ -173,7 +176,9 @@ function App() {
                             <Sampler />
                           </Route>
                           <Route exact path="/playlist">
+                          <DragDropProvider value={{dataDragDrop, setDataDragDrop}}>
                             <Tracker />
+                          </DragDropProvider>
                           </Route>
                           <Route exact path="/login">
                             <Login />

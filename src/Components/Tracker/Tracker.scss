@@ -6,6 +6,22 @@ $sequencer_step_marked_bg: #749292;
 $sequencer_step_col_bg: #362928;
 $sequencer_step_marqued_col_bg: #517878;
 $text: #87878a;
+$text_white: #d8d8d8;
+
+h2{
+  color: $text_white;
+}
+
+.step {
+  // padding-top: calc(100% - 2px);
+  border: 1px solid #26272B;
+  background-color: $sequencer_step_bg;
+  cursor: pointer;
+  color:$text_white;
+  .button{
+    margin: 0;
+  }
+}
 
 
 .tracker {
@@ -24,6 +40,7 @@ $text: #87878a;
 
 .tracker .box__content {
     display: flex;
+    // max-width: 100vw;
     }
 
 .tracker_menu {
@@ -33,29 +50,35 @@ $text: #87878a;
     & nav {
     display: flex;
     justify-content: space-between;
+      .button{
+        margin: 0;
+      }
     }
 }
 
 .box__content__pistes {
 
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    border: 5px solid rgb(119, 119, 119);
-    min-height: 500px;
-    max-height: 500px;
+    grid-template-columns: repeat(9, 1fr);
+    border: 1px solid rgb(119, 119, 119);
+    width: 100%;
+    // min-height: 500px;
+    // max-height: 500px;
 
     &__piste {
         list-style: none;
-        border: 5px dashed #26272B;
         text-align: center;
-        display: grid;
-        grid-template-rows: 7%;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        // grid-template-rows: 7%;
+        width: 100%;
 
     }
 
     &__rangeesNumb {
         list-style: none;
-        border: 5px dashed #26272B;
+        border: 1px solid #26272B;
         text-align: center;
         display: grid;
         grid-template-rows: 7%;
@@ -73,6 +96,12 @@ $text: #87878a;
         justify-content: space-between;
         align-items: center;
         
+    }
+    li{
+      list-style: none;
+    }
+    .button {
+      margin: 0;
     }
 }
 .tracker_menu__nav__container__project {

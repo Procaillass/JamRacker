@@ -3,21 +3,113 @@ import "./Tracker.scss";
 // import * as Tone from 'tone';
 import trackerContext from "../../context/trackerContext";
 import { TrackerProvider } from "../../context/trackerContext";
-
-
+import DragDrop from "../DragDrop/DragDrop";
+import Card from "../DragDrop/Card";
+import DragDropContext, { DragDropProvider } from "../../context/dragDropContext";
+import * as Tone from 'tone';
+import kick from "../../Assets/Sounds/kick.wav";
+import bassDrum from "../../Assets/Sounds/bass_drum.wav";
+import clap from "../../Assets/Sounds/clap.wav";
+import hat from "../../Assets/Sounds/hat.wav"; 
 
 
 function Tracker() {
 
-    // const handleAddPiste = (ev) => {
-    //     ev.preventDefault();
-    //     if (ev.target.value !== "") {          
-    //       const newPiste = {pistes: generatePiste(piste)};
-    //       setdataTracker({ ...dataTracker, pistes: [...dataTracker.pistes, newPiste] });
-    //     }
-    //     ev.target.value = "";
-    //   };
+   /*
+   * -------------
+   * CONTEXT
+   * -------------
+   */
 
+    const {dataDragDrop, setDataDragDrop} = useContext(DragDropContext);
+    const { dataTracker, setDataTracker } = useContext(trackerContext);
+
+  /*
+   * -------------
+   * STATES
+   * -------------
+   */
+    
+    const [dataPlayPiste, setDataPlayPiste] = useState([]);
+    const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
+    const [dataSounds, setdataSounds] = useState({
+
+            sounds : [
+                {
+                    name:"sound1",
+                    url: hat
+                },
+                {
+                    name:"sound2",
+                    url: clap
+                },
+                {
+                    name:"sound3",
+                    url: bassDrum
+                },
+                {
+                    name:"sound4",
+                    url: kick
+                }
+            ]
+        })
+
+    const [dataPistes, setdataPistes] = useState({
+
+        stepsNum: 12,
+
+        tracks: [
+        {
+            name:"1",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"2",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"3",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"4",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"5",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"6",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"7",
+            duration: 0, 
+            steps: generatePistes() 
+        },
+        {
+            name:"8",
+            duration: 0, 
+            steps: generatePistes() 
+        }
+        ]
+    });
+
+    const tracks = Array.isArray(dataPistes.tracks) && dataPistes.tracks.length ? dataPistes.tracks : [];
+    const steps = dataPistes.stepsNum;
+
+    /*
+    * -------------
+    * HANDLERS
+    * -------------
+    */
 
     //_____Fermeture de la fenetre______
     const handleClose = (ev) => {
@@ -77,27 +169,31 @@ function Tracker() {
     }
     //_____________________fin du changement de volume d'un piste______
 
-
-
-    // _____________essai de génération de pistes_______________
-    //      
-    //   useEffect(() => {
-    //     console.log("pistes", pistes);
-    //     const newPistes = [...pistes].map(el => ({ ...el, pistes: generatePistes(pistes) }));
-    //     setdataTracker({ ...dataTracker, pistes: newPistes });
-    //   }, [pistes])
-    //
-    // _____________fin essai de génération de pistes_______________
-
+    const handlePlaying = (ev) =>{
+        /* ev.preventDefault();
+        console.log("play",dataPlayPiste); */
+        const player = new Tone.Player([hat,clap]).toDestination();
+        player.autostart = true;
+        
+    }
 
     /*
-* -------------
-* CONTEXT
-* -------------
-*/
+    * -------------
+    * EFFECTS
+    * -------------
+    */
+    
+    useEffect(() => {
+        const newTracks = [...tracks].map(el => ({ ...el, steps: generatePistes(steps) }));
+        setdataPistes({ ...dataPistes, tracks: newTracks });
+      }, [steps])
 
-    const { dataTracker, setDataTracker } = useContext(trackerContext)
+    useEffect(() => {
+        setDataPlayPiste([...dataPlayPiste,dataDragDrop])
+        console.log("lis",dataPlayPiste,"drag",dataDragDrop)
+    },[dataDragDrop] )
 
+    
     /*
     * -------------
     * RENDER
@@ -112,85 +208,33 @@ function Tracker() {
                 <button className="box__close" onClick={handleClose}>X</button>
             </div>
 
-            <div className="box__content">
+            <div className="grid-note box__content">
                 {/* _______________________________________________________________________début de la grille */}
                 <ul className="box__content__pistes">
                     {/* Première colonne à gauche de la grille pour les nombres */}
-                    <li className="box__content__pistes__rangeesNumb">
-
-                        <div>Nom -></div>
-                        <div>x</div>
-                        <div className="step">1</div>
-                        <div className="step">2</div>
-                        <div className="step">3</div>
-                        <div className="step">4</div>
-                        <div className="step">5</div>
-                        <div className="step">6</div>
-                        <div className="step">7</div>
-                        <div className="step">8</div>
-                        {/* les 4 élément qui suivent sont là pour avoir le même nombre d'élément (de fractions grid) que dans les pistes */}
-                        <div>Volume -&gt;</div>
-                        <div>range -></div>
-                        <button>Mute ? -></button>
-                        <div>fin de la piste</div>
-
-                    </li>
-                    <li className="box__content__pistes__piste">
+                    
+                    
                         {/* colonne de la Première piste */}
-                        <div>debut de la piste 1</div>
-                        <div>1</div>
+                      
 
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-
-                        {/* Essai de génération de la piste fail */}
-                        {/* <div data-pistes={pistes} className="tracker__track">
-                                {track.pistes.map((piste, pisteIdx) => (
-                                    <div
-                                        key={pisteIdx}
-                                        
-                                    />
-                                ))}
-                            </div> */}
-
-                        <div>Volume : {dataTracker.volume}</div>
+                        {tracks.map((track,trackIdx) => (<li className="box__content__pistes__piste">
+               
+                    <h2>{track.name}</h2>
+                   {track.steps.map((step,stepIdx) => (
+                       
+                    <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>  
+                       
+                   )) 
+                   }
+                   <div>Volume : {dataTracker.volume}</div>
                         <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
                         <button>Mute</button>
-                        <div>fin de la piste 1</div>
-
-                    </li>
-                    <li className="box__content__pistes__piste">
-                        {/* colonne de la deuxième piste */}
-                        <div>debut de la piste 2</div>
-                        <div>2</div>
-
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-                        <div className="step">bloc</div>
-
-                        {/* <div data-pistes={pistes} className="tracker__track">
-                            {track.pistes.map((piste, pisteIdx) => (
-                                <div key={pisteIdx} /> ))}
-                                                                    </div> */}
-
-                        <div>Volume : {dataTracker.volume}</div>
-                        <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
-                        <button>Mute</button>
-                        <div>fin de la piste 2</div>
-
-                    </li>
+                </li>
+            ))}
+                  
+                    
                 </ul>
+                
 
                 {/* ______________________________________________________________________________________fin de la grille */}
 
@@ -296,7 +340,15 @@ function Tracker() {
                         <div className="tracker_menu__nav__container__browser disable">
                             <p>Liste de mes pistes audio</p>
                             {/* image pour représenter la liste des Audio perso */}
-                            <img src={require('./soundpalette.PNG')} />
+                           <ul>
+                               {dataSounds.sounds.map((sound,soundIdx) => (
+                                   <li key={soundIdx}>
+                                   <DragDrop id="move" className="grid-item">
+                                        <Card id={sound.name} className="grid-item-active step button" draggable="true">{sound.name}</Card> 
+                                   </DragDrop>
+                                    </li>
+                               ))}
+                           </ul>
 
                             <div className="tracker_menu__nav__container__browser__buttons">
                                 {/* créer un nouveau son */}
@@ -340,7 +392,8 @@ function Tracker() {
                 </div>{/* _________________________________fin du bloc menu à droite du tracker */}
 
             </div>{/* _________________________________fin du box_content tracker */}
-
+            <button className="button" onClick={handlePlaying}>Test PlayList</button>
+          
         </div> 
 
 
