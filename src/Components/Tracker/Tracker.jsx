@@ -214,7 +214,7 @@ function Tracker() {
         
     }, [dataDragDrop])
  */
-console.log("tracker",dataDragDrop)
+//console.log("tracker",dataDragDrop)
     /*
     * -------------
     * RENDER
@@ -242,9 +242,10 @@ console.log("tracker",dataDragDrop)
 
                         <h2>{track.name}</h2>
                         {track.steps.map((step, stepIdx) => (
+                            <div data-step={stepIdx} data-track={trackIdx}>
 
                             <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>
-
+                            </div>
                         ))
                         }
                         <div>Volume : {dataTracker.volume}</div>
@@ -375,7 +376,7 @@ console.log("tracker",dataDragDrop)
                                 {allFile.map((item,index) => (
                                 <li>
                                     <DragDrop id="move" className="grid-item">
-                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} className="grid-item-active step button" draggable="true">{item.location.path}</Card>
+                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} className="grid-item-active step button tracker__sound" draggable="true">{item.location.path}</Card>
                                     </DragDrop>
                                 </li>
                                     
