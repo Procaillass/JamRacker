@@ -19,6 +19,8 @@ import { StepSeqProvider } from './context/stepSequencerContext';
 import { TrackerProvider } from './context/trackerContext';
 import { PianoProvider } from './context/PianoContext';
 import { MusicalNotesProvider } from './context/MusicalNotesContext';
+import { SamplerProvider } from './context/samplerContext';
+import * as Tone from 'tone';
 
 function App() {
 
@@ -31,8 +33,7 @@ function App() {
   */
 
   const PianoLocalStorage = localStorage.getItem("Data-piano");
-  //console.log(PianoLocalStorage);
-  const PianoLocalStorageNotes = PianoLocalStorage !== null ? JSON.parse(PianoLocalStorage).notes : [];
+  const PianoLocalStorageNotes= PianoLocalStorage !== null ? JSON.parse(PianoLocalStorage).notes : [];
   const intialPiano = {
     title: "Creation sur le Piano roll",
     source: "piano-roll",
@@ -66,7 +67,8 @@ function App() {
 
   /**State*/
   const [dataBpm, setDataBpm] = useState({ bpm: 100 });
-  const [dataInstrument, setDataInstrument] = useState("");
+  const [dataInstrument, setDataInstrument] = useState(new Tone.Synth().toDestination());
+  const [dataSampler, setDataSampler] = useState({urls: {}});
   const [dataStepSeq, setdataStepSeq] = useState({
 
     stepsNum: 16,
@@ -127,26 +129,27 @@ function App() {
 
   return (
     <MusicalNotesProvider value={musicalNotes}>
-      <PianoProvider value={{ dataPiano, setDataPiano }}>
-        <BpmProvider value={{ dataBpm }}>
-          <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
-            <StepSeqProvider value={{ dataStepSeq, setdataStepSeq, dataTracks, setDataTracks }}>
-              <TrackerProvider value={{ dataTracker, setDataTracker }}>
-                <Router besename="/">
-                  <div className="App">
-                    <header className="header">
-                      <button className="header_play-button"><i className="fas fa-play"></i></button>
-                      <div className="header_bpm-container">
-                        <p>BPM:</p>
-                        <label>{dataBpm.bpm}</label>
-                        <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
-                      </div>
-                      <div className="header_patern-container">
-                        <p>Patern:</p>
-                        <input defaultValue="1" min="1" max="300" type="number"></input>
-                      </div>
-                      <MenuNav />
-                      {/* <nav className="header_nav">
+      <SamplerProvider value={{dataSampler, setDataSampler}}>
+    <PianoProvider value={{ dataPiano, setDataPiano }}>
+    <BpmProvider value={{ dataBpm }}>
+      <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
+        <StepSeqProvider value={{ dataStepSeq,setdataStepSeq, dataTracks, setDataTracks}}>
+        <TrackerProvider value={{ dataTracker, setDataTracker}}>
+          <Router besename="/">
+            <div className="App">
+              <header className="header">
+                <button className="header_play-button"><i className="fas fa-play"></i></button>
+                <div className="header_bpm-container">
+                  <p>BPM:</p>
+                  <label>{dataBpm.bpm}</label>
+                  <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
+                </div>
+                <div className="header_patern-container">
+                  <p>Patern:</p>
+                  <input defaultValue="1" min="1" max="300" type="number"></input>
+                </div>
+                <MenuNav/>
+                {/* <nav className="header_nav">
                   <ul className="header_nav-list">
                     <li title="Step Sequencer"><i className="fas fa-th-list"></i></li>
                     <li title="Tracker"><i className="fas fa-list-ol"></i></li>
@@ -189,6 +192,7 @@ function App() {
           </InstrumentProvider>
         </BpmProvider>
       </PianoProvider>
+      </SamplerProvider>
     </MusicalNotesProvider>
   );
 }

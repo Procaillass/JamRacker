@@ -3,6 +3,7 @@ import '../../App.scss';
 import PinaoOctave from './PianoOctave'
 import PianoContext from "../../context/PianoContext.js";
 import Instrument from '../Instrument/Instrument';
+import instrumentContext from "../../context/instrumentContext";
 import Play from "../../Components/Play/Play";
 import { useHistory } from 'react-router';
 import { db, fire } from '../../fire';
@@ -26,7 +27,8 @@ export default function PianoRoll() {
   * --------
   */
 
-  const { dataPiano, setDataPiano } = useContext(PianoContext);
+  const {dataPiano, setDataPiano} = useContext(PianoContext);
+  const {dataInstrument, setDataInstrument} = useContext(instrumentContext);
 
   /*
   * --------
@@ -35,8 +37,8 @@ export default function PianoRoll() {
   */
   const [wave,setWave] = useState("");
   const [octLength, setoctLength] = useState([5]);
-  const [inst, setInst] = useState(new Tone.PolySynth().toDestination());
   const title = createRef();
+  const [currentStep, setCurrentStep] = useState(0);
 
   /*
   * --------------
@@ -57,7 +59,6 @@ export default function PianoRoll() {
 
   // Update the local storage
   useEffect(() => {
-    //console.log( dataPiano.notes);
     localStorage.setItem("Data-piano", JSON.stringify(dataPiano));
   }, [dataPiano])
 
@@ -126,7 +127,9 @@ export default function PianoRoll() {
     alert("Save patern to DB");
   }
 
- 
+  const handleCurrentStep = (newCurrentStep) => {
+    setCurrentStep(newCurrentStep);
+  }
 
   /*
   * --------
@@ -146,7 +149,7 @@ export default function PianoRoll() {
           <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
 
           {octLength.map((item, index) =>
-            <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano} />
+            <PinaoOctave key={`${item}__${index}`} octave={item} dataPiano={dataPiano} instrument={dataInstrument} setDataPiano={setDataPiano}/>
           )}
 
 
@@ -156,12 +159,11 @@ export default function PianoRoll() {
               <button className="roll-save-patern">Enregistrer</button>
               {/* <a className="button ag__download-btn" href={src} download={name}>Download audio file</a> */}
             </form>
-            <Play src={src} setSrc={setSrc} dataTracks={dataPiano} instrument={inst} />
-            
-          </div>
-          
-        </div>
+            <Instrument dataTracks={dataPiano} />
+            <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
           </div>
         </div>
+      </div>
+    </div>
   );
 }

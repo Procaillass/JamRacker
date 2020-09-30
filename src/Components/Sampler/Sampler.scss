@@ -1,14 +1,48 @@
-.sampler {
-    margin: 0 50px;
-}
-
-.box__title {
-
-    color: white;
-}
-
-.sampler_content_Lane {
+.sampler__Lane {
     display: grid;
-    grid-template-columns: 25% 25% 25% 15%;
-    grid-column-gap: 1em;
+    grid-gap: 1px;
+    grid-template-columns: calc(50% - 1px) 50%;
+
+    > * {
+        background: #393a40;
+        border: 0 none;
+        color: white;
+        padding: 1rem;
+
+    }
+
+    h3 {
+        font-size: inherit;
+    }
+
+    select {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        &:focus {
+          box-shadow: 0px 0px 5px rgba(255,255,255,0.1);
+          outline:0;
+        }
+
+    }
+}
+
+.sampler__Lane__head {
+    margin-bottom: 5px;
+}
+
+.sampler__Lane__body {
+    margin-top: 2px;
+}
+
+.sampler__addnewlane {
+    margin-top: 1rem;
+}
+
+.sampler__addnewlane__btn {
+    margin: 0;
 }

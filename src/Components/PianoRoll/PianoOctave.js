@@ -1,4 +1,4 @@
-import React, {   useContext } from 'react';
+import React, { useContext } from 'react';
 import '../../App.scss';
 import * as Tone from 'tone'
 //import { Loop } from 'tone';
@@ -42,6 +42,8 @@ function PianoRoll(props) {
   const dataPiano = props.dataPiano;
   const dataPianoNotes = props.dataPiano.notes;
 
+  const instrument = props.instrument;
+
   /*
   * --------
   * METHODS
@@ -70,7 +72,7 @@ function PianoRoll(props) {
     if(ev.target.classList.contains("piano-modify-duration")) return;
 
     // Jouer la note
-    synth.triggerAttackRelease(note, "8n")
+    instrument.triggerAttackRelease(note, "8n")
 
     // Chercher si la note existe (donc active)
     const currentActive = [...dataPianoNotes].find( el => el.name === note && el.steps === col );
@@ -114,7 +116,7 @@ function PianoRoll(props) {
         newStepNum --;
       }
       
-      synth.triggerAttackRelease(note, newStepNum/16+"n")
+      instrument.triggerAttackRelease(note, newStepNum/16+"n")
       newNotes[currentNoteIndex].stepNum = newStepNum;
       newNotes[currentNoteIndex].duration = newStepNum/16+"n";
       props.setDataPiano({...dataPiano, notes: [...newNotes]});
@@ -133,7 +135,7 @@ function PianoRoll(props) {
       <div className="clavier-container" id="keyboard">
         { notes.map((note, index) =>
           <div
-            onClick={() => synth.triggerAttackRelease(note.name, "8n")}
+            onClick={() => instrument.triggerAttackRelease(note.name, "8n")}
             key={`${index}_keyboard`}
             className={("key", note.name.includes('#') ? "black" : "white")}>
               { note.name.includes('C') && note.name }

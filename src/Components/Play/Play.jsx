@@ -1,6 +1,5 @@
 
-import React, { useState, useEffect, useRef, useContext } from "react";
-import instrumentContext from "../../context/instrumentContext";
+import React, { useState } from "react";
 import "./Play.scss";
 import * as Tone from 'tone';
 import { now as Now, Synth, Sampler, Recorder } from "tone";
@@ -9,7 +8,7 @@ import StepSeqContext from "../../context/stepSequencerContext";
 import BpmContext from '../../context/bpmContext';
 import { fire } from "../../fire";
 
-function Play({ dataTracks, instrument, src, setSrc,setName,name }) {
+function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,setName,name }) {
 
     /*
      * -------------
@@ -17,8 +16,8 @@ function Play({ dataTracks, instrument, src, setSrc,setName,name }) {
      * -------------
      */
 
-    const instContext = useContext(PlayContext);
-    const { dataBpm } = useContext(BpmContext);
+    //const instContext = useContext(PlayContext);
+    //const { dataBpm } = useContext(BpmContext);
 
     /*
     * -------------
@@ -42,7 +41,7 @@ function Play({ dataTracks, instrument, src, setSrc,setName,name }) {
     const handlePlaying = (ev) => {
         ev.preventDefault();
 
-       // console.log([...dataTracks.notes]);
+        if(dataTracks.notes.length === 0) return;
 
         // Remove scheduled events from the timeline after the given time.
         // Repeated events will be removed if their startTime is after the given time
@@ -65,33 +64,37 @@ function Play({ dataTracks, instrument, src, setSrc,setName,name }) {
             }
         }
 
-        let currentstep = 0;
+        let currentStep = 0;
         Tone.Transport.scheduleRepeat(
             (time) => {
+
                 // AudioGenerator
-                if (currentstep === 0) recorder.start();
+                if (currentStep === 0) recorder.start();
                 //
-                if (reorderedNotes[currentstep]) {
+
+                if (reorderedNotes[currentStep]) {
                     const now = Tone.now();
-                    reorderedNotes[currentstep].map((el, eli) => {
+                    reorderedNotes[currentStep].map((el, eli) => {
                         instrument.triggerAttackRelease(
-                            el.name,
-                            el.duration,
-                            now + eli / 1000
+                          el.name,
+                          el.duration,
+                          now + eli/1000
                         );
                     });
                 }
-                currentstep++;
+                handleCurrentStep(currentStep);
+                console.log(currentStep);
+                currentStep++; 
                 // AudioGenerator
-                if (currentstep === 15) {
+                if (currentStep === 15) {
                     recorder.stop();
-                    instrument.triggerRelease(time);
+                    //instrument.triggerRelease(time);
                 }
                 //
-                if (currentstep > 15) { currentstep = 0 };
-            },
-            "16n",
-            0
+                if (currentStep > 15) { currentStep = 0 };
+          },
+          "16n",
+          0
         );
 
         // AudioGenerator
@@ -118,17 +121,6 @@ function Play({ dataTracks, instrument, src, setSrc,setName,name }) {
 
     };
     
-
-    /*
-    * -------------
-    * EFFECTS
-    * -------------
-    */
-
-    /* useEffect(() => {
-        setInst(instContext)
-    }, [instContext]); */
-
     /*
     * -------------
     * RENDER
