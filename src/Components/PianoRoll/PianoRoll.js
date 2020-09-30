@@ -3,6 +3,7 @@ import '../../App.scss';
 import PinaoOctave from './PianoOctave'
 import PianoContext from "../../context/PianoContext.js";
 import Instrument from '../Instrument/Instrument';
+import instrumentContext from "../../context/instrumentContext";
 import Play from "../../Components/Play/Play";
 import { useHistory } from 'react-router';
 import { db } from '../../fire';
@@ -25,6 +26,7 @@ export default function PianoRoll() {
   */
 
   const {dataPiano, setDataPiano} = useContext(PianoContext);
+  const {dataInstrument, setDataInstrument} = useContext(instrumentContext);
 
   /*
   * --------
@@ -33,8 +35,8 @@ export default function PianoRoll() {
   */
 
   const [octLength, setoctLength] = useState([5]);
-  const [inst, setInst] = useState(new Tone.PolySynth().toDestination());
   const title = createRef();
+  const [currentStep, setCurrentStep] = useState(0);
 
   /*
   * --------
@@ -44,7 +46,6 @@ export default function PianoRoll() {
 
   // Update the local storage
   useEffect(() => {
-    //console.log( dataPiano.notes);
     localStorage.setItem("Data-piano", JSON.stringify(dataPiano));
   }, [dataPiano])
 
@@ -86,6 +87,10 @@ export default function PianoRoll() {
     alert("Save patern to DB");
   }
 
+  const handleCurrentStep = (newCurrentStep) => {
+    setCurrentStep(newCurrentStep);
+  }
+
   /*
   * --------
   * RENDER
@@ -93,7 +98,7 @@ export default function PianoRoll() {
   */
   
   return (
-    <div class="box">
+    <div className="box">
       <div className="box__bar">
         <div className="box__title">Piano</div>
         <button className="box__close" onClick={handleClose}>X</button>
@@ -104,7 +109,7 @@ export default function PianoRoll() {
           <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
 
           {octLength.map((item, index) =>
-            <PinaoOctave key={index} octave={item} dataPiano={dataPiano} setDataPiano={setDataPiano}/>
+            <PinaoOctave key={`${item}__${index}`} octave={item} dataPiano={dataPiano} instrument={dataInstrument} setDataPiano={setDataPiano}/>
           )}
 
           
@@ -113,7 +118,8 @@ export default function PianoRoll() {
             <input className="roll-patern-title" ref={title}/>
               <button className="roll-save-patern">Enregistrer</button>
             </form>
-            <Play dataTracks={dataPiano} instrument={inst} />
+            <Instrument dataTracks={dataPiano} />
+            <Play dataTracks={dataPiano} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
           </div>
         </div>
       </div>

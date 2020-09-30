@@ -19,6 +19,8 @@ import { StepSeqProvider } from './context/stepSequencerContext';
 import { TrackerProvider } from './context/trackerContext';
 import { PianoProvider } from './context/PianoContext';
 import { MusicalNotesProvider } from './context/MusicalNotesContext';
+import { SamplerProvider } from './context/samplerContext';
+import * as Tone from 'tone';
 
 function App() {
 
@@ -30,7 +32,6 @@ function App() {
   */
 
   const PianoLocalStorage = localStorage.getItem("Data-piano");
-  console.log(PianoLocalStorage);
   const PianoLocalStorageNotes= PianoLocalStorage !== null ? JSON.parse(PianoLocalStorage).notes : [];
   const intialPiano = {
     title: "Creation sur le Piano roll",
@@ -64,7 +65,8 @@ function App() {
 
   /**State*/
   const [dataBpm, setDataBpm] = useState({ bpm: 100 });
-  const [dataInstrument, setDataInstrument] = useState("");
+  const [dataInstrument, setDataInstrument] = useState(new Tone.Synth().toDestination());
+  const [dataSampler, setDataSampler] = useState({urls: {}});
   const [dataStepSeq, setdataStepSeq] = useState({
  
     stepsNum: 16,
@@ -125,6 +127,7 @@ const [dataTracks, setDataTracks] = useState({
 
   return (
     <MusicalNotesProvider value={musicalNotes}>
+      <SamplerProvider value={{dataSampler, setDataSampler}}>
     <PianoProvider value={{ dataPiano, setDataPiano }}>
     <BpmProvider value={{ dataBpm }}>
       <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
@@ -187,6 +190,7 @@ const [dataTracks, setDataTracks] = useState({
       </InstrumentProvider>
     </BpmProvider>
     </PianoProvider>
+    </SamplerProvider>
     </MusicalNotesProvider>
   );
 }
