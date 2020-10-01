@@ -1,0 +1,11 @@
+@mixin reset-block {
+    display: block;
+    margin: 0; padding: 0;
+    border: 0 none;
+    list-style: none;
+    font-size: inherit;
+    font: inherit;
+    font-weight: normal;
+    background: none;
+    color: inherit;
+}

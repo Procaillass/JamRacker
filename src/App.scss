@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
 
 @import './assets/styles/variables.scss';
+@import './assets/styles/mixins.scss';
 @import './assets/styles/box.scss';
 
 * {
@@ -27,6 +28,14 @@
   }
 }
 
+button,
+select {
+  
+  &:focus {
+    outline: none;
+  }
+}
+
 body {
   background-color: $dark-color-1;
   counter-reset: col;
@@ -42,39 +51,49 @@ body {
   height: 4rem;
   background-color: $dark-color-3;
 
-  &__bpm {
+  > * {
     display: flex;
     align-items: center;
-    margin-right: 10px;
-    flex-basis: 10%; //Fixer une largeur pour le changement du range
-    
-    input {
-      width: 40px;
-      background-color: transparent;
-      border: none;
-      outline: none;
-    }
-    label{
-      width: 100%; //Fixer une largeur pour le changement du range
-    }
+    padding: 0 1rem;
   }
-  &__patern {
-    display: flex;
-    align-items: center;
-    margin: 0 5px;
-    input {
-      width: 40px;
-      background-color: transparent;
-      border: none;
+
+  > * + * {
+    border-left: 1px solid $dark-color-1;
+  }
+}
+
+.header__nav {
+
+  select {
+    @include reset-block;
+
+    &:focus {
       outline: none;
     }
   }
-  &_select {
+}
+
+
+.header__bpm {
+  
+  input {
+    width: 40px;
     background-color: transparent;
     border: none;
     outline: none;
-    option {
-    }
+  }
+}
+
+
+.header__patern {
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
+  input {
+    width: 40px;
+    background-color: transparent;
+    border: none;
+    outline: none;
   }
 }
 
