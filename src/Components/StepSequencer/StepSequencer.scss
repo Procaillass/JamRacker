@@ -204,3 +204,10 @@ $sequencer__controls_btn_border: #23236f;
   }
 
 }
+.roll-save-patern:disabled{
+  opacity: 0.5;
+  cursor: default;
+  &:hover{
+    background: #004e88 !important;
+  }
+}
