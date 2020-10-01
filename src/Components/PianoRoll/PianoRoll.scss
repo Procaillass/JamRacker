@@ -2,8 +2,6 @@
 
 .piano {
   background-color: $dark-color-2;
-  padding: 2rem 1rem 1rem 1rem;
-
 }
 
 .piano__octave__controls {
@@ -19,9 +17,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    margin-top: -1.4rem;
     height: 50px;
-    width: 150px;
     z-index: 1;
     border: 1px solid black;
     background-color: #ededed;
