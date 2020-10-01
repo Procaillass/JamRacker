@@ -148,7 +148,7 @@ function Tracker() {
     //_____debut menu nav disable switch game (j'arrive pas encore à bien utiliser des foreach ou des map, alors j'ai mis ajouté/enlever une classe Disable au clic)
     // c'est pas opti mais ça fonctionne______
 
-    const handleInspector = (ev) => {
+    /* const handleInspector = (ev) => {
         ev.preventDefault();
 
         document.querySelector(".box__title_inspector").classList.toggle("selected")
@@ -160,15 +160,15 @@ function Tracker() {
         document.querySelector(".tracker_menu__nav__container__inspector").classList.toggle("disable")
 
 
-    };
+    }; */
     const handleBrowser = (ev) => {
         ev.preventDefault();
 
         document.querySelector(".tracker_menu__nav__container__browser").classList.toggle("disable")
         document.querySelector(".tracker_menu__nav__container__project").classList.add("disable")
-        document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable")
+        /* document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable") */
 
-        document.querySelector(".box__title_inspector").classList.remove("selected")
+        /* document.querySelector(".box__title_inspector").classList.remove("selected") */
         document.querySelector(".box__title_browser").classList.toggle("selected")
         document.querySelector(".box__title_project").classList.remove("selected")
 
@@ -177,9 +177,9 @@ function Tracker() {
         ev.preventDefault();
         document.querySelector(".tracker_menu__nav__container__browser").classList.add("disable")
         document.querySelector(".tracker_menu__nav__container__project").classList.toggle("disable")
-        document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable")
+        /* document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable") */
 
-        document.querySelector(".box__title_inspector").classList.remove("selected")
+        /* document.querySelector(".box__title_inspector").classList.remove("selected") */
         document.querySelector(".box__title_browser").classList.remove("selected")
         document.querySelector(".box__title_project").classList.toggle("selected")
     };
@@ -229,7 +229,7 @@ function Tracker() {
                 <button className="box__close" onClick={handleClose}>X</button>
             </div>
 
-            <div className="grid-note box__content">
+            <div className="box__content">
                 {/* _______________________________________________________________________début de la grille */}
                 <ul className="box__content__pistes">
                     {/* Première colonne à gauche de la grille pour les nombres */}
@@ -242,15 +242,18 @@ function Tracker() {
 
                         <h2>{track.name}</h2>
                         {track.steps.map((step, stepIdx) => (
-                            <div data-step={stepIdx} data-track={trackIdx}>
+                            <div className="track__container" data-step={stepIdx} data-track={trackIdx}>
 
-                            <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>
+                            <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}><span>{stepIdx}</span></DragDrop>
                             </div>
+
                         ))
                         }
-                        <div>Volume : {dataTracker.volume}</div>
-                        <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
-                        <button>Mute</button>
+                        {/* <div className="box__volume">
+                            <span>Volume : {dataTracker.volume}</span>
+                            <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
+                            <button>Mute</button>
+                        </div> */}
                     </li>
                     ))}
 
@@ -266,12 +269,12 @@ function Tracker() {
                     {/* Menu nav avec les 3 onglets */}
                     <nav className="tracker_menu_nav">
                         {/* onglet 1 inspector */}
-                        <div className="box__bar" >
+                        {/* <div className="box__bar" >
                             <div className="box__title box__title_inspector button" onClick={handleInspector}>Inspector</div>
-                        </div>
+                        </div> */}
                         {/* onglet 2 browser */}
                         <div className="box__bar">
-                            <div className="box__title box__title_browser button " onClick={handleBrowser}>Browser</div>
+                            <div className="box__title box__title_browser button selected" onClick={handleBrowser}>Browser</div>
                         </div>
                         {/* onglet 3 project */}
                         <div className="box__bar">
@@ -359,24 +362,13 @@ function Tracker() {
 
 
                         {/* _________________________________debut de la partie BROWSER */}
-                        <div className="tracker_menu__nav__container__browser disable">
-                            <p>Liste de mes pistes audio</p>
-                            {/* image pour représenter la liste des Audio perso */}
-                            {/* <ul>
-                                {dataSounds.sounds.map((sound, soundIdx) => (
-                                    <li key={soundIdx}>
-                                        
-                                            <Card id={sound.url} className="grid-item-active step button" draggable="true">{sound.name}</Card>
-                                        </DragDrop>
-                                    </li>
-                                ))}
-                            </ul> */}
+                        <div className="tracker_menu__nav__container__browser">
 
                             <ul>
                                 {allFile.map((item,index) => (
                                 <li>
                                     <DragDrop id="move" className="grid-item">
-                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} className="grid-item-active step button tracker__sound" draggable="true">{item.location.path}</Card>
+                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} className="grid-item-active tracker__sound" draggable="true">{item.location.path}</Card>
                                     </DragDrop>
                                 </li>
                                     
@@ -399,8 +391,6 @@ function Tracker() {
 
                         <div className="tracker_menu__nav__container__project disable">
 
-                            <p >Project properties</p>
-
                             <label className="button" htmlFor="name">Name</label>
                             <input className="button input" placeholder="Your project name" type="text" />
 
@@ -419,23 +409,16 @@ function Tracker() {
 
                             </div>
 
-                        </div> {/* _________________________________fin de la partie Project */}
+                        </div>{/* _________________________________fin de la partie Project */}
 
                     </div>{/* _________________________________fin du nav container */}
 
                 </div>{/* _________________________________fin du bloc menu à droite du tracker */}
 
+<TrackerPlayer items={dataDragDrop} />
+                
             </div>{/* _________________________________fin du box_content tracker */}
-            <TrackerPlayer items={dataDragDrop} />
-            {/* <audio controls src={fileUrl} /> */}
-            {/* {allFile.map((item,index) => {
-                return (
-                    <div key={index}>
-                        <p>{item.location.path}</p>
-                        <audio controls src={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} />
-                    </div>
-                )
-            })} */}
+            
         </div>
 
 
