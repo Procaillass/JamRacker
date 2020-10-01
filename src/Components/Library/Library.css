@@ -1,0 +1,24 @@
+.box__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.box__content ul {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.box__content ul li {
+  list-style: none;
+  margin: 1rem 0;
+}
+
+.box__content ul li audio {
+  width: 50%;
+}
+/*# sourceMappingURL=Library.css.map */

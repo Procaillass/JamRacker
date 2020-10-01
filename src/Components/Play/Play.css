@@ -1,0 +1,12 @@
+.play__button {
+  padding: .7rem 1rem;
+  margin-top: 1rem;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: #87878a;
+  color: #26272b;
+  border: 1px solid #87878a;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+/*# sourceMappingURL=Play.css.map */

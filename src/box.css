@@ -1,0 +1,68 @@
+.box {
+  margin: 0 2.5rem 7rem 2.5rem;
+  background: #43454b;
+  background: #43454b;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.box__bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #26272b;
+}
+
+.box__title {
+  color: white;
+}
+
+.box__close {
+  display: block;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  color: #87878a;
+  line-height: .2rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  background-color: #26272b;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.box__close:hover {
+  background-color: #87878a;
+  color: #26272b;
+}
+
+.box__content {
+  padding: 1rem;
+}
+
+.box__content label {
+  color: white;
+  padding: .5rem;
+}
+
+.box__action {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.box__title {
+  padding: .5rem 1rem;
+}
+/*# sourceMappingURL=box.css.map */
