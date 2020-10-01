@@ -138,7 +138,7 @@ function PianoRoll(props) {
             onClick={() => instrument.triggerAttackRelease(note.name, "8n")}
             key={`${index}_keyboard`}
             className={("key", note.name.includes('#') ? "black" : "white")}>
-              { note.name.includes('C') && note.name }
+              { note.name }
           </div>
         )}
       </div>

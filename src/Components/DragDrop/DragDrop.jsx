@@ -17,11 +17,11 @@ function DragDrop(props) {
         console.log(ev.target.parentNode);
         
         // recuepere les données en fonction de l'id de la personne cibler
-        data = ev.dataTransfer.getData(ev.target.id);
+        data = ev.dataTransfer.getData(ev.target.parentNode.id);
         // condition pour voir si l'element est deja a l'interieure ou non
         if(!itsHere){
 
-            ev.target.appendChild(document.getElementById(data))
+            ev.target.parentNode.appendChild(document.getElementById(data))
 
             // Get audio duration
             let duration = 0.2;
@@ -65,8 +65,8 @@ function DragDrop(props) {
     const allowDrop = (ev) =>{
         ev.preventDefault();
         
-
-        if(!(ev.target.id === "move")){
+        console.log('id', ev.target.parentNode.id);
+        if(!(ev.target.parentNode.id === "move")){
             itsHere = true;
         }
     }
