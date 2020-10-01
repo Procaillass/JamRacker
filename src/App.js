@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { useHistory } from 'react-router';
 import './App.scss';
-import './box.scss';
 /**Components*/
 import StepSequencer from './Components/StepSequencer/StepSequencer';
 import Sampler from './Components/Sampler/Sampler';
@@ -120,50 +119,45 @@ const [dataDragDrop, setDataDragDrop] = useState([]);
     })
   }
 
-  /* const handleInstrument = (event) => {
-    const instrument = event.target.value
-    setDataInstrument({
-      instrument
-    })
-  } */
-
   // Auth user
   const pseudo = JSON.parse(localStorage.getItem("pseudo"));
 
   return (
     <MusicalNotesProvider value={musicalNotes}>
-      <SamplerProvider value={{dataSampler, setDataSampler}}>
+    <SamplerProvider value={{dataSampler, setDataSampler}}>
     <PianoProvider value={{ dataPiano, setDataPiano }}>
     <BpmProvider value={{ dataBpm }}>
-      <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
-        <StepSeqProvider value={{ dataStepSeq,setdataStepSeq, dataTracks, setDataTracks}}>
-        <TrackerProvider value={{ dataTracker, setDataTracker}}>
-          <Router besename="/">
-            <div className="App">
-              <header className="header">
-                <button className="header_play-button"><i className="fas fa-play"></i></button>
-                <div className="header_bpm-container">
-                  <p>BPM:</p>
-                  <label>{dataBpm.bpm}</label>
-                  <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
-                </div>
-                <div className="header_patern-container">
-                  <p>Patern:</p>
-                  <input defaultValue="1" min="1" max="300" type="number"></input>
-                </div>
-                <MenuNav/>
-                {/* <nav className="header_nav">
-                  <ul className="header_nav-list">
-                    <li title="Step Sequencer"><i className="fas fa-th-list"></i></li>
-                    <li title="Tracker"><i className="fas fa-list-ol"></i></li>
-                  </ul>
-                </nav> */}
-                      <div>{pseudo}</div>
-                      {
-                        localStorage.getItem("pseudo") ? <Logout /> : <button className="logBtn"><Link to="/login">Login</Link></button>
-                      }
-
-                    </header>
+    <InstrumentProvider value={{ dataInstrument, setDataInstrument }}>
+    <StepSeqProvider value={{ dataStepSeq,setdataStepSeq, dataTracks, setDataTracks}}>
+    <TrackerProvider value={{ dataTracker, setDataTracker}}>
+    <Router basename="/">
+    
+      <div className="App">
+        
+        <header className="header">
+          
+          <div className="header__nav">
+            <MenuNav/>
+          </div>
+          
+          <div className="header__bpm">
+            <p>BPM: {dataBpm.bpm}</p>
+            <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
+          </div>
+          
+          <div className="header__patern">
+            <p>Patern:</p>
+            <input defaultValue="1" min="1" max="300" type="number"></input>
+          </div>
+          
+          <div className="header__user">
+            <div className="header__user__pseudo">{pseudo}</div>
+            {localStorage.getItem("pseudo")
+              ? <Logout />
+              : <button className="logBtn"><Link to="/login">Login</Link></button>}
+          </div>
+        
+        </header>
 
                     <main>
                       <>
@@ -191,13 +185,13 @@ const [dataDragDrop, setDataDragDrop] = useState([]);
                     </main>
                   </div>
 
-                </Router>
-              </TrackerProvider>
-            </StepSeqProvider>
-          </InstrumentProvider>
-        </BpmProvider>
-      </PianoProvider>
-      </SamplerProvider>
+    </Router>
+    </TrackerProvider>
+    </StepSeqProvider>
+    </InstrumentProvider>
+    </BpmProvider>
+    </PianoProvider>
+    </SamplerProvider>
     </MusicalNotesProvider>
   );
 }
