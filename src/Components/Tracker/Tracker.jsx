@@ -12,6 +12,7 @@ import bassDrum from "../../Assets/Sounds/bass_drum.wav";
 import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav";
 import { fire } from "../../fire";
+import TrackerPlayer from "./TrackerPlayer";
 
 
 function Tracker() {
@@ -124,7 +125,6 @@ function Tracker() {
 
 
         gsReference.listAll().then(res => {
-            console.log("res", res.items);
             setAllFile(res.items)
         })
     }
@@ -148,7 +148,7 @@ function Tracker() {
     //_____debut menu nav disable switch game (j'arrive pas encore à bien utiliser des foreach ou des map, alors j'ai mis ajouté/enlever une classe Disable au clic)
     // c'est pas opti mais ça fonctionne______
 
-    const handleInspector = (ev) => {
+    /* const handleInspector = (ev) => {
         ev.preventDefault();
 
         document.querySelector(".box__title_inspector").classList.toggle("selected")
@@ -160,15 +160,15 @@ function Tracker() {
         document.querySelector(".tracker_menu__nav__container__inspector").classList.toggle("disable")
 
 
-    };
+    }; */
     const handleBrowser = (ev) => {
         ev.preventDefault();
 
         document.querySelector(".tracker_menu__nav__container__browser").classList.toggle("disable")
         document.querySelector(".tracker_menu__nav__container__project").classList.add("disable")
-        document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable")
+        /* document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable") */
 
-        document.querySelector(".box__title_inspector").classList.remove("selected")
+        /* document.querySelector(".box__title_inspector").classList.remove("selected") */
         document.querySelector(".box__title_browser").classList.toggle("selected")
         document.querySelector(".box__title_project").classList.remove("selected")
 
@@ -177,9 +177,9 @@ function Tracker() {
         ev.preventDefault();
         document.querySelector(".tracker_menu__nav__container__browser").classList.add("disable")
         document.querySelector(".tracker_menu__nav__container__project").classList.toggle("disable")
-        document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable")
+        /* document.querySelector(".tracker_menu__nav__container__inspector").classList.add("disable") */
 
-        document.querySelector(".box__title_inspector").classList.remove("selected")
+        /* document.querySelector(".box__title_inspector").classList.remove("selected") */
         document.querySelector(".box__title_browser").classList.remove("selected")
         document.querySelector(".box__title_project").classList.toggle("selected")
     };
@@ -197,13 +197,6 @@ function Tracker() {
     }
     //_____________________fin du changement de volume d'un piste______
 
-    const handlePlaying = (ev) => {
-        /* ev.preventDefault();
-        console.log("play",dataPlayPiste); */
-        const player = new Tone.Player([hat, clap]).toDestination();
-        player.autostart = true;
-
-    }
 
     /*
     * -------------
@@ -216,12 +209,12 @@ function Tracker() {
         setdataPistes({ ...dataPistes, tracks: newTracks });
     }, [steps])
 
-    useEffect(() => {
+    /* useEffect(() => {
         setDataPlayPiste([...dataPlayPiste, dataDragDrop])
-        console.log("lis", dataPlayPiste, "drag", dataDragDrop)
+        
     }, [dataDragDrop])
-
-
+ */
+console.log("tracker",dataDragDrop)
     /*
     * -------------
     * RENDER
@@ -250,13 +243,15 @@ function Tracker() {
                         <h2>{track.name}</h2>
                         {track.steps.map((step, stepIdx) => (
 
-                            <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}>{stepIdx}</DragDrop>
+                            <DragDrop id="move" className="grid-item step" step={stepIdx} track={trackIdx}><span>{stepIdx}</span></DragDrop>
 
                         ))
                         }
-                        <div>Volume : {dataTracker.volume}</div>
-                        <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
-                        <button>Mute</button>
+                        <div className="box__volume">
+                            <span>Volume : {dataTracker.volume}</span>
+                            <input name="Volume" min="0" max="100" type="range" onChange={handleVolume} />
+                            <button>Mute</button>
+                        </div>
                     </li>
                     ))}
 
@@ -272,12 +267,12 @@ function Tracker() {
                     {/* Menu nav avec les 3 onglets */}
                     <nav className="tracker_menu_nav">
                         {/* onglet 1 inspector */}
-                        <div className="box__bar" >
+                        {/* <div className="box__bar" >
                             <div className="box__title box__title_inspector button" onClick={handleInspector}>Inspector</div>
-                        </div>
+                        </div> */}
                         {/* onglet 2 browser */}
                         <div className="box__bar">
-                            <div className="box__title box__title_browser button " onClick={handleBrowser}>Browser</div>
+                            <div className="box__title box__title_browser button selected" onClick={handleBrowser}>Browser</div>
                         </div>
                         {/* onglet 3 project */}
                         <div className="box__bar">
@@ -365,16 +360,17 @@ function Tracker() {
 
 
                         {/* _________________________________debut de la partie BROWSER */}
-                        <div className="tracker_menu__nav__container__browser disable">
-                            <p>Liste de mes pistes audio</p>
-                            {/* image pour représenter la liste des Audio perso */}
+                        <div className="tracker_menu__nav__container__browser">
+
                             <ul>
-                                {dataSounds.sounds.map((sound, soundIdx) => (
-                                    <li key={soundIdx}>
-                                        <DragDrop id="move" className="grid-item">
-                                            <Card id={sound.name} className="grid-item-active step button" draggable="true">{sound.name}</Card>
-                                        </DragDrop>
-                                    </li>
+                                {allFile.map((item,index) => (
+                                <li>
+                                    <DragDrop id="move" className="grid-item">
+                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} className="grid-item-active" draggable="true">{item.location.path}</Card>
+                                    </DragDrop>
+                                </li>
+                                    
+                                
                                 ))}
                             </ul>
 
@@ -392,8 +388,6 @@ function Tracker() {
                         {/* _________________________________debut de la partie Project */}
 
                         <div className="tracker_menu__nav__container__project disable">
-
-                            <p >Project properties</p>
 
                             <label className="button" htmlFor="name">Name</label>
                             <input className="button input" placeholder="Your project name" type="text" />
@@ -420,16 +414,7 @@ function Tracker() {
                 </div>{/* _________________________________fin du bloc menu à droite du tracker */}
 
             </div>{/* _________________________________fin du box_content tracker */}
-            <button className="button" onClick={handlePlaying}>Test PlayList</button>
-            {/* <audio controls src={fileUrl} /> */}
-            {allFile.map((item,index) => {
-                return (
-                    <div key={index}>
-                        <p>{item.location.path}</p>
-                        <audio controls src={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} />
-                    </div>
-                )
-            })}
+            <TrackerPlayer items={dataDragDrop} />
         </div>
 
 

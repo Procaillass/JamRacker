@@ -12,14 +12,31 @@ h2{
   color: $text_white;
 }
 
-.step {
+.grid-item.step {
   // padding-top: calc(100% - 2px);
   border: 1px solid #26272B;
-  background-color: $sequencer_step_bg;
   cursor: pointer;
   color:$text_white;
+  position: relative;
+  margin: 0;
+  width: 11rem;
+  height: 8rem;
   .button{
     margin: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  span {
+    position: absolute;
+    height: 100px;
+    top: 25%;
+    left: 50%;
+    z-index: 0;
+  }
+  .grid-item-active{
+    width: 100%;
+    color: #757575;
+    position: relative;
   }
 }
 
@@ -44,12 +61,10 @@ h2{
     }
 
 .tracker_menu {
-    border: 5px solid rgb(43, 43, 43);
     width: 25%;
 
     & nav {
     display: flex;
-    justify-content: space-between;
       .button{
         margin: 0;
       }
@@ -60,10 +75,7 @@ h2{
 
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    border: 1px solid rgb(119, 119, 119);
     width: 100%;
-    // min-height: 500px;
-    // max-height: 500px;
 
     &__piste {
         list-style: none;
@@ -71,7 +83,6 @@ h2{
         display: flex;
         flex-direction: column;
         height: 100vh;
-        // grid-template-rows: 7%;
         width: 100%;
 
     }
@@ -102,6 +113,7 @@ h2{
     }
     .button {
       margin: 0;
+      width: 100%;
     }
 }
 .tracker_menu__nav__container__project {
@@ -188,4 +200,9 @@ h2{
 
  textarea {
     max-width: 100%;
+ }
+
+ .box__volume{
+   color: $text_white;
+   margin: 1rem 0;
  }

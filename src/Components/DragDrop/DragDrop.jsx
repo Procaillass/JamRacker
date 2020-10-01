@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import DragDropContext, { DragDropProvider } from "../../context/dragDropContext";
 import "./DragDrop.scss";
 
@@ -6,22 +6,22 @@ function DragDrop(props) {
     let itsHere = false;
 
     let [listNote,setListNote] = useState([]);
-    const {dataDragDrop, setDataDragDrop} = useContext(DragDropContext);
-
+    const { dataDragDrop, setDataDragDrop } = useContext(DragDropContext);
+    let data = null;
     const drop = (ev) => {
+       
         ev.preventDefault();
         
         // recuepere les données en fonction de l'id de la personne cibler
-        let data = ev.dataTransfer.getData(ev.target.id);
-        console.log("drag",data)
-                
+        data = ev.dataTransfer.getData(ev.target.id);
         // condition pour voir si l'element est deja a l'interieure ou non
         if(!itsHere){
 
             ev.target.appendChild(document.getElementById(data))
             const step = props.step;
             const track = props.track;
-            setDataDragDrop({...dataDragDrop,step, track,data})
+            setDataDragDrop([...dataDragDrop,{step:step, track: track,data: data}])
+            
             
         }
         else{
@@ -39,8 +39,7 @@ function DragDrop(props) {
         }
         
     }
-
-    
+    console.log("dataDragDrop",dataDragDrop)
     return(
         
         <div

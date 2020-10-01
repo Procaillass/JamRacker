@@ -109,7 +109,7 @@ function App() {
     notes: []
   });
 
-const [dataDragDrop, setDataDragDrop] = useState([{}])
+const [dataDragDrop, setDataDragDrop] = useState([]);
 
 
   //Récupération du bpm lors du changement du range
