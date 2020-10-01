@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import { BrowserRouter as Router, Route, Switch, Link ,useHistory} from "react-router-dom";
 import "./StepSequencer.scss";
 import * as Tone from 'tone';
 
@@ -8,6 +9,7 @@ import Play from "../../Components/Play/Play";
 import BpmContext from "../../context/bpmContext";
 import StepSeqContext from "../../context/stepSequencerContext";
 import instrumentContext from "../../context/instrumentContext";
+import {db,fire} from "../../fire"
 
 function StepSequencer() {
 
@@ -62,7 +64,8 @@ function StepSequencer() {
   * STATES
   * -------------
   */
- 
+  const history = useHistory();
+  const [src,setSrc] = useState();
   const [currentStep, setCurrentStep] = useState(0);
 
   /*
@@ -73,6 +76,7 @@ function StepSequencer() {
 
   //const currentStep = useRef(0);
   const stepsFld = useRef(steps);
+  const titleSequencer = useRef();
 
   /*
    * -------------
@@ -107,7 +111,35 @@ function StepSequencer() {
   const handleCurrentStep = (newCurrentStep) => {
     setCurrentStep(newCurrentStep);
   }
+  const SaveSequencer = (e) => {
+    e.preventDefault();
+    
+    const titleValue = titleSequencer.current.value
+    if (localStorage.getItem("pseudo")) {
+      
+      // envoie dans le storage .wav
+      const storageRef = fire.storage().ref()
+      storageRef.child(titleValue).put(src)
 
+      setSrc(dataTracks.notes);
+
+      db.collection("Tracks").doc(titleValue).set({
+        title: titleValue,
+        author: JSON.parse(localStorage.getItem("pseudo")),
+        source: " Step Sequenceur ",
+        notes: dataTracks.notes
+      })
+    }
+    else {
+      alert("you not have account for register");
+      history.push("/login");
+    }
+    console.log("note",dataTracks.notes)
+  }
+  useEffect(()=>{
+    
+    
+  },[])
   /*
    * -------------
    * EFFECTS
@@ -150,7 +182,11 @@ function StepSequencer() {
               <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
             </div> */}
             <Instrument dataTracks={dataTracks} />
-            <Play dataTracks={dataTracks} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+            <Play src={src} setSrc={setSrc} dataTracks={dataTracks} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+          <form onSubmit={(e) => SaveSequencer(e)}>
+            <input className="roll-patern-title" ref={titleSequencer} />
+            <button type="submit" className="roll-save-patern">Enregistrer</button>
+          </form>
         </div>
 
         {tracks.map((track, trackIdx) => (
@@ -182,7 +218,7 @@ function StepSequencer() {
             )}
           </select>
         </div>}
-
+        
       </div>
 
     </div>
