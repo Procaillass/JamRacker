@@ -67,6 +67,7 @@ function StepSequencer() {
   const history = useHistory();
   const [src,setSrc] = useState();
   const [currentStep, setCurrentStep] = useState(0);
+  const [isRecorded,setIsRecorded] = useState(false);
 
   /*
    * -------------
@@ -111,24 +112,32 @@ function StepSequencer() {
   const handleCurrentStep = (newCurrentStep) => {
     setCurrentStep(newCurrentStep);
   }
+
+  const changeIsRecorded = () => {
+    setIsRecorded(true);
+    
+  }
+
   const SaveSequencer = (e) => {
     e.preventDefault();
     
     const titleValue = titleSequencer.current.value
     if (localStorage.getItem("pseudo")) {
-      
-      // envoie dans le storage .wav
-      const storageRef = fire.storage().ref()
-      storageRef.child(titleValue).put(src)
-
+      // registerStep.disabled=false;
+      console.log("src = ",src);
+      console.log("titleValue = ",titleValue);
+      console.log("stepNum",steps)
+      // // envoie dans le storage .wav
+      // const storageRef = fire.storage().ref()
+      // storageRef.child(titleValue).put(src)
       setSrc(dataTracks.notes);
 
-      db.collection("Tracks").doc(titleValue).set({
-        title: titleValue,
-        author: JSON.parse(localStorage.getItem("pseudo")),
-        source: " Step Sequenceur ",
-        notes: dataTracks.notes
-      })
+      // db.collection("Tracks").doc(titleValue).set({
+      //   title: titleValue,
+      //   author: JSON.parse(localStorage.getItem("pseudo")),
+      //   source: " Step Sequenceur ",
+      //   notes: dataTracks.notes
+      // })
     }
     else {
       alert("you not have account for register");
@@ -182,10 +191,10 @@ function StepSequencer() {
               <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
             </div> */}
             <Instrument dataTracks={dataTracks} />
-            <Play src={src} setSrc={setSrc} dataTracks={dataTracks} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+            <Play src={src} setSrc={setSrc} changeIsRecorded={changeIsRecorded}  dataTracks={dataTracks} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
           <form onSubmit={(e) => SaveSequencer(e)}>
             <input className="roll-patern-title" ref={titleSequencer} />
-            <button type="submit" className="roll-save-patern">Enregistrer</button>
+            <button type="submit" className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
           </form>
         </div>
 

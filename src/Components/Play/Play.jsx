@@ -8,7 +8,7 @@ import StepSeqContext from "../../context/stepSequencerContext";
 import BpmContext from '../../context/bpmContext';
 import { fire } from "../../fire";
 
-function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,setName,name }) {
+function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,changeIsRecorded }) {
 
     /*
      * -------------
@@ -103,11 +103,16 @@ function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,setName,n
         recorder.ondataavailable = evt => chunks.push(evt.data);
         recorder.onstop = evt => {
 
-            let blob = new Blob(chunks, { type: 'audio/wav' });
-            const recordingdatas = blob;
-            setSrc(recordingdatas);
-
-            console.log("Recorded: ", recordingdatas);
+            if (currentStep <= 16){
+                changeIsRecorded();
+                let blob = new Blob(chunks, { type: 'audio/wav' });
+                const recordingdatas = blob;
+                setSrc(recordingdatas);
+    
+                console.log("Recorded: ", recordingdatas);
+            }else{
+                console.log("error enregistrement")
+            }
             
            
         };

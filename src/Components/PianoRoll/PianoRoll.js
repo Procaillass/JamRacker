@@ -38,6 +38,7 @@ export default function PianoRoll() {
   const [octLength, setoctLength] = useState([5]);
   const title = createRef();
   const [currentStep, setCurrentStep] = useState(0);
+  const [isRecorded,setIsRecorded] = useState(false);
 
   /*
   * --------------
@@ -81,7 +82,10 @@ export default function PianoRoll() {
   //   })
     
   // }
-
+  const changeIsRecorded = () => {
+    setIsRecorded(true);
+    
+  }
   const SavePatern = (ev) => {
     ev.preventDefault();
     const titleValue = title.current.value
@@ -155,10 +159,10 @@ export default function PianoRoll() {
           <div className="piano__controls">
             <form onSubmit={SavePatern}>
               <input className="roll-patern-title" ref={title} />
-              <button className="roll-save-patern">Enregistrer</button>
+              <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
             </form>
             <Instrument dataTracks={dataPiano} />
-            <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+            <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
           </div>
         </div>
       </div>
