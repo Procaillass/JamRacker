@@ -162,55 +162,6 @@ h2{
     
 }
 
-.button {
-    display: inline-block;
-    padding: .7rem 1rem;
-    font: inherit;
-    font-size: inherit;
-    transition: all 0.5s ease;
-    background-color: $text;
-    color: $box_bar;
-    border: 1px solid $text;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: inherit;
-    box-sizing: border-box;
-
-    &:hover {
-      background-color: $box_bar;
-      border: 1px solid $box_bar;
-      color: $text;
-    }
-
-    &:focus {
-      box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-      outline:0;
-    }
-
-    &_pink {
-        background-color: pink !important;
-      }
-      &_red {
-        background-color: red !important;
-      }
-      &_orange {
-        background-color: orange !important;
-      }
-      &_blue {
-        background-color: blue !important;
-      }
-      &_violet {
-        background-color: violet !important;
-      }
-      &_yellow {
-        background-color: yellow !important;
-      }
-      &_green {
-        background-color: green !important;
-      }
- }
-
  .input {
 
     background-color: rgb(224, 224, 224) !important;

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { useHistory } from 'react-router';
 import './App.scss';
+import * as Tone from 'tone';
 /**Components*/
 import StepSequencer from './Components/StepSequencer/StepSequencer';
 import Sampler from './Components/Sampler/Sampler';
 import Tracker from './Components/Tracker/Tracker';
-import AudioGenerator from './Components/AudioGenerator/AudioGenerator';
 import PianoRoll from './Components/PianoRoll/PianoRoll'
 import MenuNav from './Components/MenuNav/MenuNav'
 import Login from './Components/Auth/Login';
@@ -19,7 +18,6 @@ import { TrackerProvider } from './context/trackerContext';
 import { PianoProvider } from './context/PianoContext';
 import { MusicalNotesProvider } from './context/MusicalNotesContext';
 import { SamplerProvider } from './context/samplerContext';
-import * as Tone from 'tone';
 import { DragDropProvider } from './context/dragDropContext';
 
 function App() {
@@ -86,37 +84,20 @@ function App() {
     ],
 
     tracks: [
-      {
-        name: "A0",
-        duration: 0,
-        steps: generateSteps()
-      },
-      {
-        name: "c1",
-        duration: 0,
-        steps: generateSteps()
-      },
-      {
-        name: "c4",
-        duration: 0,
-        steps: generateSteps()
-      }
+      { name: "A0", duration: 0, steps: generateSteps() },
+      { name: "c1", duration: 0, steps: generateSteps() },
+      { name: "c4", duration: 0, steps: generateSteps() }
     ]
   });
 
-  const [dataTracks, setDataTracks] = useState({
-    notes: []
-  });
-
-const [dataDragDrop, setDataDragDrop] = useState([]);
+  const [dataTracks, setDataTracks] = useState({notes:[]});
+  const [dataDragDrop, setDataDragDrop] = useState([]);
 
 
   //Récupération du bpm lors du changement du range
   const handleBPM = (event) => {
     const bpm = event.target.value
-    setDataBpm({
-      bpm
-    })
+    setDataBpm({bpm})
   }
 
   // Auth user
@@ -140,50 +121,51 @@ const [dataDragDrop, setDataDragDrop] = useState([]);
             <MenuNav/>
           </div>
           
-          <div className="header__bpm">
+          {/* <div className="header__bpm">
             <p>BPM: {dataBpm.bpm}</p>
             <input name="bpm" min="1" max="200" type="range" onChange={handleBPM} />
-          </div>
+          </div> */}
           
-          <div className="header__patern">
+          {/* <div className="header__patern">
             <p>Patern:</p>
             <input defaultValue="1" min="1" max="300" type="number"></input>
-          </div>
+          </div> */}
           
           <div className="header__user">
             <div className="header__user__pseudo">{pseudo}</div>
             {localStorage.getItem("pseudo")
               ? <Logout />
-              : <button className="logBtn"><Link to="/login">Login</Link></button>}
+              : <Link className="button" to="/login">Login</Link>}
           </div>
         
         </header>
+        
+        <main>
+          <Switch>
+            
+            <Route exact path="/">
+              <PianoRoll />
+              <StepSequencer />
+              <Sampler />
+            </Route>
+            
+            <Route exact path="/playlist">
+              <DragDropProvider value={{dataDragDrop, setDataDragDrop}}>
+                <Tracker />
+              </DragDropProvider>
+            </Route>
+            
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            
+            <Route exact path="/logout">
+              <Logout />
+            </Route>
 
-                    <main>
-                      <>
-                        {/* <Pattern/> ici => objet contenant les pattern */}
-                        {/* Route et composant */}
-                        <Switch>
-                          <Route exact path="/">
-                            <div className="piano_global"><PianoRoll /></div>
-                            <StepSequencer />
-                            <Sampler />
-                          </Route>
-                          <Route exact path="/playlist">
-                          <DragDropProvider value={{dataDragDrop, setDataDragDrop}}>
-                            <Tracker />
-                          </DragDropProvider>
-                          </Route>
-                          <Route exact path="/login">
-                            <Login />
-                          </Route>
-                          <Route exact path="/logout">
-                            <Logout />
-                          </Route>
-                        </Switch>
-                      </>
-                    </main>
-                  </div>
+          </Switch>
+        </main>
+      </div>
 
     </Router>
     </TrackerProvider>

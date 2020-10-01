@@ -141,19 +141,34 @@ export default function PianoRoll() {
   */
 
   return (
-    <div className="box">
-      <div className="box__bar">
-        <div className="box__title">Piano</div>
-        <button className="box__close" onClick={handleClose}>X</button>
-      </div>
-      <div className="box__content">
-        <div className="Roll">
-          <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
-          <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
+    <div className="piano-roll">
+      <div className="box">
 
-          {octLength.map((item, index) =>
-            <PinaoOctave key={`${item}__${index}`} octave={item} dataPiano={dataPiano} instrument={dataInstrument} setDataPiano={setDataPiano}/>
-          )}
+        <div className="box__bar">
+          <div className="box__title">Piano</div>
+          <button className="box__close" onClick={handleClose}>X</button>
+        </div>
+
+        <div className="box__content">
+          
+          <div className="piano">
+
+            <div className="piano__octave__controls">
+              <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
+              <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
+            </div>
+
+            {octLength.map((item, index) =>
+              <PinaoOctave
+                key={`${item}__${index}`}
+                octave={item}
+                dataPiano={dataPiano}
+                instrument={dataInstrument}
+                setDataPiano={setDataPiano} />
+            )}
+          </div>
+
+
 
 
           <div className="piano__controls">
@@ -164,6 +179,7 @@ export default function PianoRoll() {
             <Instrument dataTracks={dataPiano} />
             <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
           </div>
+
         </div>
       </div>
     </div>

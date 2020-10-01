@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    z-index: 9999;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 4rem;
+    background-color: $dark-color-3;
+    font-size: .9rem;
+    text-transform: uppercase;
+  
+    > * {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+    }
+  
+    > * + * {
+      border-left: 1px solid $dark-color-1;
+    }
+  }
+  
+  .header__nav {
+  
+    select {
+      @include reset-block;
+      text-transform: uppercase;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  
+  
+  .header__bpm {
+    
+    input {
+      margin-left: 1rem;
+      width: 5rem;
+    }
+  }
+  
+  .header__user {
+    margin-left: auto;
+  
+    &__pseudo {
+      margin-right: 1rem;
+    }
+  }
