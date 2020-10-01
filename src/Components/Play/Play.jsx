@@ -8,7 +8,7 @@ import StepSeqContext from "../../context/stepSequencerContext";
 import BpmContext from '../../context/bpmContext';
 import { fire } from "../../fire";
 
-function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,changeIsRecorded }) {
+function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRecorded }) {
 
     /*
      * -------------

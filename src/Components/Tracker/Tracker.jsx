@@ -38,6 +38,7 @@ function Tracker() {
      * -------------
      */
     const [allFile, setAllFile] = useState([])
+    const [src,setSrc] = useState("");
     const [dataPlayPiste, setDataPlayPiste] = useState([]);
     const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
     const [dataSounds, setdataSounds] = useState({
@@ -129,7 +130,13 @@ function Tracker() {
         })
     }
 
+    const SaveTracker = () => {
+
+    }
+
+
     useEffect(() => {
+        console.log(" note :",)
         fecthSong();
     }, [])
 

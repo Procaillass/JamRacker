@@ -123,21 +123,23 @@ function StepSequencer() {
     
     const titleValue = titleSequencer.current.value
     if (localStorage.getItem("pseudo")) {
-      // registerStep.disabled=false;
-      console.log("src = ",src);
-      console.log("titleValue = ",titleValue);
-      console.log("stepNum",steps)
-      // // envoie dans le storage .wav
-      // const storageRef = fire.storage().ref()
-      // storageRef.child(titleValue).put(src)
-      setSrc(dataTracks.notes);
+      if(titleValue !== ""){
 
-      // db.collection("Tracks").doc(titleValue).set({
-      //   title: titleValue,
-      //   author: JSON.parse(localStorage.getItem("pseudo")),
-      //   source: " Step Sequenceur ",
-      //   notes: dataTracks.notes
-      // })
+        // // envoie dans le storage .wav
+        const storageRef = fire.storage().ref()
+        storageRef.child(titleValue).put(src)
+        setSrc(dataTracks.notes);
+  
+        db.collection("Tracks").doc(titleValue).set({
+          title: titleValue,
+          author: JSON.parse(localStorage.getItem("pseudo")),
+          source: " Step Sequenceur ",
+          notes: dataTracks.notes
+        })
+      }else{
+        alert("oops il manque un titre a votre piste !!!")
+        return
+      }
     }
     else {
       alert("you not have account for register");

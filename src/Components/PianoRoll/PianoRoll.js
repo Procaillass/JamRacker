@@ -88,27 +88,15 @@ export default function PianoRoll() {
   }
   const SavePatern = (ev) => {
     ev.preventDefault();
-    const titleValue = title.current.value
-
-    // const regex = /[a-z]/;
-    // const file = src.split("blob:")[1]
-
+    const titleValue = title.current.value;
     if (localStorage.getItem("pseudo")) {
-      alert("Save patern to DB");
-     
+      
       if (titleValue !== "" && dataPiano.notes.length) {
+        alert("Save patern to DB");
 
         // envoie dans le storage .wav
         const storageRef = fire.storage().ref()
-        storageRef.child(titleValue).put(src)
-
-        // envoie le lien dans une db 
-        // db.collection("Song").doc(titleValue).set({
-        //   title: titleValue,
-        //   author: JSON.parse(localStorage.getItem("pseudo")),
-        //   source: " Piano Roll ",
-        //   url: src
-        // })
+        storageRef.child(titleValue).put(src);
 
         // envoie vers la db firestore
         db.collection("Tracks").doc(titleValue).set({
@@ -117,6 +105,9 @@ export default function PianoRoll() {
           source: " Piano Roll ",
           notes: dataPiano.notes
         })
+      }else{
+        alert("oops il manque un titre a votre piste !!!")
+        return
       }
     }
     else {
