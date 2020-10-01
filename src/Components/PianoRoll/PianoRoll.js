@@ -20,7 +20,6 @@ export default function PianoRoll() {
   */
   const history = useHistory();
 
-
   /*
   * --------
   * CONTEXT /
@@ -157,7 +156,6 @@ export default function PianoRoll() {
             <form onSubmit={SavePatern}>
               <input className="roll-patern-title" ref={title} />
               <button className="roll-save-patern">Enregistrer</button>
-              {/* <a className="button ag__download-btn" href={src} download={name}>Download audio file</a> */}
             </form>
             <Instrument dataTracks={dataPiano} />
             <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
