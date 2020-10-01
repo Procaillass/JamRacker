@@ -137,15 +137,15 @@ function PianoRoll(props) {
           <div
             key={`${index}_keyboard`}
             onClick={() => instrument.triggerAttackRelease(note.name, "8n")}
-            className={note.name.includes('#') ? "key-black" : "key-white"}>
+            className={note.name.includes('#') ? "key key--black" : "key key--white"}>
               { note.name }
           </div>
         )}
       </div>
 
-      <section className="piano-containter">
+      <div className="steps">
         {notes.map(( note,index) =>
-          <section key={index} className={note.name.includes('#') ? "piano_grid black" : "piano_grid white"}>
+          <div key={index} className={note.name.includes('#') ? "steps__row steps__row--black" : "steps__row steps__row--white"}>
             {steps.map((step, index) =>
               <div
                 data-note={note.name}
@@ -167,9 +167,9 @@ function PianoRoll(props) {
                   </span>
               </div>
             )}
-          </section>
+          </div>
         )}
-      </section>
+      </div>
     </div>
   );
 }
