@@ -145,8 +145,7 @@ export default function PianoRoll() {
       <div className="box">
 
         <div className="box__bar">
-          <div className="box__title">Piano</div>
-          <button className="box__close" onClick={handleClose}>X</button>
+          <div className="box__title"><h2>Piano roll</h2></div>
         </div>
 
         <div className="box__content">
@@ -171,13 +170,13 @@ export default function PianoRoll() {
 
 
 
-          <div className="piano__controls">
-            <form onSubmit={SavePatern}>
-              <input className="roll-patern-title" ref={title} />
-              <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
-            </form>
+          <div className="play-register-container">
             <Instrument dataTracks={dataPiano} />
             <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+            {<form onSubmit={SavePatern}>
+              <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={title} />
+              <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
+            </form>}
           </div>
 
         </div>

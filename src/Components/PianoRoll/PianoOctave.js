@@ -60,6 +60,12 @@ function PianoRoll(props) {
   * --------
   */
 
+  const playKeybord = (ev, note) => {
+    ev.preventDefault();
+    console.log(instrument);
+    instrument.triggerAttackRelease(note, "8n")
+  }
+
   const noteMidiCompare = (note) => {
     const myNote = musicalNotes.filter(el => el.name === note);
     return myNote[0].midi;
@@ -158,7 +164,7 @@ function PianoRoll(props) {
         { notes.map((note, index) =>
           <div
             key={`${index}_keyboard`}
-            onClick={() => instrument.triggerAttackRelease(note.name, "8n")}
+            onClick={(ev) => playKeybord(ev, note.name)}
             className={note.name.includes('#') ? "key key--black" : "key key--white"}>
               { note.name }
           </div>

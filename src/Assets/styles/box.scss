@@ -22,6 +22,11 @@ $text: #87878a;
 
   &__title {
       color: white;
+
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+      }
   }
 
   &__close {

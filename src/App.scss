@@ -14,6 +14,9 @@
 
 // Components
 @import './Components/PianoRoll/PianoRoll.scss';
+@import './Components/StepSequencer/StepSequencer.scss';
+@import './Components/Sampler/Sampler.scss';
+@import './Components/Tracker/Tracker.scss';
 @import './Components/Auth/Login.scss';
 
 * {
@@ -56,4 +59,12 @@ body {
 
 main{
   padding-top: 4rem;
+}
+
+select {
+  -webkit-appearance:     none;
+  -moz-appearance:        none;
+  -ms-appearance:         none;
+  -o-appearance:          none;
+  appearance:             none;
 }

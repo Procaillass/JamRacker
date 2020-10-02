@@ -76,6 +76,7 @@
     height: 2rem;
     width: 65%;
     z-index: 2;
+    border-radius: 0 .15rem .15rem 0;
     background-color: black;
     color: rgba(255,255,255,0.3);
   }
@@ -101,199 +102,27 @@
 
   }
 
-  .steps__row--white {
+  .steps__row--white > div {
+      background-color: $step;
 
-    > div {
-      background-color: rgb(77, 90, 90);
-    }
-    
+      &:nth-child(4n+1) {
+        background-color: $step-measure;
+      }
   }
 
-  .steps__row--black {
+  .steps__row--black > div {
+      background-color: $step-dark;
 
-    > div {
-      background-color: #292929;
-    }
-
+      &:nth-child(4n+1) {
+        background-color: $step-dark-measure;
+      }
   }
 }
-
-
-
-.piano {
-  
-  }
-  .board {
-    width: 100%;
-    display: flex;
-  }
-  .board-content {
-    width: 100%;
-    display: flex;
-    margin-left: 3rem;
-  }
-  .clavier-container {
-    display: flex;
-    flex-direction: column;
-    // background-color: red;
-    justify-content: stretch;
-    margin-top: 1.45rem;
-  
-    .white {
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-end;
-      margin-top: -1.4rem;
-      height: 50px;
-      width: 150px;
-      z-index: 1;
-      border-top: 1px solid black;
-      border-bottom: 1px solid black;
-      border-left: 1px solid black;
-      background-color: #ededed;
-    }
-    .white:nth-child(8) {
-      margin-top: -2px;
-    }
-    .black {
-      position: relative;
-      top: -0.6rem;
-      height: 20px;
-      width: 100px;
-      z-index: 2;
-      border: 2px solid black;
-      background-color: black;
-    }
-    .key {
-      float: left;
-      position: relative;
-    }
-  }
   
   .test {
-    background-color: rgba(88,235,144,.8) !important;
+    position: relative;
+    background-color: $step-active !important;
     z-index: 1;
-  }
-  
-  //quentin
-  
-  .piano-containter {
-    margin-top: 2px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 50px);
-  }
-  
-  // main {
-  //   margin-top: 50px;
-  //   height: calc(100vh - 50px);
-  // }
-  
-  .piano_grid.white {
-    height: 30.4px;
-  }
-  .piano_grid.black {
-    height: 20px;
-    div {
-      background-color: #292929;
-    }
-  }
-  
-  .piano {
-    .board:nth-child(3) {
-      .piano_grid:first-child {
-          > :nth-child(4n + 1) {
-            position: relative;
-            &::before {
-              counter-increment: col;
-              content: "" counter(col);
-              position: absolute;
-              top: -30px;
-              left: -5px;
-              color: white;
-            }
-          }
-        }
-    }
-  
-    .board {
-      :first-child {
-        // background-color: red;
-  
-        .piano-container {
-          .piano_grid:first-child {
-            div {
-              position: relative;
-              &:nth-child(4n + 1)::before {
-                counter-increment: col;
-                content: "" counter(col);
-                position: absolute;
-                top: -30px;
-                left: -5px;
-                color: white;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  .piano_grid {
-    margin-left: 5px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 50px);
-    // grid-template-rows: repeat(auto-fit, );
-    gap: 2px;
-    grid-auto-flow: column;
-    margin-bottom: 2px;
-  
-    // &:first-child {
-    //   div {
-    //     position: relative;
-    //     &:nth-child(4n + 1)::before {
-    //       counter-increment: col;
-    //       content: "" counter(col);
-    //       position: absolute;
-    //       top: -30px;
-    //       left: -5px;
-    //       color: white;
-    //     }
-    //   }
-    // }
-  
-    &_note-black {
-      background-color: black;
-    }
-    &_note-white {
-      background-color: white;
-    }
-  
-    button {
-      position: fixed;
-      display: none;
-      left: 0;
-      cursor: pointer;
-      grid-column: 1;
-      grid-column-start: 1;
-      grid-column-end: span 2;
-      border: none;
-      height: 30px;
-      width: 102px;
-      outline: none;
-      &:hover {
-        box-shadow: inset 0 0 0 5px rgb(221, 154, 100);
-      }
-    }
-    
-    div {
-      min-width: 50px;
-      cursor: cell;
-      background-color: rgb(77, 90, 90);
-      &:hover ~ button {
-        box-shadow: inset 0 0 0 5px rgb(221, 154, 100);
-      }
-    }
   }
   
   .piano-modify-duration {
@@ -314,22 +143,44 @@
     left: 0px;
   }
   
-  .test {
-    position: relative;
-  }
-  
   .test .piano-modify-duration {
     display: block;
   }
-  .roll-save-patern, button{
-    margin-bottom: 0;
-  }
-  .roll-patern-title {
-    padding: 0.5rem 1rem;
-  }
-  .piano__controls{
+ 
+  .play-register-container {
+    margin-top: 1rem;
       display: flex;
       align-items: center;
-      margin: 0 0 3rem 0;
-      margin-top: 3rem;
-  }  
+      padding: 1rem;
+      background-color:  $sequencer_sound_bg;
+
+      form {
+        margin-left: auto;
+        display: flex;
+
+        input[type="text"] {
+          width: 12rem;
+        }
+
+        button {
+          margin-left: .5rem;
+        }
+      }
+
+      .play {
+        margin-left: .5rem;
+      }
+  }
+
+  .instrument {
+    @extend .button;
+  }
+
+  input[type="text"] {
+    border: none;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    padding: 0 .5rem;
+    border-radius: .1rem;
+    background-color: rgba(255,255,255,0.8);
+  }

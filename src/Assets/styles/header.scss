@@ -21,14 +21,25 @@
   }
   
   .header__nav {
+    padding: 0;
+    align-items: stretch;
+
+    nav {
+      display: flex;
+      align-items: stretch;
+    }
   
-    select {
+    a {
       @include reset-block;
       text-transform: uppercase;
-  
-      &:focus {
-        outline: none;
-      }
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      text-decoration: none;
+    }
+
+    a + a {
+      border-left: 1px solid $dark-color-1;
     }
   }
   

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { BrowserRouter as Router, Route, Switch, Link ,useHistory} from "react-router-dom";
-import "./StepSequencer.scss";
 import * as Tone from 'tone';
 
 import Instrument from '../../Components/Instrument/Instrument';
@@ -180,29 +179,16 @@ function StepSequencer() {
 
       <div className="box__bar">
         <div className="box__title"><h2>Sequencer</h2></div>
-        <button className="box__close" onClick={handleClose}>X</button>
       </div>
 
       <div className="box__content">
-        <div className="sequencer__controls">
-            
-            {/* <div>
-              <label>{steps}</label>
-              <input className="box__stepsrange" type="range" min="4" max="64" step="4" ref={stepsFld} onChange={handleSteps} value={steps} />
-            </div> */}
-            <Instrument dataTracks={dataTracks} />
-            <Play src={src} setSrc={setSrc} changeIsRecorded={changeIsRecorded}  dataTracks={dataTracks} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
-          <form onSubmit={(e) => SaveSequencer(e)}>
-            <input className="roll-patern-title" ref={titleSequencer} />
-            <button type="submit" className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
-          </form>
-        </div>
+
+        <div className="sequencer__grid">
 
         {tracks.map((track, trackIdx) => (
 
           <div className="sequencer__row" key={trackIdx + "_" + track.name}>
             <div className="sequencer__sound">
-              <button className="btn__remove" onClick={() => { if (window.confirm('Are you sure you want to delete the track ?')) { handleRemoveTrack(track.name) } }}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#a7080b" width="24px" height="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
               <span>{track.name}</span>
             </div>
             <div data-step={steps} className="sequencer__track">
@@ -215,18 +201,36 @@ function StepSequencer() {
                 />
               ))}
             </div>
+
+            <button className="sequencer__row_remove" onClick={() => { if (window.confirm('Are you sure you want to delete the track ?')) { handleRemoveTrack(track.name) } }}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#87878a" width="24px" height="24px">
+                  <path d="M0 0h24v24H0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+            </button>
           </div>
         ))}
 
-        {<div className="sequencer__controls below">
-          <select className="sequencer__addtrack" onChange={handleAddTrack}>
+</div>
+        
+        <select className="button sequencer__addtrack" onChange={handleAddTrack}>
             <option value="">Add a track</option>
             {notesList.map((note, index) =>
               tracks.map(el => el.name).includes(note.name) === false &&
               <option key={index + '_' + note.name} value={note.name} name={note.midi}>{note.name}</option>
             )}
           </select>
-        </div>}
+
+
+
+
+<div className="play-register-container">
+  <Instrument dataTracks={dataTracks} />
+  <Play  src={src} setSrc={setSrc} dataTracks={dataTracks} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+  {<form onSubmit={SaveSequencer}>
+    <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={titleSequencer} />
+    <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
+  </form>}
+</div>
         
       </div>
 

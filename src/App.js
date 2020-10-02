@@ -64,7 +64,7 @@ function App() {
   const [dataTracker, setDataTracker] = useState({ volume: 100 });
 
   /**State*/
-  const [dataBpm, setDataBpm] = useState({ bpm: 100 });
+  const [dataBpm, setDataBpm] = useState({ bpm: 120 });
   const [dataInstrument, setDataInstrument] = useState(new Tone.Synth().toDestination());
   const [dataSampler, setDataSampler] = useState({urls: {}});
   const [dataStepSeq, setdataStepSeq] = useState({
@@ -143,8 +143,12 @@ function App() {
         <main>
           <Switch>
             
-            <Route exact path="/">
+            <Route exact path="/piano-roll">
               <PianoRoll />
+              <Sampler />
+            </Route>
+            
+            <Route exact path="/step-sequencer">
               <StepSequencer />
               <Sampler />
             </Route>

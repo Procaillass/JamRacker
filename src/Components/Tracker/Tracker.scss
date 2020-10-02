@@ -1,178 +1,168 @@
-$box_bar: #26272b;
-$box_bg: #43454b;
-$sequencer_sound_bg: #393a40;
-$sequencer_step_bg: #26272b;
-$sequencer_step_marked_bg: #749292;
-$sequencer_step_col_bg: #362928;
-$sequencer_step_marqued_col_bg: #517878;
-$text: #87878a;
-$text_white: #d8d8d8;
-
-h2{
-  color: $text_white;
-}
-
-.track__container {
-  position: relative;
-  margin: 0;
-  height: 3.5rem;
-  border: 1px solid #26272B;
-  
-  .grid-item.step,
-  .grid-item-active,
-  span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0; padding: 0;
-    top: 0; left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.grid-item.step {
-  // padding-top: calc(100% - 2px);
-  cursor: pointer;
-  color:$text_white;
-  background: none;
-  z-index: 1;
-
-  span {
-    z-index: -1;
-    background-color: rgba(70, 70, 70, 0.8);
-    color: rgba(0,0,0, 0.2);
-  }
-  .grid-item-active{
-    color: #757575;
-    z-index: 2;
-    font-size: .8rem;
-    line-height: 1rem;
-    padding: .5rem;
-  }
-}
-
-
 .tracker {
-    margin: 50px;
-
+  display: grid;
+  grid-template-columns: calc(70% - 1rem) 30%;
+  grid-gap: 1rem;
 }
 
-.selected {
-    background-color: #3a3a3a !important;
-    color: $text !important;
+
+
+.tracker__tracks {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 1px;
+  background-color: $dark-color-2;
 }
 
-.disable {
-    display: none !important;
+.tracker__steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(12, 1fr);
+  grid-gap: 1px;
 }
 
-.tracker .box__content {
-    display: grid;
-    grid-template-columns: calc(75% - 1rem) 25%;
-    grid-gap: 1rem;
-    // max-width: 100vw;
+.tracker__step {
 
-  > button {
-    align-self: start;
-    justify-self: start;
+  .drag__item {
+    height: 3rem;
+    background-color: $step;
+  }
+  .drap__item--ondrap {
+    background-color: $step-measure;
   }
 }
 
-.tracker_menu {
-
-    & nav {
-    display: flex;
-      .button{
-        margin: 0;
-      }
-    }
+.tracker__panels {
 }
 
-.box__content__pistes {
-
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    width: 100%;
-
-    &__piste {
-        list-style: none;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        //height: 100vh;
-        width: 100%;
-
-    }
-
-    &__rangeesNumb {
-        list-style: none;
-        border: 1px solid #26272B;
-        text-align: center;
-        display: grid;
-        grid-template-rows: 7%;
-    }
-
-}
-
-.tracker_menu__nav__container__browser {
-
-    display: flex;
-    flex-direction: column;
-
-    &__buttons {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        
-    }
-    li{
-      list-style: none;
-    }
-    .button {
-      margin: 0;
-      width: 100%;
-    }
-}
-.tracker_menu__nav__container__project {
+.tracker__panels__menu {
   display: flex;
-  flex-flow: column;
-  justify-items: center;
-  width: 100%;
+
+  button {
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: .15rem .15rem 0 0;
+    background-color: $dark-color-2;
+    opacity: .5;
+    font-weight: normal;
+    color: $text;
+
+    &:not(:first-child) {
+      margin-left: 1px;
+    }
+
+    &.tracker__panels__menu-active {
+      opacity: 1;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
 }
 
-.tracker_menu__nav__container__project__buttons {
+.tracker__panel {
+  height: calc(11*3rem + 10px);
+  padding: 1rem;
+  background-color: #ccc;
+  position: relative;
+  background-color: $dark-color-2;
+}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+.tracker__browse {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: .5rem;
+
+}
+
+.tracker__sounds {
+}
+
+.tracker__browse__actions {
+  /* position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; */
+  padding-top: 1rem;
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: repeat(2, calc(50% - .25rem));
+  display: none;
+}
+
+.tracker__sounds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: .5rem;
+}
+
+.tracker__sound {
+  background-color: #555;
+
+  p {
+    padding: .1rem .3rem;
+    font-size: .65rem;
+    color: $dark-color-2;
+    background-color: $step-current;
+  }
+
+  div {
+    height: 3rem;
+    background-color: $step-current;
+  }
+}
+
+.tracker__project {
+
+  label {
+    @include reset-block;
+    width: 100%;
+    color: $text;
+    padding-bottom: .5rem;
+    font-size: 0.8rem;
+  }
+
+  input[type="text"],
+  textarea,
+  select {
+    @include reset-block;
+    width: 100%;
+    padding: .7rem;
+    border: 1px solid rgba(255,255,255,0.4);
+    font-size: 0.8rem;
+
+    &:focus {
+      box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+      outline:0;
+    }
+  }
+
+  * + label {
+    margin-top: 1rem;
+  }
+}
+
+
+.tracker__project__actions {
+  padding-top: 2rem;
+}
+
+
+
+
+
+.drag__item .tracker__sound {
+  background-color: #555;
+  height: 100%;
+
+  p {
     height: 100%;
-    padding: 1rem;
+    color: white;
+    background-color: $step-active;
+    color: $step-dark;
+  }
+
+  div {
+    display: none;
+  }
 }
-
-.tracker_menu__nav__container__inspector__fx {
-
-    display: flex;
-
-    & select {max-width: 175px;}
-    & input {max-width: 120px;}
-    & label {max-width: 55px;
-    min-width: 55px;}
-    
-}
-
- .input {
-
-    background-color: rgb(224, 224, 224) !important;
-
- }
-
- textarea {
-    max-width: 100%;
- }
-
- .box__volume{
-   color: $text_white;
-   margin: 1rem 0;
- }

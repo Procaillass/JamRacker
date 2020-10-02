@@ -38,28 +38,27 @@ function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,changeIsR
     * HANDLERS
     * -------------
     */
+   
     const handlePlaying = (ev) => {
         ev.preventDefault();
 
-        if(playing) {
+        if(playing === true) {
             console.log('stop');
             Tone.Transport.stop();
             Tone.Transport.cancel();
+            setPlaying(!playing);
+            return
         }
 
-        if(dataTracks.notes.length === 0) return;
+        // if(dataTracks.notes.length === 0) return;
 
-        // Remove scheduled events from the timeline after the given time.
-        // Repeated events will be removed if their startTime is after the given time
-        Tone.Transport.cancel();
-
-        // AudioGenerator
+        // Generate Audio
         const actx = Tone.context;
         const dest = actx.createMediaStreamDestination();
         const recorder = new MediaRecorder(dest.stream);
         instrument.connect(dest);
         const chunks = [];
-
+        //
 
         // Converti dataTracks (passé en props) en tableau lisible par scheduleRepeat
         const reorderedNotes = [];
@@ -69,68 +68,49 @@ function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,changeIsR
                 reorderedNotes[i] = filteredNotes;
             }
         }
+        console.log(reorderedNotes);
 
         let currentStep = 0;
-        Tone.Transport.scheduleRepeat(
-            (time) => {
+        
+        recorder.start();
+        let isRecording = true;
 
-                // AudioGenerator
-                if (currentStep === 0) recorder.start();
-                //
+        Tone.Transport.scheduleRepeat((time) => {
 
-                if (reorderedNotes[currentStep]) {
-                    const now = Tone.now();
-                    reorderedNotes[currentStep].map((el, eli) => {
-                        instrument.triggerAttackRelease(
-                          el.name,
-                          el.duration,
-                          now + eli/1000
-                        );
-                    });
+            let timeOutDuration = 100;
+
+            if (reorderedNotes[currentStep]) {
+                const now = Tone.now();
+                reorderedNotes[currentStep].map( (el, elIdx) => {
+                    instrument.triggerAttackRelease( el.name, el.duration, now+elIdx/1000 );
+                    // remplacer timeOutDuration par la durée de la note la plus longue du map;
+                });
+            }
+
+            if (currentStep === 15) {
+                if(isRecording) {
+                    isRecording = !isRecording;
+                    setTimeout(() =>{recorder.stop();}, timeOutDuration);
                 }
-                handleCurrentStep(currentStep);
-                //console.log(currentStep);
-                currentStep++; 
-                // AudioGenerator
-                if (currentStep === 15) {
-                    recorder.stop();
-                    //instrument.triggerRelease(time);
-                }
-                //
-                if (currentStep > 15) { currentStep = 0 };
-          },
-          "16n",
-          0
-        );
+            }
 
-        // AudioGenerator
-        //console.log("dest :", dest.stream)
+            currentStep++;
+            if (currentStep > 15) { currentStep = 0 };
+
+        },"16n");
+        
+
         
         recorder.ondataavailable = evt => chunks.push(evt.data);
         recorder.onstop = evt => {
-
-            if (currentStep <= 16){
-                changeIsRecorded();
-                let blob = new Blob(chunks, { type: 'audio/wav' });
-                const recordingdatas = blob;
-                setSrc(recordingdatas);
-    
-                console.log("Recorded: ", recordingdatas);
-            }else{
-                console.log("error enregistrement")
-            }
-            
-           
+            changeIsRecorded();
+            setSrc( new Blob(chunks, { type: 'audio/wav' }) );
+            // console.log("Recorded: ", recordingdatas);
         };
 
-
-        playing === false ?
-            Tone.Transport.start()
-            : Tone.Transport.stop();
-
+        Tone.Transport.start();
         setPlaying(!playing);
-
-    };
+    }
     
     /*
     * -------------
@@ -138,10 +118,6 @@ function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,changeIsR
     * -------------
     */
 
-    return (
-        <>
-            <button className="play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
-        </>
-    );
+    return <button className="play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
 }
 export default Play;
