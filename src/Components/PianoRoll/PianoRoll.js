@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, createRef } from 'react';
 import '../../App.scss';
-import PinaoOctave from './PianoOctave'
+import PianoOctave from './PianoOctave'
 import PianoContext from "../../context/PianoContext.js";
 import Instrument from '../Instrument/Instrument';
 import instrumentContext from "../../context/instrumentContext";
@@ -35,7 +35,7 @@ export default function PianoRoll() {
   * --------
   */
   const [wave,setWave] = useState("");
-  const [octLength, setoctLength] = useState([5]);
+  const [octLength, setoctLength] = useState([1,2,3,5,6,7,8]);
   const title = createRef();
   const [currentStep, setCurrentStep] = useState(0);
   const [isRecorded,setIsRecorded] = useState(false);
@@ -159,12 +159,12 @@ export default function PianoRoll() {
             </div>
 
             {octLength.map((item, index) =>
-              <PinaoOctave
-                key={`${item}__${index}`}
-                octave={item}
-                dataPiano={dataPiano}
-                instrument={dataInstrument}
-                setDataPiano={setDataPiano} />
+              <PianoOctave
+                key={`${item}_${index}`}
+                    octave={item}
+                    dataPiano={dataPiano}
+                    instrument={dataInstrument}
+                    setDataPiano={setDataPiano} />
             )}
           </div>
 

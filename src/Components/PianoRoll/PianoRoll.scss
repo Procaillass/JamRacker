@@ -8,11 +8,42 @@
   display: none;
 }
 
-.keyboard {
+.octave__accordion__control {
   display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  width: 15%;
+  background: rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+
+  span {
+  font-size: .8rem;
+  text-transform: uppercase;
+  padding: .3rem 0;
+  }
+
+  span:first-child {
+    padding: .3rem .5rem;
+  }
+}
+
+.octave {
+  display: none;
+  grid-template-columns: 20% 80%;
+  grid-gap: 1px;
+
+  &--show {
+    display: grid;
+  }
+}
+
+.keyboard {
+
+  .key {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: .3rem;
+    font-size: .8rem;
+  }
   
   .key:first-child.key--white,
   .key:nth-child(7).key--white,
@@ -24,12 +55,16 @@
   .key--white {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     height: 4rem;
+    padding: .3rem;
     z-index: 1;
     background-color: #ededed;
-    //border-top: 1px solid black;
   }
+  
+  .key--white:not(:first-child) {
+    border-top: 1px solid $dark-color-2;
+  }
+  
 
   .key--black + .key--white {
     margin-top: -2rem;
@@ -42,17 +77,21 @@
     width: 65%;
     z-index: 2;
     background-color: black;
+    color: rgba(255,255,255,0.3);
   }
 }
 
 .steps {
-  width: 85%;
+  display: grid;
+  grid-template-columns:(1fr);
+  grid-template-rows: repeat(12, 1fr);
+  grid-gap: 1px;
 
   .steps__row {
-    height: calc(14rem / 12);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
+    grid-gap: 1px;
 
     > div {
       cursor: cell;
@@ -63,7 +102,6 @@
   }
 
   .steps__row--white {
-    height: calc(3rem - 1.5rem/2);
 
     > div {
       background-color: rgb(77, 90, 90);

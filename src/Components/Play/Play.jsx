@@ -41,6 +41,12 @@ function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,changeIsR
     const handlePlaying = (ev) => {
         ev.preventDefault();
 
+        if(playing) {
+            console.log('stop');
+            Tone.Transport.stop();
+            Tone.Transport.cancel();
+        }
+
         if(dataTracks.notes.length === 0) return;
 
         // Remove scheduled events from the timeline after the given time.
@@ -83,7 +89,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src, setSrc,changeIsR
                     });
                 }
                 handleCurrentStep(currentStep);
-                console.log(currentStep);
+                //console.log(currentStep);
                 currentStep++; 
                 // AudioGenerator
                 if (currentStep === 15) {

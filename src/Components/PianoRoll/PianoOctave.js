@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../App.scss';
 import * as Tone from 'tone'
 //import { Loop } from 'tone';
 import MusicalNotesContext from "../../context/MusicalNotesContext.js";
+import classNames from 'classnames';
 
 function PianoRoll(props) {
 
@@ -29,6 +30,15 @@ function PianoRoll(props) {
   */
 
   const musicalNotes = useContext(MusicalNotesContext);
+
+  /*
+  * --------
+  * STATE
+  * --------
+  */
+
+  const initShowOctave = props.octave === 5 ? true : false;
+  const [showOctave, setShowOctave] = useState(initShowOctave);
 
   /*
   * --------
@@ -123,6 +133,11 @@ function PianoRoll(props) {
     }
   };
 
+  const HandleOctaveShow = (ev) => {
+    ev.preventDefault();
+    setShowOctave(!showOctave);
+  }
+
   /*
   * --------
   * RENDER
@@ -130,7 +145,14 @@ function PianoRoll(props) {
   */
 
   return (
-    <div className="board">
+    <div className="octave__accordion">
+    <div className="octave__accordion__control" onClick={HandleOctaveShow}>
+      <span>+</span><span>Octave {props.octave}</span>
+    </div>
+    <div className={classNames({
+      'octave': true,
+      'octave--show': showOctave
+    })}>
       
       <div className="keyboard">
         { notes.map((note, index) =>
@@ -170,6 +192,7 @@ function PianoRoll(props) {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }
