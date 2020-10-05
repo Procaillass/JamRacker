@@ -5,8 +5,11 @@ import favorisDone from "../../Assets/Images/favorisDone.svg";
 import { db , fire } from "../../fire";
 import "./Library.scss";
 import { createRef } from "react";
+import { useHistory } from "react-router";
 
 function Library() {
+
+const history = useHistory();
 
 /*
 * -------------
@@ -28,8 +31,26 @@ let source = favoris
 
 //comment for push
 
-const handleFavoris = (ev) => {
-
+const handleFavoris = (items,ev) => {
+  console.log("items => ",items);
+  if(window.confirm('Are you sure you want to add the track ?')){
+    console.log("oui")
+    if(localStorage.getItem("pseudo")!== null){
+      db.collection("Favoris").doc(items.title).set({
+        title:items.title,
+        description:items.description,
+        source:items.source,
+        author:items.author,
+        urlStorage:items.urlStorage,
+        visibility:items.visibility,
+        userId:JSON.parse(localStorage.getItem("pseudo"))
+      })
+    }else{
+      alert("Vous n'avez pas de compte!!!")
+      history.push("login");
+    }
+  }
+    console.log("target => ",ev.target)
     if (source === favoris) {
         ev.currentTarget.src = favorisDone
         source = favorisDone;
@@ -107,7 +128,7 @@ useEffect(()=>{
         <div className="library">
         <ul className="songsList">
           {allFiles.map((items,index)=>(
-            <li className="song">
+            <li className="song" key={index}>
               <div className="info__sound__content">
                 <h2 className="song_title">{items.title}</h2>
                 <h3>By {items.author}</h3>
@@ -116,7 +137,7 @@ useEffect(()=>{
                 <source src={items.urlStorage} />
               </audio>
               <div  className="box__content__actionAudio">
-                <img onClick={handleFavoris} className="favoris" src={source} alt="favoris_image"/>
+                <img onClick={(ev)=>handleFavoris(items,ev)} className="favoris" src={source} alt="favoris_image"/>
               </div>
             </li>
           ))}
