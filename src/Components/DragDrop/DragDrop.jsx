@@ -15,7 +15,7 @@ function DragDrop({id, step, track}) {
         
         data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
-        console.log(data);
+        console.log("data",data);
         
 
             // Get audio duration
@@ -25,10 +25,10 @@ function DragDrop({id, step, track}) {
             request.open('GET', data, true)
             request.responseType = 'arraybuffer'
             request.onload = function() {
+                console.log(request.response);
                 audioContext.decodeAudioData(request.response,
                     function(buffer) {
                       duration = buffer.duration
-                      console.log(duration);
                       
                       const newItem = {step: step, track: track, data: data, duration: duration};
                         let newArray = [...dataDragDrop, newItem];
