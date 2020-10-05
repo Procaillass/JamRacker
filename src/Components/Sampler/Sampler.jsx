@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import "./Sampler.scss";
 import * as Tone from 'tone';
 import SamplerContext from "../../context/samplerContext";
 import MusicalNotesContext from "../../context/MusicalNotesContext.js";
@@ -86,40 +85,24 @@ function Sampler() {
 
             <div className="box__bar">
                 <div className="box__title"><h2>Sampler</h2></div>
-                <button className="box__close" onClick={handleClose}>X</button>
             </div>
 
             <div className="box__content">
                 <div className="sampler__content">
                     
-                    <div className="sampler__Lane sampler__Lane__head">
-                        <h3>Sounds</h3>
-                        <h3>Note</h3>
-                        {/* <h3>Note de fin</h3> */}
-                    </div>
-
-                    <form>
-                    
                     {numRow.map( (row, rowIdx) =>
-                    <div key={rowIdx} className="sampler__Lane sampler__Lane__body">
+                    <div key={rowIdx} className="sampler__Lane">
+                    <select className="sampler__note" onChange={(ev) => handleLanes(ev, rowIdx, "start")}>
+                        <option value="">Choisir une note</option>
+                        {musicalNotes.map( el => <option key={el.name} value={el.name}>{el.name}</option> )}
+                    </select>
+
                         <select className={`sampler__sound ${rowIdx}`} onChange={(ev) => handleLanes(ev, rowIdx, "sound")}>
-                            <option value="">Choisir un son</option>
+                            <option value="">Associer un son</option>
                             {sounds.map( el => <option key={el.name} value={el.url}>{el.name}</option> )}
                         </select>
-                        
-                        <select className="sampler__note" onChange={(ev) => handleLanes(ev, rowIdx, "start")}>
-                            <option value="">Choisir une note de départ</option>
-                            {musicalNotes.map( el => <option key={el.name} value={el.name}>{el.name}</option> )}
-                        </select>
-                        
-                        {/* <select className="sampler__note" onChange={(ev) => handleLanes(ev, rowIdx, "end")}>
-                            <option value="">Choisir une note de fin</option>
-                            {musicalNotes.map( el => <option key={el.name} value={el.name}>{el.name}</option> )}
-                        </select> */}
                     </div>
                     )}
-                    
-                    </form>
 
                     <div className="sampler__addnewlane">
                         <button className="sampler__addnewlane__btn" onClick={handleAddNewLane}>Add a new sound</button>

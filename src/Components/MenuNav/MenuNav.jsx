@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 function MenuNav() {
 
@@ -29,11 +30,12 @@ function MenuNav() {
     */
 
     return (
-        <select onChange={handleChangeSelect} className="header_select" >
-            <option value="/">Home</option>
-            <option value="/playlist">Playlist</option>
-            <option value="/library">Library</option>
-        </select>
+        <nav>
+            <Link to="/">Playlist</Link>
+            <Link to="/piano-roll">Piano roll</Link>
+            <Link to="/step-sequencer">Step sequencer</Link>
+            <Link to="/library">Library</Link>
+        </nav>
     )
 }
 

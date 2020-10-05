@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useState} from "react";
-import DragDropContext, { DragDropProvider } from "../../context/dragDropContext";
-import "./DragDrop.scss";
+import React, { useContext, useState } from "react";
+import DragDropContext from "../../context/dragDropContext";
+import classNames from 'classnames';
 
-function DragDrop(props) {
-    let itsHere = false;
+function DragDrop({id, step, track}) {
 
-    let [listNote,setListNote] = useState([]);
+    const [allowDrop, setAllowDrop] = useState(false);
     const { dataDragDrop, setDataDragDrop } = useContext(DragDropContext);
     let data = null;
 
@@ -13,29 +12,26 @@ function DragDrop(props) {
     const drop = (ev) => {
        
         ev.preventDefault();
-
-        console.log(ev.target.parentNode);
         
-        // recuepere les données en fonction de l'id de la personne cibler
-        data = ev.dataTransfer.getData(ev.target.parentNode.id);
-        // condition pour voir si l'element est deja a l'interieure ou non
-        if(!itsHere){
-
-            ev.target.parentNode.appendChild(document.getElementById(data))
+        data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+        const url = document.getElementById(data).dataset.url;
+        console.log(url);
+        
 
             // Get audio duration
             let duration = 0.2;
             const audioContext = new (window.AudioContext || window.webkitAudioContext)()
             const request = new XMLHttpRequest()
-            request.open('GET', data, true)
+            request.open('GET', url, true)
             request.responseType = 'arraybuffer'
             request.onload = function() {
+                console.log(request.response);
                 audioContext.decodeAudioData(request.response,
                     function(buffer) {
                       duration = buffer.duration
-                      // console.log(duration);
-
-                      const newItem = {step: props.step, track: props.track, data: data, duration: duration};
+                      
+                      const newItem = {step: step, track: track, data: url, duration: duration};
                         let newArray = [...dataDragDrop, newItem];
             
             // Remove items that have moved in and from the grid
@@ -43,46 +39,35 @@ function DragDrop(props) {
                 document.querySelector(`[data-step='${el.step}'][data-track='${el.track}']`)
                 .querySelector('.tracker__sound') !== null
             );
+            console.log([...newArray]);
             setDataDragDrop([...newArray])
 
 
                     }
                 )
             } 
-            request.send()
-
-            
-            
-            
-        }
-        else{
-            return console.log("joe",itsHere)
-        }
+            request.send();
        
         
     }
-    // moment du drag ou l'on passe au dessus des blocks ou l'ont peut deposé les blockElements
-    const allowDrop = (ev) =>{
+    // Necessaire pour react (bug?)
+    const preventWeirdBug = (ev) => {
         ev.preventDefault();
-        
-        console.log('id', ev.target.parentNode.id);
-        if(!(ev.target.parentNode.id === "move")){
-            itsHere = true;
-        }
     }
 
-    //console.log("dataDragDrop",dataDragDrop)
     return(
         
         <div
-        id= {props.id}
-        className= {props.className}
-        onDrop={(ev) => drop(ev)}
-        onDragOver={ (ev) => allowDrop(ev)}
-        >
-        {props.children}
+            id= {id}
+            className={classNames({
+                "drag__item": true,
+                "drap__item--ondrap": allowDrop
+              })}
+            onDragOver={preventWeirdBug}
+            onDragEnter={(ev) => setAllowDrop(!allowDrop)}
+            onDragLeave={(ev) => setAllowDrop(!allowDrop)}
+            onDrop={drop}>
         </div>
-        
     )
 }
 

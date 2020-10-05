@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../App.scss';
 import * as Tone from 'tone'
 //import { Loop } from 'tone';
 import MusicalNotesContext from "../../context/MusicalNotesContext.js";
+import classNames from 'classnames';
 
 function PianoRoll(props) {
 
@@ -32,6 +33,15 @@ function PianoRoll(props) {
 
   /*
   * --------
+  * STATE
+  * --------
+  */
+
+  const initShowOctave = props.octave === 5 ? true : false;
+  const [showOctave, setShowOctave] = useState(initShowOctave);
+
+  /*
+  * --------
   * PROPS
   * --------
   */
@@ -49,6 +59,12 @@ function PianoRoll(props) {
   * METHODS
   * --------
   */
+
+  const playKeybord = (ev, note) => {
+    ev.preventDefault();
+    console.log(instrument);
+    instrument.triggerAttackRelease(note, "8n")
+  }
 
   const noteMidiCompare = (note) => {
     const myNote = musicalNotes.filter(el => el.name === note);
@@ -123,6 +139,11 @@ function PianoRoll(props) {
     }
   };
 
+  const HandleOctaveShow = (ev) => {
+    ev.preventDefault();
+    setShowOctave(!showOctave);
+  }
+
   /*
   * --------
   * RENDER
@@ -130,22 +151,29 @@ function PianoRoll(props) {
   */
 
   return (
-    <div className="board">
+    <div className="octave__accordion">
+    <div className="octave__accordion__control" onClick={HandleOctaveShow}>
+      <span>+</span><span>Octave {props.octave}</span>
+    </div>
+    <div className={classNames({
+      'octave': true,
+      'octave--show': showOctave
+    })}>
       
-      <div className="clavier-container" id="keyboard">
+      <div className="keyboard">
         { notes.map((note, index) =>
           <div
-            onClick={() => instrument.triggerAttackRelease(note.name, "8n")}
             key={`${index}_keyboard`}
-            className={("key", note.name.includes('#') ? "black" : "white")}>
+            onClick={(ev) => playKeybord(ev, note.name)}
+            className={note.name.includes('#') ? "key key--black" : "key key--white"}>
               { note.name }
           </div>
         )}
       </div>
 
-      <section className="piano-containter">
+      <div className="steps">
         {notes.map(( note,index) =>
-          <section key={index} className={note.name.includes('#') ? "piano_grid black" : "piano_grid white"}>
+          <div key={index} className={note.name.includes('#') ? "steps__row steps__row--black" : "steps__row steps__row--white"}>
             {steps.map((step, index) =>
               <div
                 data-note={note.name}
@@ -167,9 +195,10 @@ function PianoRoll(props) {
                   </span>
               </div>
             )}
-          </section>
+          </div>
         )}
-      </section>
+      </div>
+    </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, createRef } from 'react';
 import '../../App.scss';
-import PinaoOctave from './PianoOctave'
+import PianoOctave from './PianoOctave'
 import PianoContext from "../../context/PianoContext.js";
 import Instrument from '../Instrument/Instrument';
 import instrumentContext from "../../context/instrumentContext";
@@ -35,7 +35,7 @@ export default function PianoRoll() {
   * --------
   */
   const [wave,setWave] = useState("");
-  const [octLength, setoctLength] = useState([5]);
+  const [octLength, setoctLength] = useState([1,2,3,5,6,7,8]);
   const title = createRef();
   const [currentStep, setCurrentStep] = useState(0);
   const [isRecorded,setIsRecorded] = useState(false);
@@ -131,29 +131,44 @@ export default function PianoRoll() {
   */
 
   return (
-    <div className="box">
-      <div className="box__bar">
-        <div className="box__title">Piano</div>
-        <button className="box__close" onClick={handleClose}>X</button>
-      </div>
-      <div className="box__content">
-        <div className="Roll">
-          <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
-          <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
+    <div className="piano-roll">
+      <div className="box">
 
-          {octLength.map((item, index) =>
-            <PinaoOctave key={`${item}__${index}`} octave={item} dataPiano={dataPiano} instrument={dataInstrument} setDataPiano={setDataPiano}/>
-          )}
+        <div className="box__bar">
+          <div className="box__title"><h2>Piano roll</h2></div>
+        </div>
+
+        <div className="box__content">
+          
+          <div className="piano">
+
+            <div className="piano__octave__controls">
+              <button className="plusBtn" onClick={() => plusOcatve()}>Octave supp</button>
+              <button className="moinsBtn" onClick={() => moinsOctave()}>Octave inf</button>
+            </div>
+
+            {octLength.map((item, index) =>
+              <PianoOctave
+                key={`${item}_${index}`}
+                    octave={item}
+                    dataPiano={dataPiano}
+                    instrument={dataInstrument}
+                    setDataPiano={setDataPiano} />
+            )}
+          </div>
 
 
-          <div className="piano__controls">
-            <form onSubmit={SavePatern}>
-              <input className="roll-patern-title" ref={title} />
-              <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
-            </form>
+
+
+          <div className="play-register-container">
             <Instrument dataTracks={dataPiano} />
             <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+            {<form onSubmit={SavePatern}>
+              <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={title} />
+              <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
+            </form>}
           </div>
+
         </div>
       </div>
     </div>

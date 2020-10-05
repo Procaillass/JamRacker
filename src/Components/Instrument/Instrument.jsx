@@ -105,8 +105,7 @@ function Instrument({dataTracks}) {
    //console.log("props inst", dataTracks);
 
 return (
-  <div className="sequencer__addtrack instrument">
-      <select onChange={handleInstrument} name="" id="">
+  <select className="instrument" onChange={handleInstrument}>
         <option value="">choose an instrument</option>
         <option value="Synth">Synth</option>
         <option value="AMSynth">AMSynth</option>
@@ -114,7 +113,6 @@ return (
         <option value="PolySynth">PolySynth</option>
         <option value="Sampler">Sampler</option>
       </select>
-  </div>
   );
 }
 export default Instrument;

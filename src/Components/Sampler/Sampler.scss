@@ -1,27 +1,18 @@
 .sampler__Lane {
     display: grid;
-    grid-gap: 1px;
-    grid-template-columns: calc(50% - 1px) 50%;
-
-    > * {
-        background: #393a40;
-        border: 0 none;
-        color: white;
-        padding: 1rem;
-
-    }
-
-    h3 {
-        font-size: inherit;
-    }
+    grid-gap: .5rem;
+    grid-template-columns: repeat(2, calc(50% - .25rem));
+    padding: .5rem;
+    background: $sequencer_sound_bg;
+    border-radius: .15rem;
 
     select {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 100%;
         text-transform: uppercase;
-        -webkit-appearance: none;
-        -moz-appearance: none;
+        padding: 1rem;
+        border: 0 none;
+        background-color: $sequencer_step_marked_bg;
+        border-radius: .15rem;
 
         &:focus {
           box-shadow: 0px 0px 5px rgba(255,255,255,0.1);
@@ -31,18 +22,10 @@
     }
 }
 
-.sampler__Lane__head {
-    margin-bottom: 5px;
-}
-
-.sampler__Lane__body {
-    margin-top: 2px;
+.sampler__Lane + .sampler__Lane {
+    margin-top: .3rem;
 }
 
 .sampler__addnewlane {
     margin-top: 1rem;
-}
-
-.sampler__addnewlane__btn {
-    margin: 0;
 }

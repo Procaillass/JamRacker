@@ -1,209 +1,104 @@
-$box_bar: #26272b;
-$box_bg: #43454b;
-$sequencer_sound_bg: #393a40;
-$sequencer_step_bg:rgb(77, 90, 90) /* #26272b */;
-$sequencer_step_marked_bg: #749292;
-$sequencer_step_col_bg: #27623e /* #362928 */;
-$sequencer_step_marqued_col_bg: #517878;
-$text: #87878a;
-$sequencer__controls_btn_bg: #004e88;
-$sequencer__controls_btn_color: #ffffff;
-$sequencer__controls_btn_border: #23236f;
-
-
-.box {
-  background: $box_bg;
-  background: $box_bg;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-  flex: 1;
-
-  &__bar {
-    display: flex;
-    justify-content: space-between;
-    background: $box_bar;
-  }
-
-  &__close {
-    display: block;
-    border: none;
-    background-color: transparent;
-    margin: 0; padding: 0;
-    color: $text;
-    line-height: .2rem;
-    height: 1.5rem;
-    width: 1.5rem;
-    cursor: pointer;
-    background-color: $box_bar;
-    transition: all 0.5s ease;
-
-    &:hover {
-      background-color: $text;
-      color: $box_bar;
-    }
-  }
-
-  &__content {
-    padding: 1rem;
-    label{
-      color: white;
-      padding: .5rem;
-    }
-  }
-
-  &__action {
-    display: flex;
-    align-items: center;
-  }
-
-  &__title {
-    padding: .5rem 1rem;
-  }
-
+.sequencer__grid {
+  background-color: $dark-color-2;
 }
 
-.sequencer {
-  &__row {
-    display: grid;
-    grid-template-columns: 15% 85%;
-  }
-  &__sound {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $sequencer_sound_bg;
-    border: 1px solid $box_bg;
-    color: white;
-    padding: 1rem;
-    text-transform: uppercase;
-  }
-  &__track {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(16, 1fr);
-  } 
+.sequencer__row {
+  display: grid;
+  grid-template-columns: 7rem auto 3rem;
+  grid-gap: 1px;
 
-  
+  &:not(:first-child) {
+    margin-top: 1px;
+  }
+}
 
-  [data-step="4"] {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  [data-step="8"] {
-    grid-template-columns: repeat(8, 1fr);
-  }
-  [data-step="12"] {
-    grid-template-columns: repeat(12, 1fr);
-  }
-  [data-step="16"] {
-    grid-template-columns: repeat(16, 1fr);
-  }
-  [data-step="20"] {
-    grid-template-columns: repeat(20, 1fr);
-  }
-  [data-step="24"] {
-    grid-template-columns: repeat(24, 1fr);
-  }
-  [data-step="28"] {
-    grid-template-columns: repeat(28, 1fr);
-  }
-  [data-step="32"] {
-    grid-template-columns: repeat(32, 1fr);
-  }
-  [data-step="36"] {
-    grid-template-columns: repeat(36, 1fr);
-  }
-  [data-step="40"] {
-    grid-template-columns: repeat(40, 1fr);
-  }
-  [data-step="44"] {
-    grid-template-columns: repeat(44, 1fr);
-  }
-  [data-step="48"] {
-    grid-template-columns: repeat(48, 1fr);
-  }
-  [data-step="52"] {
-    grid-template-columns: repeat(52, 1fr);
-  }
-  [data-step="56"] {
-    grid-template-columns: repeat(56, 1fr);
-  }
-  [data-step="60"] {
-    grid-template-columns: repeat(60, 1fr);
-  }
-  [data-step="64"] {
-    grid-template-columns: repeat(64, 1fr);
-  }
+.sequencer__sound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: $sequencer_sound_bg;
+  color: white;
+  text-transform: uppercase;
+  font-size: .8rem;
+}
 
-  &__step {
-    padding-top: calc(100% - 2px);
-    border: 1px solid $box_bg;
-    background-color: $sequencer_step_bg;
-    cursor: pointer;
+.sequencer__track {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-gap: 1px;
+}
+
+.sequencer__step {
+  padding-top: calc(100%);
+  background-color: $step;
+  cursor: pointer;
+
+  &:nth-child(4n+1) {
+      background-color: $step-measure;
   }
-  &__stepmarked {
-    background-color: $sequencer_step_marked_bg;
+&.sequencer__stepmarked {
+    background-color: $step-active;
   }
-  &__stepcol {
-    background-color: $sequencer_step_col_bg;
+  &.sequencer__stepcol {
+    background-color: $step-current;
   }
-  &__stepcol.sequencer__stepmarked {
+  &.sequencer__stepcol.sequencer__stepmarked {
     background-color: $sequencer_step_marqued_col_bg;
   }
 
-  &__controls {
-    display: flex;
-    align-items: center;
-    margin: 0 0 3rem 0;
-
-    select:first-child {
-      margin-right: auto;
-    }
-    
-    select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background: none;
-    }
-    
-    select ,button{
-      padding: .7rem 1rem;
-      transition: all 0.5s ease;
-      background-color: $sequencer__controls_btn_bg;
-      color: $sequencer__controls_btn_color;
-      border: 1px solid $sequencer__controls_btn_border;
-      text-transform: uppercase;
-      font-weight: bold;
-  
-      &:hover {
-        background-color: #003c69;
-        color: #d4d4d4;
-        border-color: #23235f;
-      }
-
-      &:focus {
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-        outline:0;
-      }
-    }
-    .play__button {
-      margin: 0 0 0 1rem;
-    }
-    &.below{
-      margin:3rem 0 ;
-    }
-  }
-  .btn__remove {
-    padding: .7rem .5rem;
-    transition: all 0.5s ease;
-    background-color: transparent;
-    border: none;
-
-    &:focus {
-      box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-      outline:0;
-    }
-  }
-
 }
+  
+.sequencer__controls {
+  display: flex;
+  align-items: center;
+  margin: 0 0 3rem 0;
+
+  select:first-child {
+    margin-right: auto;
+  }
+}
+
+.sequencer__row_remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: $sequencer_sound_bg;
+  border: 0 none;
+  border-radius: 0;
+
+  &:hover {
+    background-color: $dark-color-1;
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    outline:0;
+  }
+}
+
+.sequencer__addtrack {
+  @extend button;
+  width: 7rem;
+  margin-top: .3rem;
+  border-radius: 0;
+  text-align: center;
+  text-align-last: center;
+  -moz-text-align-last: center;
+  padding: 1rem .5rem;
+  height: auto;
+  line-height: 1rem;
+  font-size: .7rem;
+
+  background-color: $dark-color-1;
+
+  &:hover {
+    background-color: $dark-color-2;
+  }
+}
+
 .roll-save-patern:disabled{
   opacity: 0.5;
   cursor: default;
