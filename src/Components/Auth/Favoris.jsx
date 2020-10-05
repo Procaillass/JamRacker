@@ -6,17 +6,9 @@ import { db , fire } from "../../fire";
 import "./Favoris.scss";
 import { createRef } from "react";
 import { useHistory } from "react-router";
+import LibrarySound from "../Library/LibrarySound";
 
 function Favoris() {
-
-
-/*
-* -------------
-* REF 
-* -------------
-*/
-
-const searchInput = createRef();
 
 /*
 * -------------
@@ -25,12 +17,6 @@ const searchInput = createRef();
 */
  const [allFiles,setAllFiles] = useState([]);
  const pseudo = JSON.parse(localStorage.getItem("pseudo"));
-
-
-let source = favoris
-
-//comment for push
-
 
 /*
 * -------------
@@ -69,25 +55,22 @@ useEffect(()=>{
   return (
     <div className="box">
       <div className="box__bar">
-      <div className="box__title">Favoris </div>
+        <div className="box__title">Favoris </div>
       </div>
       <div className="box__content">
         <div className="library">
-        <ul className="songsList">
-          {allFiles.map((items,index)=>(
-            <li className="song" key={index}>
-              <div className="info__sound__content">
-                <h2 className="song_title">{items.title}</h2>
-                <h3>By {items.author}</h3>
-              </div>
-              <audio controls key={index}>
-                <source src={items.urlStorage} />
-              </audio>
-              
-            </li>
-          ))}
-        </ul>
-
+          <ul className="library__sounds">
+            {allFiles.map((item, index) => (
+              <LibrarySound
+                key={index}
+                index={index}
+                title={item.title}
+                author={item.author}
+                url={item.urlStorage}
+                item={item}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     </div>
