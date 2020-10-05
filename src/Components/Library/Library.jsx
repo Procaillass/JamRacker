@@ -4,8 +4,17 @@ import favoris from "../../Assets/Images/favoris.svg";
 import favorisDone from "../../Assets/Images/favorisDone.svg";
 import { db , fire } from "../../fire";
 import "./Library.scss";
+import { createRef } from "react";
 
 function Library() {
+
+/*
+* -------------
+* REF 
+* -------------
+*/
+
+const searchInput = createRef();
 
 /*
 * -------------
@@ -38,14 +47,8 @@ const handleFavoris = (ev) => {
 
 // va rechercher les elements dans la db
 const fetchSong = () => {
-    
-    // const gsReference = fire.storage().refFromURL("gs://jamracker-776e7.appspot.com/Tracker")
 
-    // gsReference.listAll().then(res => {
-    //   setAllFiles(res.items)
-    // })
-
-    db.collection("SongTracker").get().then( querySnapshot => {
+    db.collection("SongTracker").where("visibility","==",true).get().then( querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
         data.push(doc.data())
@@ -54,6 +57,33 @@ const fetchSong = () => {
       setAllFiles(data);
     })
 
+}
+
+const search = () => {
+  //Input
+  let input = searchInput.current
+  //Filter = la valeur de l'input
+  let filter = input.value.toUpperCase();
+  //La liste
+  let ul = document.querySelector(".songsList");
+  //Chaque element de la liste
+  let li = ul.querySelectorAll('li');
+
+  for (let i = 0; i < li.length; i++) {
+
+      //le mot a filtrer
+      let a = li[i].querySelector(".song_title");
+
+      //Je get sa veleur
+      let txtValue = a.textContent || a.innerText;
+
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+      } 
+      else {
+          li[i].style.display = "none";
+      }
+  }
 }
 
 useEffect(()=>{
@@ -74,12 +104,12 @@ useEffect(()=>{
       <div className="box__title">Library</div>
       </div>
       <div className="box__content">
-        <div class="library">
-        <ul>
+        <div className="library">
+        <ul className="songsList">
           {allFiles.map((items,index)=>(
-            <li>
+            <li className="song">
               <div className="info__sound__content">
-                <h2>{items.title}</h2>
+                <h2 className="song_title">{items.title}</h2>
                 <h3>By {items.author}</h3>
               </div>
               <audio controls key={index}>
@@ -93,7 +123,7 @@ useEffect(()=>{
         </ul>
         <div className="search__content">
           <label htmlFor="search-sound">Search sound :</label>
-          <input id="search-sound" type="search" placeholder="Search a sound"/>
+          <input id="search-sound" ref={searchInput} onChange={search} type="search" placeholder="Search a sound"/>
         </div>
 
         </div>
