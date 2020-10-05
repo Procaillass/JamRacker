@@ -72,9 +72,9 @@ useEffect(()=>{
     <div className="box">
       <div className="box__bar">
       <div className="box__title">Library</div>
-        <button className="box__close">X</button>
       </div>
       <div className="box__content">
+        <div class="library">
         <ul>
           <li>
               <div className="info__sound__content">
@@ -102,6 +102,8 @@ useEffect(()=>{
         <div className="search__content">
           <label htmlFor="search-sound">Search sound :</label>
           <input id="search-sound" type="search" placeholder="Search a sound"/>
+        </div>
+
         </div>
       </div>
     </div>
