@@ -1,8 +1,6 @@
 .box__content {
   display: flex;
   justify-content: space-between;
-  // flex-direction: row-reverse;
-
   ul {
     flex: 1;
 
@@ -13,6 +11,29 @@
       audio {
         width: 50%;
       }
+    }
+  }
+}
+.info__sound__content{
+  margin: 0 0 .75rem 0;
+  h3{
+    color: #ffffff
+  }
+}
+.search__content {
+  display: flex;
+  flex-flow: column;
+  width: 15%;
+  margin: 0 .5rem;
+  label{
+    padding-left: 0;
+  }
+  input {
+    border-radius: 20px;
+    padding: .25rem .5rem;
+    border:none;
+    &:focus{
+      outline: none;
     }
   }
 }

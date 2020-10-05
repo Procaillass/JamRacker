@@ -10,11 +10,7 @@ let source = favoris
 
 //comment for push
 
-const handleFavoris = (event) => {
-
-    console.log(document.getElementById("favoris").src)
-    console.log("favoris :", favoris)
-    console.log("favorisDone :", favorisDone)
+const handleFavoris = () => {
 
     if (source === favoris) {
         document.getElementById("favoris").src = favorisDone;
@@ -37,18 +33,23 @@ const handleFavoris = (event) => {
       <div className="box__content">
         <ul>
           <li>
-              <h2>Titre du son</h2>
+              <div className="info__sound__content">
+                <h2>Titre du son</h2>
+                <h3>By Author</h3>
+              </div>
             <audio controls>
               <source src={clap} />
               Your browser does not support the audio element.
             </audio>
             <div  className="box__content__actionAudio">
                 <img onClick={handleFavoris} id="favoris" src={source} alt="favoris_image"/>
-                </div>
+            </div>
           </li>
-       
         </ul>
-        <input  type="search"/>
+        <div className="search__content">
+          <label htmlFor="search-sound">Search sound :</label>
+          <input id="search-sound" type="search" placeholder="Search a sound"/>
+        </div>
       </div>
     </div>
   );
