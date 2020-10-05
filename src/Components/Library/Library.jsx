@@ -22,11 +22,9 @@ let source = favoris
 const handleFavoris = (ev) => {
 
     if (source === favoris) {
-      ev.currentTarget.src = favorisDone
-        /* document.getElementsByClassName("favoris").src = favorisDone; */
+        ev.currentTarget.src = favorisDone
         source = favorisDone;
     } else {
-        /* document.getElementsByClassName("favoris").src = favoris; */
         ev.currentTarget.src = favoris
         source = favoris;
     }
