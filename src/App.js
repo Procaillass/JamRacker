@@ -8,8 +8,9 @@ import StepSequencer from './Components/StepSequencer/StepSequencer';
 import Sampler from './Components/Sampler/Sampler';
 import Tracker from './Components/Tracker/Tracker';
 import AudioGenerator from './Components/AudioGenerator/AudioGenerator';
-import PianoRoll from './Components/PianoRoll/PianoRoll'
-import MenuNav from './Components/MenuNav/MenuNav'
+import PianoRoll from './Components/PianoRoll/PianoRoll';
+import MenuNav from './Components/MenuNav/MenuNav';
+import Library from './Components/Library/Library';
 import Login from './Components/Auth/Login';
 import Logout from './Components/Auth/Logout';
 /**Context*/
@@ -180,6 +181,10 @@ const [dataDragDrop, setDataDragDrop] = useState([]);
                             <Tracker />
                           </DragDropProvider>
                           </Route>
+                          <Route exact path="/library">
+                            <Library />
+                          </Route>
+
                           <Route exact path="/login">
                             <Login />
                           </Route>

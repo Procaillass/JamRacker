@@ -32,6 +32,7 @@ function MenuNav() {
         <select onChange={handleChangeSelect} className="header_select" >
             <option value="/">Home</option>
             <option value="/playlist">Playlist</option>
+            <option value="/library">Library</option>
         </select>
     )
 }

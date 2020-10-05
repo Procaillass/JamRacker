@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACK,AAAD,aAAS,CAAA;EACL,OAAO,EAAE,UAAU;EACnB,UAAU,EAAE,IAAI;EAChB,UAAU,EAAE,aAAa;EACzB,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAE,OAAO;EACd,MAAM,EAAE,iBAAiB;EACzB,cAAc,EAAE,SAAS;EACzB,WAAW,EAAE,IAAI;CACpB",
+    "sources": [
+        "Play.scss"
+    ],
+    "names": [],
+    "file": "Play.css"
+}

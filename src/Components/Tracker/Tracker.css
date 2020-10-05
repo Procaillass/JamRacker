@@ -1,7 +1,35 @@
-.step {
-  border: 1px solid #43454b;
-  background-color: #26272b;
+h2 {
+  color: #d8d8d8;
+}
+
+.grid-item.step {
+  border: 1px solid #26272B;
   cursor: pointer;
+  color: #d8d8d8;
+  position: relative;
+  margin: 0;
+  width: 11rem;
+  height: 8rem;
+}
+
+.grid-item.step .button {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-item.step span {
+  position: absolute;
+  height: 100px;
+  top: 25%;
+  left: 50%;
+  z-index: 0;
+}
+
+.grid-item.step .grid-item-active {
+  width: 100%;
+  color: #757575;
+  position: relative;
 }
 
 .tracker {
@@ -24,7 +52,6 @@
 }
 
 .tracker_menu {
-  border: 5px solid #2b2b2b;
   width: 25%;
 }
 
@@ -32,9 +59,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+}
+
+.tracker_menu nav .button {
+  margin: 0;
 }
 
 .box__content__pistes {
@@ -42,13 +70,11 @@
   display: grid;
   -ms-grid-columns: (1fr)[9];
       grid-template-columns: repeat(9, 1fr);
-  border: 1px solid #777777;
   width: 100%;
 }
 
 .box__content__pistes__piste {
   list-style: none;
-  border: 1px solid #26272B;
   text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -91,6 +117,15 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.tracker_menu__nav__container__browser li {
+  list-style: none;
+}
+
+.tracker_menu__nav__container__browser .button {
+  margin: 0;
+  width: 100%;
 }
 
 .tracker_menu__nav__container__project {
@@ -203,5 +238,10 @@
 
 textarea {
   max-width: 100%;
+}
+
+.box__volume {
+  color: #d8d8d8;
+  margin: 1rem 0;
 }
 /*# sourceMappingURL=Tracker.css.map */

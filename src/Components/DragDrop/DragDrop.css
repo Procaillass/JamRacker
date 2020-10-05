@@ -1,0 +1,28 @@
+.grid-note {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: (1fr)[8];
+      grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  color: #0c0427;
+}
+
+.grid-item {
+  background-color: rgba(70, 70, 70, 0.8);
+  text-align: center;
+  margin: 1.2rem 0;
+}
+
+.grid-item-active {
+  background: #e5e5e5;
+  padding: .2rem 0;
+  color: #757575;
+}
+
+.active {
+  background: #379e5f;
+}
+/*# sourceMappingURL=DragDrop.css.map */

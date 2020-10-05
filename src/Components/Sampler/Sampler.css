@@ -1,16 +1,56 @@
-.sampler {
-  margin: 0 50px;
-}
-
-.box__title {
-  color: white;
-}
-
-.sampler_content_Lane {
+.sampler__Lane {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 25% 25% 25% 15%;
-      grid-template-columns: 25% 25% 25% 15%;
-  grid-column-gap: 1em;
+  grid-gap: 1px;
+  -ms-grid-columns: calc(50% - 1px) 50%;
+      grid-template-columns: calc(50% - 1px) 50%;
+}
+
+.sampler__Lane > * {
+  background: #393a40;
+  border: 0 none;
+  color: white;
+  padding: 1rem;
+}
+
+.sampler__Lane h3 {
+  font-size: inherit;
+}
+
+.sampler__Lane select {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-transform: uppercase;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.sampler__Lane select:focus {
+  -webkit-box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.1);
+          box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.1);
+  outline: 0;
+}
+
+.sampler__Lane__head {
+  margin-bottom: 5px;
+}
+
+.sampler__Lane__body {
+  margin-top: 2px;
+}
+
+.sampler__addnewlane {
+  margin-top: 1rem;
+}
+
+.sampler__addnewlane__btn {
+  margin: 0;
 }
 /*# sourceMappingURL=Sampler.css.map */
