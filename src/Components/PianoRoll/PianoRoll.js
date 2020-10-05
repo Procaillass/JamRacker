@@ -84,7 +84,6 @@ export default function PianoRoll() {
   // }
   const changeIsRecorded = () => {
     setIsRecorded(true);
-    
   }
   const SavePatern = (ev) => {
     ev.preventDefault();

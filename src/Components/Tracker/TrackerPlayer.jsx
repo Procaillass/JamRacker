@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import * as Tone from "tone";
 
-export default function TrackerPlayer({ items }) {
+export default function TrackerPlayer({ items,src,setSrc }) {
 
   /*
    * ------
@@ -18,8 +18,8 @@ export default function TrackerPlayer({ items }) {
    */
   
   // For AudioGenerator
-  const [src, setSrc] = useState("");
-  const [name, setName] = useState("jamtracker-sequence.wav");
+  // const [src, setSrc] = useState("");
+  // const [name, setName] = useState("jamtracker-sequence.wav");
 
   /*
    * ------
@@ -72,7 +72,7 @@ export default function TrackerPlayer({ items }) {
     recorder.ondataavailable = evt => chunks.push(evt.data);
     recorder.onstop = evt => {
       let blob = new Blob(chunks, { type: 'audio/wav' });
-      setSrc(URL.createObjectURL(blob));
+      setSrc(blob);
     };
     
     // Play each audio at the right time
@@ -97,7 +97,7 @@ export default function TrackerPlayer({ items }) {
     <>
       <div>
       <button onClick={handlePlay}>play</button>
-      {src !== "" && <a className="button" href={src} download={name}>Enregistrer</a>}
+      {/* {src !== "" && <a className="button" href={src} download={name}>Enregistrer</a>} */}
       </div>
     </>
   );

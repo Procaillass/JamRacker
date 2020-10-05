@@ -11,17 +11,28 @@ import kick from "../../Assets/Sounds/kick.wav";
 import bassDrum from "../../Assets/Sounds/bass_drum.wav";
 import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav";
-import { fire } from "../../fire";
 import TrackerPlayer from "./TrackerPlayer";
-
+import {db,fire} from "../../fire";
+import { useHistory } from "react-router";
 
 function Tracker() {
 
+    /*
+    * -------------
+    * HISTORY
+    * -------------
+    */
+    const history = useHistory();
 
 
+    /*
+    * -------------
+    * REF
+    * -------------
+    */
 
-
-
+    const titleTracker = useRef();
+    const descriptionTracker = useRef();
 
     /*
     * -------------
@@ -39,7 +50,10 @@ function Tracker() {
      */
     const [allFile, setAllFile] = useState([])
     const [src,setSrc] = useState("");
+    const [link,setLink] = useState("");
+    const [isVisibility , setIsVisibility] = useState(null);
     const [dataPlayPiste, setDataPlayPiste] = useState([]);
+    const storageApiLink = "jamracker-776e7.appspot.com";
     const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
     const [dataSounds, setdataSounds] = useState({
 
@@ -122,21 +136,68 @@ function Tracker() {
 
     const fecthSong = () => {
 
-        let gsReference = fire.storage().refFromURL('gs://jamracker-36ec0.appspot.com')
-
+        let gsReference = fire.storage().refFromURL("gs://" + storageApiLink)
 
         gsReference.listAll().then(res => {
             setAllFile(res.items)
         })
     }
-
-    const SaveTracker = () => {
-
+    const visibilityTrack = (e) => {
+        
+        if (e.target.value === "public") {
+            setIsVisibility(true);
+        } else if (e.target.value === "private") {
+            setIsVisibility(false);
+        }
     }
 
+    const SaveTracker = (e) => {
+        e.preventDefault();
+
+        const titleValue = titleTracker.current.value;
+        const descriptionValue = descriptionTracker.current.value;
+
+        if (localStorage.getItem("pseudo")) {
+            if(titleValue !== "" && descriptionValue !== ""){
+                
+                
+                // envoie dans le storage .wav
+                const storageRef = fire.storage().ref("Tracker")
+                const element = storageRef.child(titleValue).put(src)
+                
+                
+                const gsReference = fire.storage().refFromURL('gs://jamracker-776e7.appspot.com')
+                
+                // get lien dans le storage + temps de pause de 2 sec avant qu'ils partent le rechercher
+                setTimeout(() => {
+                    storageRef.child(titleValue).getDownloadURL().then(res => {
+                        alert("Save to partern in DB !!! ")
+                        db.collection("SongTracker").doc(titleValue).set({
+                            title: titleValue,
+                            author: JSON.parse(localStorage.getItem("pseudo")),
+                            source: " Tracker ",
+                            urlStorage: res,
+                            description:descriptionValue,
+                            visibility: isVisibility
+                        })
+                    })
+                },2000)
+                
+
+            }else{
+              alert("oops il manque un titre a votre piste !!!")
+              return
+            }
+          }
+        else {
+            alert("you not have account for register");
+            history.push("/login");
+        }
+        console.log(" src :",src)
+    }
+    
 
     useEffect(() => {
-        console.log(" note :",)
         fecthSong();
     }, [])
 
@@ -373,9 +434,9 @@ function Tracker() {
 
                             <ul>
                                 {allFile.map((item,index) => (
-                                <li>
+                                <li key={index}>
                                     <DragDrop id="move" className="grid-item">
-                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`} className="grid-item-active tracker__sound" draggable="true">{item.location.path}</Card>
+                                        <Card id={`https://firebasestorage.googleapis.com/v0/b/${storageApiLink}/o/${item.location.path}?alt=media`} className="grid-item-active tracker__sound" draggable="true">{item.location.path}</Card>
                                     </DragDrop>
                                 </li>
                                     
@@ -399,20 +460,22 @@ function Tracker() {
                         <div className="tracker_menu__nav__container__project disable">
 
                             <label className="button" htmlFor="name">Name</label>
-                            <input className="button input" placeholder="Your project name" type="text" />
+                            <input className="button input" placeholder="Your project name" type="text" ref={titleTracker}/>
 
                             <label className="button" htmlFor="description">Description</label>
-                            <textarea className="button input" placeholder="Your project description" type="text" />
+                            <textarea className="button input" placeholder="Your project description" type="text" ref={descriptionTracker}/>
 
                             <label className="button" htmlFor="description">Visibility</label>
-                            <select className="button input" placeholder="Your project description" type="text">
-                                <option value="pub">Public</option>
-                                <option value="pub">Private</option>
+                            <select className="button input" placeholder="Your project description" type="text" value="select" onChange={ (e) => visibilityTrack(e) }>
+                                <option value="select">Choisissez un role</option>
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
                             </select>
+                            {isVisibility}
 
                             <div className="tracker_menu__nav__container__project__buttons">
                                 <button className="button">Social Sharing</button>
-                                <button className="button">Render and Donwload</button>
+                                <button className="button" onClick={(e) => SaveTracker(e)}>Render and Donwload</button>
 
                             </div>
 
@@ -422,7 +485,7 @@ function Tracker() {
 
                 </div>{/* _________________________________fin du bloc menu à droite du tracker */}
 
-<TrackerPlayer items={dataDragDrop} />
+<TrackerPlayer src={src} setSrc={setSrc} items={dataDragDrop} />
                 
             </div>{/* _________________________________fin du box_content tracker */}
             
