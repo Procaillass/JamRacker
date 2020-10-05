@@ -12,6 +12,7 @@ import clap from "../../Assets/Sounds/clap.wav";
 import hat from "../../Assets/Sounds/hat.wav";
 import { fire } from "../../fire";
 import TrackerPlayer from "./TrackerPlayer";
+import classNames from 'classnames';
 
 
 function Tracker() {
@@ -37,6 +38,7 @@ function Tracker() {
      * -------------
      */
     const [showPanel, setShowPanel] = useState('browse');
+    const [src,setSrc] = useState("");
     const [allFile, setAllFile] = useState([]);
     const [dataPlayPiste, setDataPlayPiste] = useState([]);
     const generatePistes = (stepsNum = 12) => Array.from({ length: stepsNum }, () => 0);
@@ -196,7 +198,9 @@ function Tracker() {
                     
                     {tracks.map((track, trackIdx) => (
                     
-                        <div className="tracker__track">
+                        <div 
+                            key={`track_${trackIdx}`}
+                            className="tracker__track">
 
                         <div className="tracker__steps">
                             
@@ -230,12 +234,16 @@ function Tracker() {
                     
                     <div className="tracker__panels__menu">
                         <button 
-                            className={showPanel === "browse" && "tracker__panels__menu-active"}
+                            className={classNames({
+                                "tracker__panels__menu-active": showPanel === "browse"
+                            })}
                             onClick={(ev) => handleShowPanel(ev, "browse")}>
                             Browse
                         </button>
                         <button 
-                            className={showPanel === "project" && "tracker__panels__menu-active"}
+                            className={classNames({
+                                "tracker__panels__menu-active": showPanel === "project"
+                            })}
                             onClick={(ev) => handleShowPanel(ev, "project")}>
                             Project
                         </button>
@@ -249,6 +257,7 @@ function Tracker() {
                             <div className="tracker__sounds">
                             {allFile.map((item, index) => (
                                     <Card
+                                        key={`sound_${index}`}
                                         id={`sound_${index}`}
                                         className="tracker__sound"
                                         draggable="true">

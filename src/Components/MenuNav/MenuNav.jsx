@@ -31,7 +31,7 @@ function MenuNav() {
 
     return (
         <nav>
-            <Link to="/playlist">Playlist</Link>
+            <Link to="/">Playlist</Link>
             <Link to="/piano-roll">Piano roll</Link>
             <Link to="/step-sequencer">Step sequencer</Link>
         </nav>
