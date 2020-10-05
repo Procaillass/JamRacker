@@ -157,14 +157,14 @@ function App() {
               <Sampler />
             </Route>
             
-            <Route exact path="/">
+            <Route exact path="/playlist">
               <DragDropProvider value={{dataDragDrop, setDataDragDrop}}>
                 <Tracker />
               </DragDropProvider>
             </Route>
-            <Route exact path="/library">
-              <Library />
-            </Route>
+            <Route exact path="/">
+                            <Library />
+                          </Route>
             
             <Route exact path="/login">
               <Login />

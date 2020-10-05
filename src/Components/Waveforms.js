@@ -2,20 +2,29 @@ import React, { useEffect, useRef, useState } from "react";
 
 import WaveSurfer from "wavesurfer.js";
 
-const formWaveSurferOptions = (ref) => ({
-  container: ref,
-  waveColor: "rgba(255,255,255,0.2)",
-  progressColor: "rgba(0,0,0,0.4)",
-  cursorColor: "transparent",
-  barWidth: 1,
-  barRadius: 0,
-  responsive: true,
-  height: 100,
-  normalize: true,
-  partialRender: true
-});
+export default function Waveform({
+  url,
+  id,
+  height = 100,
+  barWidth = 1,
+  waveColor = "rgba(255,255,255,0.2)",
+  progressColor = "rgba(0,0,0,0.4)",
+  cursorColor = "transparent",
+  }) {
 
-export default function Waveform({ url, id }) {
+  const formWaveSurferOptions = (ref) => ({
+    container: ref,
+    waveColor: waveColor,
+    progressColor: progressColor,
+    cursorColor: cursorColor,
+    barWidth: barWidth,
+    barRadius: 0,
+    responsive: true,
+    height: height,
+    normalize: true,
+    partialRender: true
+  });
+
   console.log(url);
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
@@ -62,7 +71,7 @@ export default function Waveform({ url, id }) {
   return (
     <div className="waveform">
       <div id={`waveform_${id}`} className="waveform__waves" ref={waveformRef} />
-      <div className="control">
+      <div className="waveform__control">
         <button onClick={handlePlayPause}>{!playing ? "Play" : "Pause"}</button>
       </div>
     </div>

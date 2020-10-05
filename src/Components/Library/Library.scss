@@ -1,39 +1,95 @@
 .library {
-  display: flex;
-  justify-content: space-between;
-  ul {
-    flex: 1;
+  /* display: grid;
+  grid-template-columns: calc(75% - 0.5rem) calc(25% - 0.5rem);
+  grid-gap: 1rem; */
+}
 
-    li {
-      list-style: none;
-      margin: 1rem 0;
-      
-      audio {
-        width: 50%;
-      }
+.library__search {
+  padding: 1rem;
+  border-radius: .15rem;
+  background-color: $sequencer_sound_bg;
+  margin-bottom: 1rem;
+
+  input[type="search"] {
+    @include reset-block;
+    border-radius: .15rem;
+    width: 100%;
+    padding: .7rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+    background-color: $dark-color-2;
+
+    &:focus {
+      box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+      outline:0;
     }
   }
 }
-.info__sound__content{
-  margin: 0 0 .75rem 0;
-  h3{
-    color: #ffffff
-  }
+
+.library__sounds,
+.library__sound {
+  @include reset-block;
 }
-.search__content {
+
+.library__sounds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+.library__sound {
+  padding: 1rem;
+  border-radius: .15rem;
+  background-color: $sequencer_sound_bg;
+
+  /* &:not(:first-child) {
+    margin-top: 1rem
+  } */
+}
+
+.library__sound__header {
   display: flex;
-  flex-flow: column;
-  width: 15%;
-  margin: 0 .5rem;
-  label{
-    padding-left: 0;
+  color: #ffffff;
+  font-size: inherit;
+  font-weight: inherit;
+  margin-bottom: .7rem;
+  height: 20px;
+  line-height: 20px;
+}
+
+.library__sound__header span {
+  height: 20px;
+  line-height: 20px;
+
+  &:not(:first-child) {
+    margin-left: .5rem;
+    padding-left: .5em;
+    border-left: 1px solid $text;
   }
-  input {
-    border-radius: 20px;
-    padding: .25rem .5rem;
-    border:none;
-    &:focus{
-      outline: none;
-    }
+}
+
+.library__sound__author {
+  color: $text;
+}
+
+.library__sound__heart {
+  fill: rgba(0,0,0,0.5);
+
+  &--active {
+    fill: red;
+  }
+}
+
+.library__sound__waveform {
+
+  background-color: $step-current;
+  border-radius: .15rem;
+  position: relative;
+
+  .waveform__control {
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+    z-index: 4;
   }
 }
