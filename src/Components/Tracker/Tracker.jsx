@@ -259,6 +259,7 @@ function Tracker() {
                                     <Card
                                         key={`sound_${index}`}
                                         id={`sound_${index}`}
+                                        dataUrl={`https://firebasestorage.googleapis.com/v0/b/jamracker-36ec0.appspot.com/o/${item.location.path}?alt=media`}
                                         className="tracker__sound"
                                         draggable="true">
                                         {item.location.path}

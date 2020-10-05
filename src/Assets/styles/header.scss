@@ -45,6 +45,7 @@
   
   
   .header__bpm {
+    margin-left: auto;
     
     input {
       margin-left: 1rem;
@@ -53,7 +54,6 @@
   }
   
   .header__user {
-    margin-left: auto;
   
     &__pseudo {
       margin-right: 1rem;

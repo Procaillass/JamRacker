@@ -98,17 +98,42 @@
 
 .tracker__sound {
   background-color: #555;
+  position: relative;
+  background-color: $step-current;
 
   p {
-    padding: .1rem .3rem;
+    padding: .2rem .3rem;
+    z-index: 4;
     font-size: .65rem;
-    color: $dark-color-2;
-    background-color: $step-current;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    width: 100%;
   }
 
-  div {
-    height: 3rem;
-    background-color: $step-current;
+  .waveform {
+    width: 100%;
+    height: 100px;
+    position: relative;
+  }
+  
+  .waveform__control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  button {
+    position: absolute;
+    z-index: 3;
+    bottom: 5px;
+    left: 5px;
+    padding: .3rem .5rem;
+    height: auto;
+    line-height: 1rem;
+    font-size: .7rem
   }
 }
 
@@ -164,5 +189,13 @@
 
   div {
     display: none;
+  }
+}
+
+.tracker__player {
+  display: flex;
+
+  button + a {
+    margin-left: .5rem;
   }
 }

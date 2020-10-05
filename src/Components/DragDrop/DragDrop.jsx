@@ -15,14 +15,15 @@ function DragDrop({id, step, track}) {
         
         data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
-        console.log("data",data);
+        const url = document.getElementById(data).dataset.url;
+        console.log(url);
         
 
             // Get audio duration
             let duration = 0.2;
             const audioContext = new (window.AudioContext || window.webkitAudioContext)()
             const request = new XMLHttpRequest()
-            request.open('GET', data, true)
+            request.open('GET', url, true)
             request.responseType = 'arraybuffer'
             request.onload = function() {
                 console.log(request.response);
@@ -30,7 +31,7 @@ function DragDrop({id, step, track}) {
                     function(buffer) {
                       duration = buffer.duration
                       
-                      const newItem = {step: step, track: track, data: data, duration: duration};
+                      const newItem = {step: step, track: track, data: url, duration: duration};
                         let newArray = [...dataDragDrop, newItem];
             
             // Remove items that have moved in and from the grid

@@ -95,7 +95,7 @@ export default function TrackerPlayer({ items }) {
 
   return (
     <>
-      <div>
+      <div className="tracker__player">
       <button onClick={handlePlay}>play</button>
       {src !== "" && <a className="button" href={src} download={name}>Enregistrer</a>}
       </div>
