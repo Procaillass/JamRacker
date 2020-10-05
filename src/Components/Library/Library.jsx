@@ -3,7 +3,9 @@ import clap from "../../Assets/Sounds/clap.wav";
 import favoris from "../../Assets/Images/favoris.svg";
 import favorisDone from "../../Assets/Images/favorisDone.svg";
 import { db , fire } from "../../fire";
-import "./Library.scss";
+import LibrarySound from './LibrarySound.js';
+import Waveforms from '../Waveforms';
+import classNames from 'classnames';
 
 function Library() {
 
@@ -13,21 +15,12 @@ function Library() {
 * -------------
 */
  const [allFiles,setAllFiles] = useState([]);
-
-
-let source = favoris
+ const [isFav,setIsFav] = useState(false);
 
 //comment for push
 
 const handleFavoris = (ev) => {
-
-    if (source === favoris) {
-        ev.currentTarget.src = favorisDone
-        source = favorisDone;
-    } else {
-        ev.currentTarget.src = favoris
-        source = favoris;
-    }
+  setIsFav(!isFav);
 }
 
 /*
@@ -75,26 +68,23 @@ useEffect(()=>{
       </div>
       <div className="box__content">
         <div class="library">
-        <ul>
-          {allFiles.map((items,index)=>(
-            <li>
-              <div className="info__sound__content">
-                <h2>{items.title}</h2>
-                <h3>By {items.author}</h3>
-              </div>
-              <audio controls key={index}>
-                <source src={items.urlStorage} />
-              </audio>
-              <div  className="box__content__actionAudio">
-                <img onClick={handleFavoris} className="favoris" src={source} alt="favoris_image"/>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="search__content">
-          <label htmlFor="search-sound">Search sound :</label>
-          <input id="search-sound" type="search" placeholder="Search a sound"/>
-        </div>
+          
+          <div className="library__search">
+            <input id="library__search__sound" type="search" placeholder="Search a track"/>
+          </div>
+          
+          <ul className="library__sounds">
+            {allFiles.map((item,index)=>(
+              
+              <LibrarySound
+                key={index}
+                index={index}
+                title={item.title}
+                author={item.author}
+                url={item.urlStorage}
+              />
+            ))}
+          </ul>
 
         </div>
       </div>
