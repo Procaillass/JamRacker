@@ -7,8 +7,11 @@ import LibrarySound from './LibrarySound.js';
 import Waveforms from '../Waveforms';
 import classNames from 'classnames';
 import { createRef } from "react";
+import { useHistory } from "react-router";
 
 function Library() {
+
+const history = useHistory();
 
 /*
 * -------------
@@ -28,8 +31,25 @@ const searchInput = createRef();
 
 //comment for push
 
-const handleFavoris = (ev) => {
-  setIsFav(!isFav);
+const handleFavoris = (item) => {
+  console.log("items => ",item);
+  if(window.confirm('Are you sure you want to add the track ?')){
+    console.log("oui")
+    if(localStorage.getItem("pseudo")!== null){
+      db.collection("Favoris").doc(item.title).set({
+        title:item.title,
+        description:item.description,
+        source:item.source,
+        author:item.author,
+        urlStorage:item.urlStorage,
+        visibility:item.visibility,
+        userId:JSON.parse(localStorage.getItem("pseudo"))
+      })
+    }else{
+      alert("Vous n'avez pas de compte!!!")
+      history.push("/login");
+    }
+  }
 }
 
 /*
@@ -111,6 +131,8 @@ useEffect(()=>{
                 title={item.title}
                 author={item.author}
                 url={item.urlStorage}
+                item={item}
+                handleFavoris={handleFavoris}
               />
             ))}
           </ul>

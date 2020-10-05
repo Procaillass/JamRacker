@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Waveforms from '../Waveforms';
 import classNames from 'classnames';
 
-function LibrarySound({index, title, author, url}) {
+function LibrarySound({index, title, author, url,handleFavoris,item}) {
 
 /*
 * -------------
@@ -17,7 +17,8 @@ const [isFav,setIsFav] = useState(false);
 * -------------
 */
 
-const handleFavoris = (ev) => {
+const favo = (ev) => {
+    handleFavoris(item)
   setIsFav(!isFav);
 }
 
@@ -33,7 +34,7 @@ const handleFavoris = (ev) => {
         <h3 className="library__sound__header">
             <span className="library__sound__title">{title}</span>
             <span className="library__sound__author">By {author}</span>
-            <span className="library__sound__addFav" onClick={handleFavoris}>
+            <span className="library__sound__addFav" onClick={favo}>
                 <svg className={classNames({
                     "library__sound__heart": true,
                     "library__sound__heart--active": isFav === true
