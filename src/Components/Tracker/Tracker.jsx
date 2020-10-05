@@ -187,7 +187,7 @@ function Tracker() {
                 
 
             }else{
-              alert("oops il manque un titre a votre piste !!!")
+              alert("Merci de remplir les champs 'titre' et 'description'")
               return
             }
           }
@@ -313,7 +313,7 @@ function Tracker() {
                                 "tracker__panels__menu-active": showPanel === "project"
                             })}
                             onClick={(ev) => handleShowPanel(ev, "project")}>
-                            Project
+                            Enregistrer
                         </button>
                     </div>
                     
@@ -350,8 +350,8 @@ function Tracker() {
                             <label>Project description</label>
                             <textarea placeholder="Your project description" type="text" ref={descriptionTracker} />
                             <label>Project Visibility</label>
-                            <select onChange={ (e) => visibilityTrack(e) }>
-                                <option value="public" selected="selected">Public</option>
+                            <select onChange={ (e) => visibilityTrack(e) } value="public">
+                                <option value="public">Public</option>
                                 <option value="private">Private</option>
                             </select>
                             {isVisibility}
