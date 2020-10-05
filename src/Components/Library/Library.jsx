@@ -19,13 +19,15 @@ let source = favoris
 
 //comment for push
 
-const handleFavoris = () => {
+const handleFavoris = (ev) => {
 
     if (source === favoris) {
-        document.getElementById("favoris").src = favorisDone;
+      ev.currentTarget.src = favorisDone
+        /* document.getElementsByClassName("favoris").src = favorisDone; */
         source = favorisDone;
     } else {
-        document.getElementById("favoris").src = favoris;
+        /* document.getElementsByClassName("favoris").src = favoris; */
+        ev.currentTarget.src = favoris
         source = favoris;
     }
 }
@@ -76,28 +78,20 @@ useEffect(()=>{
       </div>
       <div className="box__content">
         <ul>
-          <li>
+          {allFiles.map((items,index)=>(
+            <li>
               <div className="info__sound__content">
-                <h2>Titre du son</h2>
-                <h3>By Author</h3>
-              </div>
-            <audio controls>
-              <source src={clap} />
-              Your browser does not support the audio element.
-            </audio>
-            {allFiles.map((items,index)=>(
-              <>
                 <h2>{items.title}</h2>
                 <h3>By {items.author}</h3>
-                <audio controls key={index}>
-                  <source src={items.urlStorage} />
-                </audio>
-              </>
-            ))}
-            <div  className="box__content__actionAudio">
-                <img onClick={handleFavoris} id="favoris" src={source} alt="favoris_image"/>
-            </div>
-          </li>
+              </div>
+              <audio controls key={index}>
+                <source src={items.urlStorage} />
+              </audio>
+              <div  className="box__content__actionAudio">
+                <img onClick={handleFavoris} className="favoris" src={source} alt="favoris_image"/>
+              </div>
+            </li>
+          ))}
         </ul>
         <div className="search__content">
           <label htmlFor="search-sound">Search sound :</label>
