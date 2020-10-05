@@ -351,8 +351,7 @@ function Tracker() {
                             <textarea placeholder="Your project description" type="text" ref={descriptionTracker} />
                             <label>Project Visibility</label>
                             <select onChange={ (e) => visibilityTrack(e) }>
-                                <option value="">Choose a visibility for your project</option>
-                                <option value="public">Public</option>
+                                <option value="public" selected="selected">Public</option>
                                 <option value="private">Private</option>
                             </select>
                             {isVisibility}
