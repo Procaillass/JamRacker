@@ -54,8 +54,29 @@
   }
   
   .header__user {
-  
+    //Menu user
     &__pseudo {
       margin-right: 1rem;
+      position: relative;
+      .user__menu{
+        display: flex;
+        justify-content: center;
+      }
+      ul{
+        display: none;
+        position: absolute;
+        list-style: none;
+        background: $dark-color-3;;
+        padding: 1rem;
+        top: 150%;
+        left: -10%;
+        &.show{
+          display: block;
+        }
+        a{
+          @include reset-block;
+          text-decoration: none;
+        }
+      }
     }
   }
