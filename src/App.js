@@ -111,7 +111,7 @@ function App() {
     menu.classList.toggle('show');
   }
 
-  console.log("pseudo", pseudo)
+  //console.log("pseudo", pseudo)
   return (
     <MusicalNotesProvider value={musicalNotes}>
     <SamplerProvider value={{dataSampler, setDataSampler}}>

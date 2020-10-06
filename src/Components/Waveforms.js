@@ -25,7 +25,7 @@ export default function Waveform({
     partialRender: true
   });
 
-  console.log(url);
+  //console.log(url);
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);

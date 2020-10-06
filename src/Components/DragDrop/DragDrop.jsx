@@ -6,17 +6,17 @@ function DragDrop({id, step, track}) {
 
     const [allowDrop, setAllowDrop] = useState(false);
     const { dataDragDrop, setDataDragDrop } = useContext(DragDropContext);
-    let data = null;
 
 
     const drop = (ev) => {
        
         ev.preventDefault();
         
-        data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
-        const url = document.getElementById(data).dataset.url;
-        console.log(url);
+        const data = JSON.parse(ev.dataTransfer.getData("text"));
+        ev.target.appendChild(document.getElementById(data.id));
+        //console.log(data.parent);
+        const url = document.getElementById(data.id).dataset.url;
+        //console.log(url);
         
 
             // Get audio duration
@@ -26,7 +26,7 @@ function DragDrop({id, step, track}) {
             request.open('GET', url, true)
             request.responseType = 'arraybuffer'
             request.onload = function() {
-                console.log(request.response);
+                //console.log(request.response);
                 audioContext.decodeAudioData(request.response,
                     function(buffer) {
                       duration = buffer.duration
@@ -39,7 +39,7 @@ function DragDrop({id, step, track}) {
                 document.querySelector(`[data-step='${el.step}'][data-track='${el.track}']`)
                 .querySelector('.tracker__sound') !== null
             );
-            console.log([...newArray]);
+            //console.log([...newArray]);
             setDataDragDrop([...newArray])
 
 
