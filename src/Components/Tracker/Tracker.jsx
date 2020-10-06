@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 // import * as Tone from 'tone';
 import trackerContext from "../../context/trackerContext";
-import { TrackerProvider } from "../../context/trackerContext";
 import DragDrop from "../DragDrop/DragDrop";
 import Card from "../DragDrop/Card";
-import DragDropContext, { DragDropProvider } from "../../context/dragDropContext";
-import * as Tone from 'tone';
+import DragDropContext from "../../context/dragDropContext";
 import kick from "../../Assets/Sounds/kick.wav";
 import bassDrum from "../../Assets/Sounds/bass_drum.wav";
 import clap from "../../Assets/Sounds/clap.wav";

@@ -5,9 +5,10 @@
     top: 0; left: 0;
     width: 100%;
     height: 4rem;
-    background-color: $dark-color-3;
+    background-color: $light-color;
     font-size: .9rem;
     text-transform: uppercase;
+    box-shadow: $box-shadow-grey;
   
     > * {
       display: flex;
@@ -36,11 +37,14 @@
       align-items: center;
       padding: 0 1rem;
       text-decoration: none;
+      &:hover{
+        color: $blue-color;
+      }
     }
 
-    a + a {
+   /*  a + a {
       border-left: 1px solid $dark-color-1;
-    }
+    } */
   }
   
   
@@ -55,6 +59,9 @@
   
   .header__user {
     cursor: pointer;
+    &:hover{
+      color: $blue-color;
+    }
     //Menu user
     &__pseudo {
       margin-right: 1rem;
@@ -67,7 +74,7 @@
         display: none;
         position: absolute;
         list-style: none;
-        background: $dark-color-3;;
+        background: $light-color;
         padding: 1rem;
         top: 150%;
         left: -10%;

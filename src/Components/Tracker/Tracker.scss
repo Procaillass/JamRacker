@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 1px;
-  background-color: $dark-color-2;
+  background-color:#cccccc /* $dark-color-2 */;
 }
 
 .tracker__steps {
@@ -29,9 +29,6 @@
   .drap__item--ondrop {
     background-color: $step-measure;
   }
-}
-
-.tracker__panels {
 }
 
 .tracker__panels__menu {
@@ -76,9 +73,6 @@
 
 }
 
-.tracker__sounds {
-}
-
 .tracker__browse__actions {
   /* position: absolute;
   bottom: 0; left: 0;
@@ -100,13 +94,12 @@
   background-color: #555;
   position: relative;
   background-color: $step-current;
+  color:#fff;
 
   p {
     padding: .2rem .3rem;
     z-index: 4;
     font-size: .65rem;
-    background-color: rgba(0,0,0,0.8);
-    color: white;
     width: 100%;
   }
 
@@ -172,10 +165,6 @@
   padding-top: 2rem;
 }
 
-
-
-
-
 .drag__item .tracker__sound {
   background-color: #555;
   height: 100%;
@@ -183,8 +172,7 @@
   p {
     height: 100%;
     color: white;
-    background-color: $step-active;
-    color: $step-dark;
+    background-color: $blue-color;
   }
 
   div {
