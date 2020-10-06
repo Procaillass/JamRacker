@@ -33,13 +33,16 @@ const handleFavoris = (item) => {
         author:item.author,
         urlStorage:item.urlStorage,
         visibility:item.visibility,
+        isFav:false,
         userId:JSON.parse(localStorage.getItem("pseudo"))
       })
+      window.location.href="/favoris"
     }else{
       alert("Vous n'avez pas de compte!!!")
       history.push("/login");
     }
   }
+  
 }
 
 /*
@@ -51,7 +54,7 @@ const handleFavoris = (item) => {
 // va rechercher les elements dans la db
 const fetchSong = () => {
 
-    db.collection("Favoris").where("userId","==",pseudo).get().then( querySnapshot => {
+    db.collection("Favoris").where("userId","==",pseudo).where("isFav","==",true).get().then( querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
         data.push(doc.data())

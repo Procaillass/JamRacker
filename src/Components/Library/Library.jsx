@@ -40,6 +40,7 @@ const handleFavoris = (item) => {
         author:item.author,
         urlStorage:item.urlStorage,
         visibility:item.visibility,
+        isFav:true,
         userId:JSON.parse(localStorage.getItem("pseudo"))
       })
     }else{
