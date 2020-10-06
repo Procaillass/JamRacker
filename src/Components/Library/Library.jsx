@@ -59,7 +59,7 @@ const handleFavoris = (item) => {
 // va rechercher les elements dans la db
 const fetchSong = () => {
 
-    db.collection("SongTracker").where("visibility","==",true).get().then( querySnapshot => {
+    db.collection("SongTracker").get().then( querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
         data.push(doc.data())
