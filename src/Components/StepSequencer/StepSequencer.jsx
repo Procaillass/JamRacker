@@ -8,7 +8,9 @@ import Play from "../../Components/Play/Play";
 import BpmContext from "../../context/bpmContext";
 import StepSeqContext from "../../context/stepSequencerContext";
 import instrumentContext from "../../context/instrumentContext";
-import {db,fire} from "../../fire"
+import MusicalNotesContext from "../../context/MusicalNotesContext.js";
+import {db,fire} from "../../fire";
+import classNames from 'classnames';
 
 function StepSequencer() {
 
@@ -23,21 +25,36 @@ function StepSequencer() {
 
   // ACTIVE / DEACTIVE STEPS
   const updateStep = (trackIdx, stepIdx, trackNote) => {
+    // Tone shit
     Tone.context.resume();
-    const newTracks = [...tracks];
-    if(trackNote !== null){
-      const newNotes = dataTracks.notes.push(
-        {
-          name:trackNote,
-          duration: 0.2,
-          time: (60 / bpm) * stepIdx,
-          steps:stepIdx
-        }
-      )
-      setDataTracks({...dataTracks, newNotes});
+    
+    //const newTracks = [...tracks];
+    
+    const newNotes = {
+      name:trackNote,
+      duration: 0.2,
+      time: (60 / bpm) * stepIdx,
+      track: trackIdx,
+      steps: stepIdx,
+      stepNum: generateSteps()
     }
-    newTracks[trackIdx].steps[stepIdx] = newTracks[trackIdx].steps[stepIdx] === 0 ? 1 : 0;
-    setdataStepSeq({ ...dataStepSeq, tracks: newTracks });
+
+    let datas = [...dataStepSeq.notes];
+    const datasF = datas.filter( el => el.track === trackIdx && el.steps === stepIdx );
+    
+
+    if( datasF.length > 0 ) {
+      console.log("filter");
+      datas = datas.filter( el => el.track !== trackIdx || el.steps !== stepIdx );
+
+    } else if ( datasF.length === 0 ) {
+      console.log("add note");
+      datas = [...datas, newNotes]
+    }
+    setdataStepSeq({ ...dataStepSeq, notes: datas });
+    
+    //newTracks[trackIdx].steps[stepIdx] = newTracks[trackIdx].steps[stepIdx] === 0 ? 1 : 0;
+    // Trigger sound
     dataInstrument.triggerAttackRelease(trackNote, 0.2);
   };
 
@@ -49,11 +66,9 @@ function StepSequencer() {
 
   const bpmContext = useContext(BpmContext);
   const bpm = bpmContext.dataBpm.bpm;
+  const musicalNotes = useContext(MusicalNotesContext);
 
   const { dataStepSeq, setdataStepSeq } = useContext(StepSeqContext);
-  const { dataTracks, setDataTracks } = useContext(StepSeqContext);
-  const notesList = dataStepSeq.notesList;
-  const tracks = Array.isArray(dataStepSeq.tracks) && dataStepSeq.tracks.length ? dataStepSeq.tracks : [];
   const steps = dataStepSeq.stepsNum;
 
   const {dataInstrument, setDataInstrument} = useContext(instrumentContext);
@@ -67,6 +82,12 @@ function StepSequencer() {
   const [src,setSrc] = useState();
   const [currentStep, setCurrentStep] = useState(0);
   const [isRecorded,setIsRecorded] = useState(false);
+
+  const [tracks,setTracks] = useState([
+    { name: "A0", steps: generateSteps() },
+    { name: "c1", steps: generateSteps() },
+    { name: "c4", steps: generateSteps() }
+  ]);
 
   /*
    * -------------
@@ -85,29 +106,27 @@ function StepSequencer() {
    */
 
   const handleAddTrack = (ev) => {
+    console.log('here');
     ev.preventDefault();
     if (ev.target.value !== "") {
       const note = ev.target.value;
-      const newTrack = { name: note, duration: 0.2, steps: generateSteps(steps) };
-      setdataStepSeq({ ...dataStepSeq, tracks: [...dataStepSeq.tracks, newTrack] });
+      const newTrack = { name: note, steps: generateSteps() };
+      setTracks([ ...tracks, newTrack ]);
     }
     ev.target.value = "";
   };
 
-  const handleSteps = (ev) => {
+  /* const handleSteps = (ev) => {
     ev.preventDefault();
     setdataStepSeq({ ...dataStepSeq, stepsNum: stepsFld.current.value });
-  };
-
-  const handleClose = (ev) => {
-    ev.preventDefault();
-    //alert("close");
-  };
+  }; */
 
   const handleRemoveTrack = (name) => {
-    setdataStepSeq({ ...dataStepSeq, tracks: tracks.filter((track) => track.name !== name) });
+    setdataStepSeq({ ...dataStepSeq, notes: [...dataStepSeq.notes].filter((note) => note.name !== name) });
+    setTracks([ ...tracks.filter((track) => track.name !== name) ]);
   }
 
+  // For player bar ?
   const handleCurrentStep = (newCurrentStep) => {
     setCurrentStep(newCurrentStep);
   }
@@ -127,14 +146,15 @@ function StepSequencer() {
         // // envoie dans le storage .wav
         const storageRef = fire.storage().ref()
         storageRef.child(titleValue).put(src)
-        setSrc(dataTracks.notes);
+        setSrc(dataStepSeq.notes);
   
         db.collection("Tracks").doc(titleValue).set({
           title: titleValue,
           author: JSON.parse(localStorage.getItem("pseudo")),
           source: " Step Sequenceur ",
-          notes: dataTracks.notes
+          notes: dataStepSeq.notes
         })
+        alert("Save patern to DB");
       }else{
         alert("oops il manque un titre a votre piste !!!")
         return
@@ -144,12 +164,8 @@ function StepSequencer() {
       alert("you not have account for register");
       history.push("/login");
     }
-    console.log("note",dataTracks.notes)
+    console.log("note",dataStepSeq.notes)
   }
-  useEffect(()=>{
-    
-    
-  },[])
 
   
   /*
@@ -165,11 +181,37 @@ function StepSequencer() {
   }, [bpm]);
 
 
-  //
-  useEffect(() => {
+  // Change Step num
+  /* useEffect(() => {
+    console.log("here step");
     const newTracks = [...tracks].map(el => ({ ...el, steps: generateSteps(steps) }));
-    setdataStepSeq({ ...dataStepSeq, tracks: newTracks });
-  }, [steps])
+    setdataStepSeq({ ...dataStepSeq, notes: newTracks });
+  }, [steps]) */
+
+
+  //
+  /* useEffect(() => {
+    console.log("data changed");
+  }, [dataTracks]) */
+
+  useEffect(() => {
+
+    const a = [...dataStepSeq.notes];
+    const b = [...tracks];
+
+    // reinitialiser les steps
+    b.forEach( track =>  { track.steps = generateSteps() });
+    
+    // Actualiser les steps avec dataStepSeq
+    a.forEach( note => b[note.track].steps[note.steps] = 1 );
+    
+    setTracks(b);
+
+  }, [dataStepSeq])
+  
+  useEffect(() => {
+    console.log("c-step", currentStep);
+  }, [currentStep])
 
   /*
   * -------------
@@ -191,7 +233,7 @@ function StepSequencer() {
 
         {tracks.map((track, trackIdx) => (
 
-          <div className="sequencer__row" key={trackIdx + "_" + track.name}>
+          <div className="sequencer__row" key={"sequencer__row_" + trackIdx}>
             <div className="sequencer__sound">
               <span>{track.name}</span>
             </div>
@@ -199,8 +241,11 @@ function StepSequencer() {
               {track.steps.map((step, stepIdx) => (
                 <div
                   key={stepIdx}
-                  className={`sequencer__step ${step ? "sequencer__stepmarked" : ""} ${stepIdx === currentStep ? "sequencer__stepcol" : ""
-                    }`}
+                  className={classNames({
+                    "sequencer__step": true,
+                    "sequencer__stepmarked": step === 1,
+                    "sequencer__stepcol" : stepIdx === currentStep
+                  })}
                   onClick={() => updateStep(trackIdx, stepIdx, track.name)}
                 />
               ))}
@@ -218,7 +263,7 @@ function StepSequencer() {
         
         <select className="button sequencer__addtrack" onChange={handleAddTrack}>
             <option value="">Add a track</option>
-            {notesList.map((note, index) =>
+            {musicalNotes.map((note, index) =>
               tracks.map(el => el.name).includes(note.name) === false &&
               <option key={index + '_' + note.name} value={note.name} name={note.midi}>{note.name}</option>
             )}
@@ -228,8 +273,8 @@ function StepSequencer() {
 
 
 <div className="play-register-container">
-  <Instrument dataTracks={dataTracks} />
-  <Play  src={src} setSrc={setSrc} dataTracks={dataTracks} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+  <Instrument dataTracks={dataStepSeq} />
+  <Play  src={src} setSrc={setSrc} dataTracks={dataStepSeq} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
   {<form onSubmit={SaveSequencer}>
     <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={titleSequencer} />
     <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>

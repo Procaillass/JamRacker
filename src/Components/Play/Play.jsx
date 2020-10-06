@@ -1,11 +1,12 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Play.scss";
 import * as Tone from 'tone';
 import { now as Now, Synth, Sampler, Recorder } from "tone";
 import PlayContext from "../../context/playContext";
 import StepSeqContext from "../../context/stepSequencerContext";
 import BpmContext from '../../context/bpmContext';
+import SamplerContext from "../../context/samplerContext";
 import { fire } from "../../fire";
 
 function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRecorded }) {
@@ -18,6 +19,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
 
     //const instContext = useContext(PlayContext);
     //const { dataBpm } = useContext(BpmContext);
+    const {dataSampler, setDataSampler} = useContext(SamplerContext);
 
     /*
     * -------------
@@ -41,6 +43,8 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
    
     const handlePlaying = (ev) => {
         ev.preventDefault();
+
+        console.log(instrument, dataTracks);
 
         if(playing === true) {
             console.log('stop');
@@ -68,7 +72,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
                 reorderedNotes[i] = filteredNotes;
             }
         }
-        console.log(reorderedNotes);
+        // console.log(reorderedNotes);
 
         let currentStep = 0;
         
@@ -93,7 +97,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
                     setTimeout(() =>{recorder.stop();}, timeOutDuration);
                 }
             }
-
+            handleCurrentStep(currentStep)
             currentStep++;
             if (currentStep > 15) { currentStep = 0 };
 
@@ -111,6 +115,23 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
         Tone.Transport.start();
         setPlaying(!playing);
     }
+
+    /*
+    *
+    * EFFECT
+    * 
+    */
+   
+   useEffect(() => {
+        console.log('stop');
+        Tone.Transport.stop();
+        Tone.Transport.cancel();
+
+
+    if(playing === true) {
+        setPlaying(!playing);
+    }
+    },[instrument, dataTracks, dataSampler])
     
     /*
     * -------------

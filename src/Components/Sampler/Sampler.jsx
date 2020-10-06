@@ -48,19 +48,22 @@ function Sampler() {
 
             if( el.sound && el.start ) {
             
-                console.log(el.end);
+                // console.log(el.end);
                 const startPos = musicalNotes.map(note => note.name).indexOf(el.start);
                 const endPos = musicalNotes.map(note => note.name).indexOf(el.end);
 
                 let pos = [];
 
                 if( endPos === -1 || startPos === endPos ) {
+                    // console.log("here 1");
                     pos = musicalNotes.filter((el, index) => index === startPos).map(note => note.name);
 
                 } else if( startPos < endPos ) {
+                    // console.log("here 2");
                     pos = musicalNotes.slice(startPos, endPos+1).map(note => note.name);
 
                 } else if( startPos > endPos ) {
+                    // console.log("here 3");
                     pos = musicalNotes.slice(endPos, startPos+1).map(note => note.name);
                 }
 

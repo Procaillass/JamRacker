@@ -45,7 +45,7 @@
     background-color: $step-current;
   }
   &.sequencer__stepcol.sequencer__stepmarked {
-    background-color: $sequencer_step_marqued_col_bg;
+    background-color: $step-active;
   }
 
 }

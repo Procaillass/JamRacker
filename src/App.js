@@ -86,11 +86,7 @@ function App() {
       { name: "C8", midi: 108 }, { name: "C#8", midi: 109 }
     ],
 
-    tracks: [
-      { name: "A0", duration: 0, steps: generateSteps() },
-      { name: "c1", duration: 0, steps: generateSteps() },
-      { name: "c4", duration: 0, steps: generateSteps() }
-    ]
+    notes: [],
   });
 
   const [dataTracks, setDataTracks] = useState({notes:[]});

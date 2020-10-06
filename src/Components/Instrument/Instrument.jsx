@@ -29,6 +29,7 @@ function Instrument({dataTracks}) {
    */
 
   /* const [inst, setInst] = useState(); */
+   const [currentInst, setCurrentInst] = useState('Synth');
 
   /*
    * -------------
@@ -39,28 +40,35 @@ function Instrument({dataTracks}) {
   const changeInst = (newInst) => { 
   switch (newInst) {
         case '':
+          setCurrentInst('Synth');
           setDataInstrument(new Tone.Synth().toDestination());
           break;
         case 'Synth':
+          setCurrentInst('Synth');
           setDataInstrument(new Tone.Synth().toDestination());
         break;
         case 'AMSynth':
+          setCurrentInst('AMSynth');
           setDataInstrument(new Tone.AMSynth().toDestination());
         break;
         case 'PluckSynth':
+          setCurrentInst('PluckSynth');
           setDataInstrument(new Tone.PluckSynth().toDestination());
         break;
         case 'PolySynth':
+          setCurrentInst('PolySynth');
           setDataInstrument(new Tone.PolySynth().toDestination());
         break;
         case 'Sampler':
-          console.log(dataSampler.urls);
+          //console.log(dataSampler.urls);
           if(Object.keys(dataSampler.urls).length === 0 && dataSampler.urls.constructor === Object ) {
             //setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
+            setCurrentInst('Synth');
             setDataInstrument(new Tone.Synth().toDestination());
             console.log("empty");
           } else {
             //setDataInstrument(new Tone.Synth().toDestination());
+            setCurrentInst('Sampler');
             setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
             console.log("not empty");
           }
@@ -93,9 +101,22 @@ function Instrument({dataTracks}) {
     * -------------
     */
 
-    /* useEffect(() => {
-      changeInst(dataInstrument);
-  }, [dataInstrument]); */
+    useEffect(() => {
+      console.log("here");
+      if( currentInst === 'Sampler') {
+      if(Object.keys(dataSampler.urls).length === 0 && dataSampler.urls.constructor === Object ) {
+        //setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
+        setCurrentInst('Synth');
+        setDataInstrument(new Tone.Synth().toDestination());
+        console.log("empty");
+      } else {
+        //setDataInstrument(new Tone.Synth().toDestination());
+        setCurrentInst('Sampler');
+        setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
+        console.log("not empty");
+      }
+      }
+    }, [dataSampler]);
 
   /*
     * -------------
