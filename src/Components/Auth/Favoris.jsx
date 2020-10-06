@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from "react";
 import { db } from "../../fire";
-import "./Favoris.scss";
 import { useHistory } from "react-router";
 import LibrarySound from "../Library/LibrarySound";
 
