@@ -24,7 +24,7 @@ const history = useHistory();
 */
 
 const handleFavoris = (item) => {
-  if(window.confirm('Are you sure you want to add the sound to your favorites ?')){
+  if(window.confirm('Are you sure you want to remove the sound to your favorites ?')){
     if(localStorage.getItem("pseudo")!== null){
       db.collection("Favoris").doc(item.title).set({
         title:item.title,
