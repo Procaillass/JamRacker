@@ -107,6 +107,11 @@ function App() {
   // Auth user
   const pseudo = JSON.parse(localStorage.getItem("pseudo"));
 
+  const handleMenuUser = (ev) => {
+    const menu = ev.currentTarget.querySelector("ul")
+    menu.classList.toggle('show');
+  }
+
   return (
     <MusicalNotesProvider value={musicalNotes}>
     <SamplerProvider value={{dataSampler, setDataSampler}}>
@@ -136,9 +141,27 @@ function App() {
           </div> */}
           
           <div className="header__user">
-            <div className="header__user__pseudo">{pseudo}</div>
-            {localStorage.getItem("pseudo") ? <Logout /> : <Link className="button" to="/login">Login</Link>}
-              <Link to="/favoris" >Favoris</Link>
+            <div className="header__user__pseudo" onClick={handleMenuUser}>
+             {pseudo !==null &&
+              <>
+                  <div className="user__menu">
+                      <span>{pseudo}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#159EDE">
+                          <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                      </svg>
+                  </div>
+                  <ul>
+                      <li>
+                          <Link to="/favoris">Favoris</Link>
+                      </li>
+                  </ul>
+              </>
+             }
+            </div>
+            {localStorage.getItem("pseudo")
+              ? <Logout />
+              : <Link className="button" to="/login">Login</Link>}
+              
           </div>
         
         </header>
@@ -156,7 +179,7 @@ function App() {
               <Sampler />
             </Route>
             
-            <Route exact path="/playlist">
+            <Route exact path="/tracker">
               <DragDropProvider value={{dataDragDrop, setDataDragDrop}}>
                 <Tracker />
               </DragDropProvider>

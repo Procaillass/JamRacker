@@ -32,7 +32,7 @@ function MenuNav() {
     return (
         <nav>
             <Link to="/">Library</Link>
-            <Link to="/playlist">Playlist</Link>
+            <Link to="/tracker">Tracker</Link>
             <Link to="/piano-roll">Piano roll</Link>
             <Link to="/step-sequencer">Step sequencer</Link>
         </nav>

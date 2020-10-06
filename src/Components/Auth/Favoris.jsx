@@ -1,22 +1,12 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import clap from "../../Assets/Sounds/clap.wav";
-import favoris from "../../Assets/Images/favoris.svg";
-import favorisDone from "../../Assets/Images/favorisDone.svg";
-import { db , fire } from "../../fire";
+import React, { useState, useEffect} from "react";
+import { db } from "../../fire";
 import "./Favoris.scss";
-import { createRef } from "react";
 import { useHistory } from "react-router";
+import LibrarySound from "../Library/LibrarySound";
 
 function Favoris() {
 
-
-/*
-* -------------
-* REF 
-* -------------
-*/
-
-const searchInput = createRef();
+const history = useHistory();
 
 /*
 * -------------
@@ -25,12 +15,32 @@ const searchInput = createRef();
 */
  const [allFiles,setAllFiles] = useState([]);
  const pseudo = JSON.parse(localStorage.getItem("pseudo"));
+ const isFav = true;
 
+ /*
+* -------------
+* HANDLE
+* -------------
+*/
 
-let source = favoris
-
-//comment for push
-
+const handleFavoris = (item) => {
+  if(window.confirm('Are you sure you want to remove the sound to your favorites ?')){
+    if(localStorage.getItem("pseudo")!== null){
+      db.collection("Favoris").doc(item.title).set({
+        title:item.title,
+        description:item.description,
+        source:item.source,
+        author:item.author,
+        urlStorage:item.urlStorage,
+        visibility:item.visibility,
+        userId:JSON.parse(localStorage.getItem("pseudo"))
+      })
+    }else{
+      alert("Vous n'avez pas de compte!!!")
+      history.push("/login");
+    }
+  }
+}
 
 /*
 * -------------
@@ -45,7 +55,6 @@ const fetchSong = () => {
       let data = [];
       querySnapshot.forEach(doc => {
         data.push(doc.data())
-        console.log(doc.id, " => ", doc.data());
       });
       setAllFiles(data);
     })
@@ -69,25 +78,24 @@ useEffect(()=>{
   return (
     <div className="box">
       <div className="box__bar">
-      <div className="box__title">Favoris </div>
+        <div className="box__title">Favoris </div>
       </div>
       <div className="box__content">
         <div className="library">
-        <ul className="songsList">
-          {allFiles.map((items,index)=>(
-            <li className="song" key={index}>
-              <div className="info__sound__content">
-                <h2 className="song_title">{items.title}</h2>
-                <h3>By {items.author}</h3>
-              </div>
-              <audio controls key={index}>
-                <source src={items.urlStorage} />
-              </audio>
-              
-            </li>
-          ))}
-        </ul>
-
+          <ul className="library__sounds">
+            {allFiles.map((item, index) => (
+              <LibrarySound
+                key={index}
+                index={index}
+                title={item.title}
+                author={item.author}
+                url={item.urlStorage}
+                item={item}
+                handleFavoris={handleFavoris}
+                isFav = {isFav}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     </div>

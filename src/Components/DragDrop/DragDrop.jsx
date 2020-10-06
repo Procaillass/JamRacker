@@ -61,12 +61,12 @@ function DragDrop({id, step, track}) {
             id= {id}
             className={classNames({
                 "drag__item": true,
-                "drap__item--ondrap": allowDrop
+                "drap__item--ondrop": allowDrop
               })}
             onDragOver={preventWeirdBug}
             onDragEnter={(ev) => setAllowDrop(!allowDrop)}
             onDragLeave={(ev) => setAllowDrop(!allowDrop)}
-            onDrop={drop}>
+            onDrop={(ev) => {drop(ev); setAllowDrop(!allowDrop);}}>
         </div>
     )
 }
