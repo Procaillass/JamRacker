@@ -22,6 +22,7 @@ import { MusicalNotesProvider } from './context/MusicalNotesContext';
 import { SamplerProvider } from './context/samplerContext';
 import { DragDropProvider } from './context/dragDropContext';
 import Favoris from './Components/Auth/Favoris';
+import Register from './Components/Auth/Register';
 
 function App() {
 
@@ -136,9 +137,7 @@ function App() {
           
           <div className="header__user">
             <div className="header__user__pseudo">{pseudo}</div>
-            {localStorage.getItem("pseudo")
-              ? <Logout />
-              : <Link className="button" to="/login">Login</Link>}
+            {localStorage.getItem("pseudo") ? <Logout /> : <Link className="button" to="/login">Login</Link>}
               <Link to="/favoris" >Favoris</Link>
           </div>
         
@@ -163,11 +162,14 @@ function App() {
               </DragDropProvider>
             </Route>
             <Route exact path="/">
-                            <Library />
-                          </Route>
+              <Library />
+            </Route>
             
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
             </Route>
             
             <Route exact path="/logout">
