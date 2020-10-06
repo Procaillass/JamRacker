@@ -51,7 +51,7 @@ function Login() {
                 <label>Mot de passe :</label> <input type="password" ref={password}/>
                 <div className='btnContainer'>
                     <input type="submit" onClick={(ev)=> signIn(ev)} value="se connecter"/>
-                    <Link className="btnRegister" to="/register">déjà un compte ? </Link>
+                    <Link className="btnRegister" to="/register">Pas encore de compte ? </Link>
                 </div>
             </div>
         </section>

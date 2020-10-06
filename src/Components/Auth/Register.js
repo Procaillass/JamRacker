@@ -67,7 +67,7 @@ function Register() {
                 <p className="errorMsg"></p>
                 <div className='btnContainer'>
                     <input type="submit" onClick={(ev)=> signUp(ev)} value="se connecter"/>
-                    <Link className="btnRegister" to="/register">déjà un compte ? </Link>
+                    <Link className="btnRegister" to="/register">Déjà de compte ? </Link>
                 </div>
             </div>
         </section>
