@@ -253,7 +253,7 @@ function Tracker() {
         <div className="box">
 
             <div className="box__bar">
-                <div className="box__title"><h2>Tracker</h2></div>
+                <div className="box__title"><h1>Tracker</h1></div>
             </div>
 
             <div className="box__content">
