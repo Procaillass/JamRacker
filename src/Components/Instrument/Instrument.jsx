@@ -60,15 +60,14 @@ function Instrument({dataTracks}) {
           setDataInstrument(new Tone.PolySynth().toDestination());
         break;
         case 'Sampler':
+          console.log("here");
+          setCurrentInst('Sampler');
           //console.log(dataSampler.urls);
           if(Object.keys(dataSampler.urls).length === 0 && dataSampler.urls.constructor === Object ) {
-            //setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
-            setCurrentInst('Synth');
             setDataInstrument(new Tone.Synth().toDestination());
             console.log("empty");
           } else {
             //setDataInstrument(new Tone.Synth().toDestination());
-            setCurrentInst('Sampler');
             setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
             console.log("not empty");
           }
@@ -102,19 +101,21 @@ function Instrument({dataTracks}) {
     */
 
     useEffect(() => {
-      console.log("here");
-      if( currentInst === 'Sampler') {
+      console.log(dataInstrument);
+      if( currentInst !== 'Sampler') {
       if(Object.keys(dataSampler.urls).length === 0 && dataSampler.urls.constructor === Object ) {
         //setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
-        setCurrentInst('Synth');
         setDataInstrument(new Tone.Synth().toDestination());
         console.log("empty");
       } else {
         //setDataInstrument(new Tone.Synth().toDestination());
-        setCurrentInst('Sampler');
         setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
         console.log("not empty");
       }
+      } else {
+        setDataInstrument(new Tone.Sampler(dataSampler.urls).toDestination());
+        console.log("not empty");
+
       }
     }, [dataSampler]);
 
@@ -127,7 +128,7 @@ function Instrument({dataTracks}) {
 
 return (
   <select className="instrument" onChange={handleInstrument}>
-        <option value="">choose an instrument</option>
+        <option value="Synth">choose an instrument</option>
         <option value="Synth">Synth</option>
         <option value="AMSynth">AMSynth</option>
         <option value="PluckSynth">PluckSynth</option>

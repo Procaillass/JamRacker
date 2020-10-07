@@ -9,7 +9,7 @@ import BpmContext from '../../context/bpmContext';
 import SamplerContext from "../../context/samplerContext";
 import { fire } from "../../fire";
 
-function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRecorded }) {
+const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRecorded })  => {
 
     /*
      * -------------
@@ -20,6 +20,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
     //const instContext = useContext(PlayContext);
     //const { dataBpm } = useContext(BpmContext);
     const {dataSampler, setDataSampler} = useContext(SamplerContext);
+    let chunks = [];
 
     /*
     * -------------
@@ -28,6 +29,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
     */
 
     const [playing, setPlaying] = useState(false);
+    const [tempSrc, setTempSrc] = useState('');
     /* const [instState,setInst] = useState(); */
 
     // AudioGenerator
@@ -40,9 +42,19 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
     * HANDLERS
     * -------------
     */
+
+    const stopPlaying = () => {
+        Tone.Transport.stop();
+        Tone.Transport.cancel();
+        setPlaying(!playing);
+    };
    
     const handlePlaying = (ev) => {
         ev.preventDefault();
+
+        const btn = ev.target;
+
+        if(playing === false) btn.disabled = true;
 
         console.log(instrument, dataTracks);
 
@@ -50,6 +62,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
             console.log('stop');
             Tone.Transport.stop();
             Tone.Transport.cancel();
+            setSrc(tempSrc);
             setPlaying(!playing);
             return
         }
@@ -61,7 +74,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
         const dest = actx.createMediaStreamDestination();
         const recorder = new MediaRecorder(dest.stream);
         instrument.connect(dest);
-        const chunks = [];
+        //const chunks = [];
         //
 
         // Converti dataTracks (passé en props) en tableau lisible par scheduleRepeat
@@ -72,9 +85,10 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
                 reorderedNotes[i] = filteredNotes;
             }
         }
-        // console.log(reorderedNotes);
+        console.log(reorderedNotes);
 
         let currentStep = 0;
+        let firstIteration = 0;
         
         recorder.start();
         let isRecording = true;
@@ -86,20 +100,33 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
             if (reorderedNotes[currentStep]) {
                 const now = Tone.now();
                 reorderedNotes[currentStep].map( (el, elIdx) => {
+                    console.log('hallo?', el.name);
                     instrument.triggerAttackRelease( el.name, el.duration, now+elIdx/1000 );
                     // remplacer timeOutDuration par la durée de la note la plus longue du map;
                 });
             }
 
-            if (currentStep === 15) {
+            if (currentStep === 15 && firstIteration === 0) {
                 if(isRecording) {
                     isRecording = !isRecording;
-                    setTimeout(() =>{recorder.stop();}, timeOutDuration);
+                    setTimeout(() =>{recorder.stop();}, 150);
+                    btn.disabled = false;
+                    // stopPlaying();
                 }
             }
-            handleCurrentStep(currentStep)
+
+            //handleCurrentStep(currentStep)
+            document.querySelectorAll('.sequencer__step').forEach( el => el.classList.remove("sequencer__stepcol"))
+            document.querySelectorAll(`.sequencer__step:nth-child(${currentStep+1})`).forEach( el => el.classList.add("sequencer__stepcol"))
+
+            document.querySelectorAll('.steps__row > div').forEach( el => el.classList.remove("step__active"))
+            document.querySelectorAll(`.steps__row > div:nth-child(${currentStep+1})`).forEach( el => el.classList.add("step__active"))
+            
             currentStep++;
-            if (currentStep > 15) { currentStep = 0 };
+            if (currentStep > 15) {
+                currentStep = 0;
+                firstIteration++;
+            };
 
         },"16n");
         
@@ -107,9 +134,8 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
         
         recorder.ondataavailable = evt => chunks.push(evt.data);
         recorder.onstop = evt => {
-            changeIsRecorded();
-            setSrc( new Blob(chunks, { type: 'audio/wav' }) );
-            // console.log("Recorded: ", recordingdatas);
+            document.querySelector('.save-patern').classList.remove("hide");
+            setTempSrc( new Blob(chunks, { type: 'audio/wav' }) );
         };
 
         Tone.Transport.start();
@@ -123,9 +149,11 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
     */
    
    useEffect(() => {
-        console.log('stop');
+        console.log('stop useffect');
         Tone.Transport.stop();
         Tone.Transport.cancel();
+        console.log(document.querySelectorAll(".play"));
+        document.querySelectorAll(".play").forEach(el => el.disabled = false);
 
 
     if(playing === true) {
@@ -138,7 +166,7 @@ function Play({ dataTracks, instrument, handleCurrentStep, src,setSrc,changeIsRe
     * RENDER
     * -------------
     */
-
+    console.log("re-rendered?");
     return <button className="play" onClick={handlePlaying}>{playing ? "stop" : "play"}</button>
-}
+})
 export default Play;

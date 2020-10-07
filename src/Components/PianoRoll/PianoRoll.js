@@ -161,11 +161,11 @@ export default function PianoRoll() {
 
 
           <div className="play-register-container">
-            <Instrument dataTracks={dataPiano} />
-            <Play  src={src} setSrc={setSrc} dataTracks={dataPiano} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
-            {<form onSubmit={SavePatern}>
+            <Instrument key={`inst_pr`} dataTracks={dataPiano} />
+            <Play key={`play_pr`}  src={src} setSrc={setSrc} dataTracks={dataPiano} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+            {<form onSubmit={SavePatern} className="save-patern hide">
               <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={title} />
-              <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
+              <button className="roll-save-patern">Enregistrer</button>
             </form>}
           </div>
 

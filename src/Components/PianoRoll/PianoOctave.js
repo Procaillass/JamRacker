@@ -85,6 +85,8 @@ function PianoRoll(props) {
 
   const playNote = (ev, note, col) =>  {
 
+    Tone.context.resume();
+
     if(ev.target.classList.contains("piano-modify-duration")) return;
 
     // Jouer la note
@@ -102,7 +104,7 @@ function PianoRoll(props) {
     } else {
       const newNotes = [...dataPianoNotes, {
           name: note,
-          midi: noteMidiCompare(note),
+          // midi: noteMidiCompare(note),
           steps: col,
           stepNum: 1,
           time: 0,

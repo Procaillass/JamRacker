@@ -106,16 +106,24 @@
       background-color: $step;
 
       &:nth-child(4n+1) {
-        background-color: $step-measure;
+        background-color: #979797;
       }
   }
 
   .steps__row--black > div {
-      background-color: $step-dark;
+      background-color: #696969;
 
       &:nth-child(4n+1) {
-        background-color: $step-dark-measure;
+        background-color: #595959;
       }
+  }
+
+  .steps__row--white > div.step__active {
+    background-color: $step-measure;
+  }
+
+  .steps__row--black > div.step__active {
+    background-color: #1f4f65;
   }
 }
   
@@ -152,6 +160,8 @@
       display: flex;
       align-items: center;
       padding: 1rem 0;
+
+      .hide {display:none}
 
       form {
         margin-left: auto;

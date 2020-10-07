@@ -244,7 +244,7 @@ function StepSequencer() {
                   className={classNames({
                     "sequencer__step": true,
                     "sequencer__stepmarked": step === 1,
-                    "sequencer__stepcol" : stepIdx === currentStep
+                    /* "sequencer__stepcol" : stepIdx === currentStep */
                   })}
                   onClick={() => updateStep(trackIdx, stepIdx, track.name)}
                 />
@@ -273,11 +273,11 @@ function StepSequencer() {
 
 
 <div className="play-register-container">
-  <Instrument dataTracks={dataStepSeq} />
-  <Play  src={src} setSrc={setSrc} dataTracks={dataStepSeq} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
-  {<form onSubmit={SaveSequencer}>
+  <Instrument key={`inst_ss`} dataTracks={dataStepSeq} />
+  <Play key={`play_ss`}  src={src} setSrc={setSrc} dataTracks={dataStepSeq} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+  {<form onSubmit={SaveSequencer} className="save-patern hide">
     <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={titleSequencer} />
-    <button className="roll-save-patern" disabled={!isRecorded}>Enregistrer</button>
+    <button className="roll-save-patern">Enregistrer</button>
   </form>}
 </div>
         
