@@ -12,7 +12,7 @@
   }
   .logBtn a{
     text-decoration: none;
-    color: white;
+   /*  color: white; */
   }
   .login {
     margin-top: 6rem;
@@ -23,33 +23,30 @@
     width: 100%;
     min-height: 100vh;
     padding: 0 20px;
-    background: #e9e9e9;
     display: flex;
-    background-color: $dark-color-1;
   }
   
   .login .loginContainer {
     margin: 0 ;
     padding: 60px;
-   
+    background: $blue-color;
     max-width: 520px;
     min-height: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: 1rem;
-      color: white;
-      border: 1px solid #61dafb;
-      
-      box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 1px solid #61dafb;
+    box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.8);
     border-radius: 15px;
-      height: 50px;
-      width: 100%;
-      margin-bottom: 2rem;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 2rem;
   }
   
   .login .loginContainer label {
-    color: white;
+    /* color: white; */
     margin: 14px 0;
     display: block;
     font-size: 22px;
@@ -103,4 +100,8 @@
   .login .loginContainer .errorMsg {
     color: red;
     font-size: 16px;
+  }
+  .btnRegister{
+    @include reset-block();
+    margin: 1rem 0;
   }

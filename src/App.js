@@ -22,6 +22,7 @@ import { MusicalNotesProvider } from './context/MusicalNotesContext';
 import { SamplerProvider } from './context/samplerContext';
 import { DragDropProvider } from './context/dragDropContext';
 import Favoris from './Components/Auth/Favoris';
+import Register from './Components/Auth/Register';
 
 function App() {
 
@@ -107,7 +108,6 @@ function App() {
     menu.classList.toggle('show');
   }
 
-  //console.log("pseudo", pseudo)
   return (
     <MusicalNotesProvider value={musicalNotes}>
     <SamplerProvider value={{dataSampler, setDataSampler}}>
@@ -166,13 +166,13 @@ function App() {
           <Switch>
             
             <Route exact path="/piano-roll">
-              <PianoRoll />
-              <Sampler />
+              <PianoRoll key={`pr`} />
+              <Sampler key={`sampler_pr`} />
             </Route>
             
             <Route exact path="/step-sequencer">
-              <StepSequencer />
-              <Sampler />
+              <StepSequencer key={`ss`} />
+              <Sampler key={`sampler_ss`} />
             </Route>
             
             <Route exact path="/tracker">
@@ -186,6 +186,9 @@ function App() {
             
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
             </Route>
             
             <Route exact path="/logout">

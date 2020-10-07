@@ -91,11 +91,10 @@
   height: auto;
   line-height: 1rem;
   font-size: .7rem;
-
-  background-color: $dark-color-1;
+  background-color: $step-measure;
 
   &:hover {
-    background-color: $dark-color-2;
+    background-color: $button_hover_bg;
   }
 }
 

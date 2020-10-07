@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import clap from "../../Assets/Sounds/clap.wav";
-import favoris from "../../Assets/Images/favoris.svg";
-import favorisDone from "../../Assets/Images/favorisDone.svg";
-import { db , fire } from "../../fire";
+import React, { useState, useEffect} from "react";
+import { db} from "../../fire";
 import LibrarySound from './LibrarySound.js';
-import Waveforms from '../Waveforms';
-import classNames from 'classnames';
 import { createRef } from "react";
 import { useHistory } from "react-router";
 
@@ -27,14 +22,16 @@ const searchInput = createRef();
 * -------------
 */
  const [allFiles,setAllFiles] = useState([]);
- const [isFav,setIsFav] = useState(false);
+ const isFav = false;
 
-//comment for push
+/*
+* -------------
+* HANDLE
+* -------------
+*/
 
 const handleFavoris = (item) => {
-  console.log("items => ",item);
   if(window.confirm('Are you sure you want to add the sound to your favorites ?')){
-    console.log()
     if(localStorage.getItem("pseudo")!== null){
       db.collection("Favoris").doc(item.title).set({
         title:item.title,
@@ -43,6 +40,7 @@ const handleFavoris = (item) => {
         author:item.author,
         urlStorage:item.urlStorage,
         visibility:item.visibility,
+        isFav:true,
         userId:JSON.parse(localStorage.getItem("pseudo"))
       })
     }else{
@@ -61,11 +59,10 @@ const handleFavoris = (item) => {
 // va rechercher les elements dans la db
 const fetchSong = () => {
 
-    db.collection("SongTracker").where("visibility","==",true).get().then( querySnapshot => {
+    db.collection("SongTracker").get().then( querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
         data.push(doc.data())
-        console.log(doc.id, " => ", doc.data());
       });
       setAllFiles(data);
     })
@@ -116,7 +113,7 @@ useEffect(()=>{
       <div className="box__title">Library</div>
       </div>
       <div className="box__content">
-        <div class="library">
+        <div className="library">
           
           <div className="library__search">
             <input id="library__search__sound" type="search" placeholder="Search a track" ref={searchInput} onChange={search} />
@@ -133,6 +130,7 @@ useEffect(()=>{
                 url={item.urlStorage}
                 item={item}
                 handleFavoris={handleFavoris}
+                isFav = {isFav}
               />
             ))}
           </ul>

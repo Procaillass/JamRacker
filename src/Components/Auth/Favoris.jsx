@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import clap from "../../Assets/Sounds/clap.wav";
-import favoris from "../../Assets/Images/favoris.svg";
-import favorisDone from "../../Assets/Images/favorisDone.svg";
-import { db , fire } from "../../fire";
-import "./Favoris.scss";
-import { createRef } from "react";
+import React, { useState, useEffect} from "react";
+import { db } from "../../fire";
 import { useHistory } from "react-router";
 import LibrarySound from "../Library/LibrarySound";
 
 function Favoris() {
+
+const history = useHistory();
 
 /*
 * -------------
@@ -17,6 +14,35 @@ function Favoris() {
 */
  const [allFiles,setAllFiles] = useState([]);
  const pseudo = JSON.parse(localStorage.getItem("pseudo"));
+ const isFav = true;
+
+ /*
+* -------------
+* HANDLE
+* -------------
+*/
+
+const handleFavoris = (item) => {
+  if(window.confirm('Are you sure you want to remove the sound to your favorites ?')){
+    if(localStorage.getItem("pseudo")!== null){
+      db.collection("Favoris").doc(item.title).set({
+        title:item.title,
+        description:item.description,
+        source:item.source,
+        author:item.author,
+        urlStorage:item.urlStorage,
+        visibility:item.visibility,
+        isFav:false,
+        userId:JSON.parse(localStorage.getItem("pseudo"))
+      })
+      window.location.href="/favoris"
+    }else{
+      alert("Vous n'avez pas de compte!!!")
+      history.push("/login");
+    }
+  }
+  
+}
 
 /*
 * -------------
@@ -27,11 +53,10 @@ function Favoris() {
 // va rechercher les elements dans la db
 const fetchSong = () => {
 
-    db.collection("Favoris").where("userId","==",pseudo).get().then( querySnapshot => {
+    db.collection("Favoris").where("userId","==",pseudo).where("isFav","==",true).get().then( querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
         data.push(doc.data())
-        console.log(doc.id, " => ", doc.data());
       });
       setAllFiles(data);
     })
@@ -68,6 +93,8 @@ useEffect(()=>{
                 author={item.author}
                 url={item.urlStorage}
                 item={item}
+                handleFavoris={handleFavoris}
+                isFav = {isFav}
               />
             ))}
           </ul>
