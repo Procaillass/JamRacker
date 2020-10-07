@@ -15,7 +15,7 @@ function Sampler() {
 
     const handleClose = (ev) => {
         ev.preventDefault();
-        alert("close");
+        alert("Fermé");
     };
     
     const musicalNotes = useContext(MusicalNotesContext);
@@ -105,7 +105,7 @@ function Sampler() {
                     )}
 
                     <div className="sampler__addnewlane">
-                        <button className="sampler__addnewlane__btn" onClick={handleAddNewLane}>Add a new sound</button>
+                        <button className="sampler__addnewlane__btn" onClick={handleAddNewLane}>Ajouter un nouveau son</button>
                     </div>
                     
 

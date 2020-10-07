@@ -160,7 +160,7 @@ function App() {
             </div>
             {localStorage.getItem("pseudo")
               ? <Logout />
-              : <Link className="button" to="/login">Login</Link>}
+              : <Link className="button" to="/login">Connexion</Link>}
               
           </div>
         

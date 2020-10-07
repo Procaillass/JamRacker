@@ -110,14 +110,14 @@ export default function PianoRoll() {
       }
     }
     else {
-      alert("you not have account for register");
+      alert("Vous devez être connecté pour enregistrer");
       history.push("/login");
     }
   }
 
   const handleClose = (ev) => {
     ev.preventDefault();
-    alert("Save patern to DB");
+    alert("Enregistrer le son dans la base de données");
   }
 
   const handleCurrentStep = (newCurrentStep) => {

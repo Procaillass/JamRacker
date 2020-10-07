@@ -141,7 +141,7 @@ function StepSequencer() {
       }
     }
     else {
-      alert("you not have account for register");
+      alert("Vous devez être connecté pour enregistrer");
       history.push("/login");
     }
     console.log("note",dataTracks.notes)
@@ -206,7 +206,7 @@ function StepSequencer() {
               ))}
             </div>
 
-            <button className="sequencer__row_remove" onClick={() => { if (window.confirm('Are you sure you want to delete the track ?')) { handleRemoveTrack(track.name) } }}>
+            <button className="sequencer__row_remove" onClick={() => { if (window.confirm('Êtes-vous sûr de vouloir supprimer la note ?')) { handleRemoveTrack(track.name) } }}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#87878a" width="24px" height="24px">
                   <path d="M0 0h24v24H0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
                 </svg>
@@ -217,7 +217,7 @@ function StepSequencer() {
 </div>
         
         <select className="button sequencer__addtrack" onChange={handleAddTrack}>
-            <option value="">Add a track</option>
+            <option value="">Ajouter une note</option>
             {notesList.map((note, index) =>
               tracks.map(el => el.name).includes(note.name) === false &&
               <option key={index + '_' + note.name} value={note.name} name={note.midi}>{note.name}</option>

@@ -106,7 +106,7 @@ function Instrument({dataTracks}) {
 
 return (
   <select className="instrument" onChange={handleInstrument}>
-        <option value="">choose an instrument</option>
+        <option value="">choisissez un instrument</option>
         <option value="Synth">Synth</option>
         <option value="AMSynth">AMSynth</option>
         <option value="PluckSynth">PluckSynth</option>
