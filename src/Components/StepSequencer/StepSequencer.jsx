@@ -182,7 +182,7 @@ function StepSequencer() {
     <div className="box sequencer">
 
       <div className="box__bar">
-        <div className="box__title"><h2>Sequencer</h2></div>
+        <div className="box__title"><h1>Sequencer</h1></div>
       </div>
 
       <div className="box__content">

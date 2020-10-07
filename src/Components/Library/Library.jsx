@@ -110,7 +110,7 @@ useEffect(()=>{
   return (
     <div className="box">
       <div className="box__bar">
-      <div className="box__title">Librairie</div>
+      <div className="box__title"><h1>Librairie</h1></div>
       </div>
       <div className="box__content">
         <div className="library">

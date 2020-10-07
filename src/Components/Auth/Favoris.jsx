@@ -80,7 +80,7 @@ useEffect(()=>{
   return (
     <div className="box">
       <div className="box__bar">
-        <div className="box__title">Favoris </div>
+        <div className="box__title"><h1>Favoris</h1> </div>
       </div>
       <div className="box__content">
         <div className="library">

@@ -59,16 +59,20 @@
   
   .header__user {
     cursor: pointer;
-    &:hover{
-      color: $blue-color;
-    }
     //Menu user
     &__pseudo {
       margin-right: 1rem;
-      position: relative;
       .user__menu{
         display: flex;
         justify-content: center;
+        &:hover{
+          span{
+            color: $blue-color;
+          }
+          svg{
+            fill: $blue-color;
+          }
+        }
       }
       ul{
         display: none;
@@ -76,14 +80,17 @@
         list-style: none;
         background: $light-color;
         padding: 1rem;
-        top: 150%;
-        left: -10%;
+        top: 100%;
         &.show{
           display: block;
         }
         a{
           @include reset-block;
           text-decoration: none;
+          padding: .5rem 0;
+          &:hover{
+            color: $blue-color;
+          }
         }
       }
     }

@@ -23,6 +23,9 @@ import { SamplerProvider } from './context/samplerContext';
 import { DragDropProvider } from './context/dragDropContext';
 import Favoris from './Components/Auth/Favoris';
 import Register from './Components/Auth/Register';
+import Account from './Components/Auth/Account';
+import UserSounds from './Components/Auth/UserSounds';
+import UserLibrary from './Components/Auth/UserLibrary';
 
 function App() {
 
@@ -146,11 +149,14 @@ function App() {
               <>
                   <div className="user__menu">
                       <span>{pseudo}</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#159EDE">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                           <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
                       </svg>
                   </div>
                   <ul>
+                      <li>
+                          <Link to="/account">Mes créations</Link>
+                      </li>
                       <li>
                           <Link to="/favoris">Favoris</Link>
                       </li>
@@ -201,7 +207,9 @@ function App() {
             <Route exact path="/favoris">
               <Favoris/>
             </Route>
-
+            <Route exact path="/account">
+              <Account />
+            </Route>
           </Switch>
         </main>
       </div>
