@@ -31,7 +31,7 @@ const searchInput = createRef();
 */
 
 const handleFavoris = (item) => {
-  if(window.confirm('Are you sure you want to add the sound to your favorites ?')){
+  if(window.confirm('Voulez-vous vraiment ajouter le son à vos favoris ?')){
     if(localStorage.getItem("pseudo")!== null){
       db.collection("Favoris").doc(item.title).set({
         title:item.title,
@@ -110,13 +110,13 @@ useEffect(()=>{
   return (
     <div className="box">
       <div className="box__bar">
-      <div className="box__title">Library</div>
+      <div className="box__title"><h1>Librairie</h1></div>
       </div>
       <div className="box__content">
         <div className="library">
           
           <div className="library__search">
-            <input id="library__search__sound" type="search" placeholder="Search a track" ref={searchInput} onChange={search} />
+            <input id="library__search__sound" type="search" placeholder="Rechercher une piste" ref={searchInput} onChange={search} />
           </div>
           
           <ul className="library__sounds">

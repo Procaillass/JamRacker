@@ -1,16 +1,16 @@
 // Set up
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
-@import './assets/styles/variables.scss';
-@import './assets/styles/mixins.scss';
+@import './Assets/styles/variables.scss';
+@import './Assets/styles/mixins.scss';
 
 // Globals
-@import './assets/styles/box.scss';
+@import './Assets/styles/box.scss';
 
 // Elements
-@import './assets/styles/button.scss';
+@import './Assets/styles/button.scss';
 
 // Parts
-@import './assets/styles/header.scss';
+@import './Assets/styles/header.scss';
 
 // Components
 @import './Components/PianoRoll/PianoRoll.scss';
@@ -19,6 +19,7 @@
 @import './Components/Tracker/Tracker.scss';
 @import './Components/Library/Library.scss';
 @import './Components/Auth/Login.scss';
+@import './Components/Auth/Account.scss';
 
 * {
   margin: 0;

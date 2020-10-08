@@ -33,7 +33,7 @@ const favo = () => {
         
         <h3 className="library__sound__header">
             <span className="library__sound__title">{title}</span>
-            <span className="library__sound__author">By {author}</span>
+            <span className="library__sound__author">Par {author}</span>
             <span className="library__sound__addFav" onClick={favo} >
                 <svg className={classNames({
                     "library__sound__heart": true,

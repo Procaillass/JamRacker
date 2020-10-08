@@ -11,5 +11,5 @@ export default function Logout(){
         window.location.href = "/"
     }
     
-    return <button onClick={handleLogout} >Logout</button>
+    return <button onClick={handleLogout} >Se déconnecter</button>
 }

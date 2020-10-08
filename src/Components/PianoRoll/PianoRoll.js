@@ -110,14 +110,14 @@ export default function PianoRoll() {
       }
     }
     else {
-      alert("you not have account for register");
+      alert("Vous devez être connecté pour enregistrer");
       history.push("/login");
     }
   }
 
   const handleClose = (ev) => {
     ev.preventDefault();
-    alert("Save patern to DB");
+    alert("Enregistrer le son dans la base de données");
   }
 
   const handleCurrentStep = (newCurrentStep) => {
@@ -135,7 +135,7 @@ export default function PianoRoll() {
       <div className="box">
 
         <div className="box__bar">
-          <div className="box__title"><h2>Piano roll</h2></div>
+          <div className="box__title"><h1>Piano roll</h1></div>
         </div>
 
         <div className="box__content">

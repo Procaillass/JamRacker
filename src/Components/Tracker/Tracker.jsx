@@ -190,7 +190,7 @@ function Tracker() {
             }
           }
         else {
-            alert("you not have account for register");
+            alert("Vous devez être connecté pour enregistrer");
             history.push("/login");
         }
         console.log(" src :",src)
@@ -253,7 +253,7 @@ function Tracker() {
         <div className="box">
 
             <div className="box__bar">
-                <div className="box__title"><h2>Tracker</h2></div>
+                <div className="box__title"><h1>Tracker</h1></div>
             </div>
 
             <div className="box__content">
@@ -304,7 +304,7 @@ function Tracker() {
                                 "tracker__panels__menu-active": showPanel === "browse"
                             })}
                             onClick={(ev) => handleShowPanel(ev, "browse")}>
-                            Browse
+                            Chercher
                         </button>
                         <button 
                             className={classNames({
@@ -343,14 +343,14 @@ function Tracker() {
                         {showPanel === "project" &&
                         <div className="tracker__project">
                             
-                            <label>Project name</label>
-                            <input placeholder="Your project name" type="text" ref={titleTracker} />
-                            <label>Project description</label>
-                            <textarea placeholder="Your project description" type="text" ref={descriptionTracker} />
-                            <label>Project Visibility</label>
+                            <label>Nom du projet</label>
+                            <input placeholder="Le nom de votre projet" type="text" ref={titleTracker} />
+                            <label>Description</label>
+                            <textarea placeholder="La description de votre projet" type="text" ref={descriptionTracker} />
+                            <label>Visibilité</label>
                             <select onChange={ (e) => visibilityTrack(e) } value="public">
-                                <option value="public">Public</option>
-                                <option value="private">Private</option>
+                                <option value="public">Publique</option>
+                                <option value="private">Privée</option>
                             </select>
                             {isVisibility}
 

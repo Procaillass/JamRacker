@@ -96,16 +96,16 @@ function AudioGenerator() {
         <div className="box audio-generator">
 
             <div className="box__bar">
-                <div className="box__title">Audio Generator</div>
+                <div className="box__title">Générateur audio</div>
                 <button className="box__close" onClick={handleClose}>X</button>
             </div>
             
             <div className="box__content">
                 <div className="ag__content">
-                <button className="button ag__generate-btn" onClick={handleGenerate}>Generate audio file</button>
+                <button className="button ag__generate-btn" onClick={handleGenerate}>Générer un fichier audio</button>
                 {showLoader && <div className="loader"><div></div><div></div><div></div></div>}
                 {/* src !== "" && <audio src={src} controls></audio>  */}
-                {src !== "" && <a className="button ag__download-btn" href={src} download={name}>Download audio file</a>}
+                {src !== "" && <a className="button ag__download-btn" href={src} download={name}>Télécharger un fichier audio</a>}
                 </div>
             </div>
         

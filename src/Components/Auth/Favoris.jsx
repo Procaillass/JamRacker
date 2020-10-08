@@ -23,7 +23,7 @@ const history = useHistory();
 */
 
 const handleFavoris = (item) => {
-  if(window.confirm('Are you sure you want to remove the sound to your favorites ?')){
+  if(window.confirm('Voulez-vous vraiment supprimer le son de vos favoris ?')){
     if(localStorage.getItem("pseudo")!== null){
       db.collection("Favoris").doc(item.title).set({
         title:item.title,
@@ -80,7 +80,7 @@ useEffect(()=>{
   return (
     <div className="box">
       <div className="box__bar">
-        <div className="box__title">Favoris </div>
+        <div className="box__title"><h1>Favoris</h1> </div>
       </div>
       <div className="box__content">
         <div className="library">
