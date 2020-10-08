@@ -5,7 +5,7 @@ import * as Tone from 'tone'
 import MusicalNotesContext from "../../context/MusicalNotesContext.js";
 import classNames from 'classnames';
 
-function PianoRoll(props) {
+const PianoRoll = React.memo((props) => {
 
   /*
   * --------
@@ -203,7 +203,7 @@ function PianoRoll(props) {
     </div>
     </div>
   );
-}
+})
 
 // Pourquoi React.memo ?
 export default PianoRoll

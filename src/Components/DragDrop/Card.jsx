@@ -31,7 +31,7 @@ import Waveforms from '../Waveforms'
             draggable = {props.draggable}
             onDragStart = {(ev) => drag(ev)}
             onClick = {handleClick}>
-                <p>{props.children.length > 15 ? props.children.substring(0, 15)+'...' : props.children}</p>
+                <p>{props.children.length > 30 ? props.children.substring(0, 15)+'...' : props.children}</p>
                 <Waveforms url={props.dataUrl} id={props.id} />
         </div>
     )

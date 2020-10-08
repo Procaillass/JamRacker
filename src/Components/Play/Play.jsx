@@ -108,7 +108,7 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
                     isRecording = !isRecording;
                     setTimeout(() =>{recorder.stop();}, 200);
                     btn.disabled = false;
-                    stopPlaying();
+                    //stopPlaying();
                 }
             }
 
