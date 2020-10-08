@@ -124,6 +124,10 @@ export default function PianoRoll() {
     setCurrentStep(newCurrentStep);
   }
 
+  const handleClear = () => {
+    setDataPiano({...dataPiano, notes: []});
+  }
+
   /*
   * --------
   * RENDER
@@ -163,6 +167,7 @@ export default function PianoRoll() {
           <div className="play-register-container">
             <Instrument key={`inst_pr`} dataTracks={dataPiano} />
             <Play key={`play_pr`}  src={src} setSrc={setSrc} dataTracks={dataPiano} changeIsRecorded={changeIsRecorded} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+            <button className="clear__piano" onClick={handleClear}>Nettoyer</button>
             {<form onSubmit={SavePatern} className="save-patern hide">
               <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={title} />
               <button className="roll-save-patern">Enregistrer</button>
