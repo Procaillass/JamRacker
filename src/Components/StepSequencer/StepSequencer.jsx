@@ -214,6 +214,10 @@ function StepSequencer() {
     console.log("c-step", currentStep);
   }, [currentStep])
 
+  const handleClear = () => {
+    setdataStepSeq({ ...dataStepSeq, notes: [] });
+  }
+
   /*
   * -------------
   * RENDER
@@ -276,6 +280,7 @@ function StepSequencer() {
 <div className="play-register-container">
   <Instrument key={`inst_ss`} dataTracks={dataStepSeq} />
   <Play key={`play_ss`}  src={src} setSrc={setSrc} dataTracks={dataStepSeq} instrument={dataInstrument} handleCurrentStep={handleCurrentStep} />
+  <button className="clear__piano" onClick={handleClear}>Nettoyer</button>
   {<form onSubmit={SaveSequencer} className="save-patern hide">
     <input className="roll-patern-title" type="text" placeholder="Titre de la séquence" ref={titleSequencer} />
     <button className="roll-save-patern">Enregistrer</button>
