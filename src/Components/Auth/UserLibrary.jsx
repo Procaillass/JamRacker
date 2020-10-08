@@ -62,7 +62,6 @@ function UserLibrary() {
           <li key={index} className="library__sound">
             <h3 className="library__sound__header">
               <span className="library__sound__title">{item.title}</span>
-              <span className="library__sound__author">Visiblité</span>
             </h3>
             <div className="library__sound__waveform">
               <Waveforms
