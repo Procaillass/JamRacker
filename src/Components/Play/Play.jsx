@@ -20,7 +20,7 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
     //const instContext = useContext(PlayContext);
     //const { dataBpm } = useContext(BpmContext);
     const {dataSampler, setDataSampler} = useContext(SamplerContext);
-    let chunks = [];
+    //let chunks = [];
 
     /*
     * -------------
@@ -29,7 +29,6 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
     */
 
     const [playing, setPlaying] = useState(false);
-    const [tempSrc, setTempSrc] = useState('');
     /* const [instState,setInst] = useState(); */
 
     // AudioGenerator
@@ -62,7 +61,6 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
             console.log('stop');
             Tone.Transport.stop();
             Tone.Transport.cancel();
-            setSrc(tempSrc);
             setPlaying(!playing);
             return
         }
@@ -74,7 +72,7 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
         const dest = actx.createMediaStreamDestination();
         const recorder = new MediaRecorder(dest.stream);
         instrument.connect(dest);
-        //const chunks = [];
+        const chunks = [];
         //
 
         // Converti dataTracks (passé en props) en tableau lisible par scheduleRepeat
@@ -100,7 +98,6 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
             if (reorderedNotes[currentStep]) {
                 const now = Tone.now();
                 reorderedNotes[currentStep].map( (el, elIdx) => {
-                    console.log('hallo?', el.name);
                     instrument.triggerAttackRelease( el.name, el.duration, now+elIdx/1000 );
                     // remplacer timeOutDuration par la durée de la note la plus longue du map;
                 });
@@ -109,9 +106,9 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
             if (currentStep === 15 && firstIteration === 0) {
                 if(isRecording) {
                     isRecording = !isRecording;
-                    setTimeout(() =>{recorder.stop();}, 150);
+                    setTimeout(() =>{recorder.stop();}, 200);
                     btn.disabled = false;
-                    // stopPlaying();
+                    stopPlaying();
                 }
             }
 
@@ -135,7 +132,7 @@ const Play = React.memo(({ dataTracks, instrument, handleCurrentStep, src,setSrc
         recorder.ondataavailable = evt => chunks.push(evt.data);
         recorder.onstop = evt => {
             document.querySelector('.save-patern').classList.remove("hide");
-            setTempSrc( new Blob(chunks, { type: 'audio/wav' }) );
+            setSrc( new Blob(chunks, { type: 'audio/wav' }) );
         };
 
         Tone.Transport.start();

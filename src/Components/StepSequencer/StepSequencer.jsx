@@ -138,6 +138,7 @@ function StepSequencer() {
 
   const SaveSequencer = (e) => {
     e.preventDefault();
+    console.log("here?");
     
     const titleValue = titleSequencer.current.value
     if (localStorage.getItem("pseudo")) {
